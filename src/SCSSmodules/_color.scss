@@ -1,0 +1,21 @@
+/*  
+    This file contains the definition of all color theme used in the app
+    TO USE:
+    @import '<path to this file>/color';
+    [selector]{
+        property: theme(name)
+    }
+    EXAMPLE:
+    @import '../SCSSmodules/color';
+    div{
+        background: theme(navbar)
+    }
+
+*/
+$-color:(
+    "navbar":#000000,
+    "footer":#ffffff
+);
+@function color($name){
+    @return map-get($-color,$name);
+}
