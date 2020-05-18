@@ -8,13 +8,13 @@
     EXAMPLE:
     @import '../SCSSmodules/color';
     div{
-        background: theme(navbar)
+        background: color(navbar)
     }
 
 */
 $-color:(
-    "navbar":#000000,
-    "footer":#ffffff
+    "authorizing-background":grey,
+    "authorizing-form":white
 );
 @function color($name){
     @return map-get($-color,$name);
