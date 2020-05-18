@@ -15,19 +15,11 @@ const Navigator: React.FC = () => {
       <Navbar.Toggle aria-controls="navbar" />
       <Navbar.Collapse id="navbar">
         <Nav className="mr-auto" >
-          
-          <NavItem>
-            <Nav.Link as={NavLink} to="/problems">Problems</Nav.Link>
-          </NavItem>
-          <NavItem>
-            <Nav.Link as={NavLink} to="/contests">Contests</Nav.Link>
-          </NavItem>
-          <NavItem>
-            <Nav.Link as={NavLink} to="/submissions">Submissions</Nav.Link>
-          </NavItem>
-          <NavItem>
-            <Nav.Link as={NavLink} to="/faq">FAQ</Nav.Link>
-          </NavItem>
+          {listOfItem.map((item,id)=>{return(
+            <NavItem>
+              <Nav.Link as={NavLink} exact to={item[0]}>{item[1]}</Nav.Link>
+            </NavItem>
+          )})}
         </Nav>
         <Button variant="outline-light">
           Sign in
