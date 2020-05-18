@@ -1,6 +1,13 @@
 import React from 'react';
 import {Navbar, Nav, Button} from 'react-bootstrap';
-
+import {Link} from 'react-router-dom';
+const listOfItem : [string, string][]=[
+  ["/","Home"],
+  ["/problems","Problems"],
+  ["/contests","Contests"],
+  ["/submissions","Submissions"],
+  ["/faq","FAQ"]
+];
 const Navigator : React.FC = () => {
     return (
         <Navbar bg="dark" expand="lg" variant="dark">
@@ -22,4 +29,4 @@ const Navigator : React.FC = () => {
     );
 };
 
-export default Navigator
+export default Navigator;
