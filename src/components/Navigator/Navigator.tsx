@@ -1,6 +1,7 @@
-import React from 'react';
+import React,{useContext} from 'react';
+import {AuthorizingPageContext} from '../../contexts/GlobalFunctions/GlobalState';
 import { Navbar, Nav, Button, NavItem } from 'react-bootstrap';
-import { NavLink, useRouteMatch } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 const listOfItem : [string, string][]=[
   ["/","Home"],
   ["/problems","Problems"],
@@ -13,10 +14,11 @@ interface NavigatorProps{
 }
 
 const Navigator: React.FC<NavigatorProps> = (props:NavigatorProps) => {
-  const {url}=useRouteMatch();
-  console.log(url);
+  const authPage=useContext(AuthorizingPageContext);
+  
+  
   return (
-    <Navbar bg="dark" expand="lg" variant="dark" fixed="top" >
+    <Navbar bg="dark" expand="lg" variant="dark"  >
       <Navbar.Brand href="/">Online Judger</Navbar.Brand>
       <Navbar.Toggle aria-controls="navbar" />
       <Navbar.Collapse id="navbar">
@@ -27,7 +29,7 @@ const Navigator: React.FC<NavigatorProps> = (props:NavigatorProps) => {
             </NavItem>
           )})}
         </Nav>
-        <Button variant="outline-light">
+        <Button type="button" onClick={()=>{authPage.toggle();}} variant="outline-light">
           Sign in/Sign up
         </Button>
       </Navbar.Collapse>

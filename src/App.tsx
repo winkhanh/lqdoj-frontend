@@ -1,8 +1,9 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {BrowserRouter} from 'react-router-dom';
 import {Header, Body, Footer, Authorizing} from './sections';
 import './App.scss';
-const App : React.FC = () => {
+import {AuthorizingPageContext} from './contexts/GlobalFunctions/GlobalState';
+const BaseApp : React.FC = () => {
   return (
     <div className="App">
       <Authorizing/>
@@ -14,5 +15,19 @@ const App : React.FC = () => {
     </div>
   );
 }
-
+const App : React.FC = ()=>{
+  const [isAuthPageDisplay,setAuthPageDisplay]=useState(false);
+  return(
+    <AuthorizingPageContext.Provider value={{
+      isDisplay: isAuthPageDisplay,
+      toggle: ()=>{
+        setAuthPageDisplay(
+          prev=>!prev
+        );
+      }}
+    }>
+      <BaseApp/>
+    </AuthorizingPageContext.Provider>
+  )
+}
 export default App;
