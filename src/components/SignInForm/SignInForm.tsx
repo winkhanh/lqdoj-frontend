@@ -1,6 +1,6 @@
 import React from 'react';
 import {Form, Button} from 'react-bootstrap';
-const LoginForm : React.FC = ()=>{
+const SignInForm : React.FC = ()=>{
     return(
         <Form>
             <Form.Group controlId="formEmail">
@@ -14,11 +14,11 @@ const LoginForm : React.FC = ()=>{
             <Form.Group controlId="formCheck">
                 <Form.Check type="checkbox" label="login forever"/>
             </Form.Group>
-            <Button variant="primary" type="submit" size="lg" block>
+            <Button variant="primary" type="button" size="lg" block>
                 Log In
             </Button>
         </Form>
     )
 };
 
-export default LoginForm;
+export default SignInForm;

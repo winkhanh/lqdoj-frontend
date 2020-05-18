@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navbar, Nav, Button, NavItem } from 'react-bootstrap';
-import { NavLink, Link, useRouteMatch } from 'react-router-dom';
+import { NavLink, useRouteMatch } from 'react-router-dom';
 const listOfItem : [string, string][]=[
   ["/","Home"],
   ["/problems","Problems"],
@@ -11,12 +11,7 @@ const listOfItem : [string, string][]=[
 interface NavigatorProps{
   
 }
-const normalize:Function = (url:string)=>{
-  if (url.endsWith("/"))
-    return normalize(url.slice(0,-1));
-  else 
-    return url;
-}
+
 const Navigator: React.FC<NavigatorProps> = (props:NavigatorProps) => {
   const {url}=useRouteMatch();
   console.log(url);
@@ -32,8 +27,8 @@ const Navigator: React.FC<NavigatorProps> = (props:NavigatorProps) => {
             </NavItem>
           )})}
         </Nav>
-        <Button as={Link} to={`${normalize(url)}/authorizing`}  variant="outline-light">
-          Sign in
+        <Button variant="outline-light">
+          Sign in/Sign up
         </Button>
       </Navbar.Collapse>
     </Navbar>

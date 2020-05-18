@@ -1,27 +1,26 @@
-import React from 'react';
-import {useLocation, useRouteMatch, Link} from 'react-router-dom';
+import React, {useState} from 'react';
+
 import './Authorizing.scss';
-import LoginForm from '../../components/LoginForm/LoginForm';
-const normalize:Function = (url:string)=>{
-    if (url.endsWith("/"))
-      return normalize(url.slice(0,-1));
-    else 
-      return url;
-  }
+import {ButtonGroup, Button} from 'react-bootstrap';
+
+import SignInForm from '../../components/SignInForm/SignInForm';
+import SignUpForm from '../../components/SignUpForm/SignUpForm';
+
 const Authorizing : React.FC = ()=>{
-    const location=useLocation();
-    const {url}=useRouteMatch();
-    const check : Function = ()=>{
-        return normalize(location.pathname).endsWith("/authorizing");
-    }
-    console.log(check());
-    console.log(location);
+    const [switchVal,setSwitch] = useState(false);
+    
+    const handleSignIn = ()=> setSwitch(true);
+    const handleSignUp = ()=> setSwitch(false);
+    
     return (
-        <div className={`authorizing-page ${(check())?"":"authorizing-page--hide"}`}>
+        <div className={`authorizing-page authorizing-page--hide`}>
             <div className="authorizing-page_background"></div>
             <div className="authorizing-page_form">
-                <Link to={url.replace("/authorizing","")}>x</Link>
-                <LoginForm/>
+                <ButtonGroup>
+                    <Button type="button" onClick={handleSignIn}> Sign In </Button>
+                    <Button type="button" onClick={handleSignUp}> Sign Up</Button>
+                </ButtonGroup>
+                {(switchVal?<SignInForm/>:<SignUpForm/>)}
             </div>
         </div>
     );
