@@ -1,9 +1,7 @@
 import React from 'react';
 import Navigator from '../../components/Navigator/Navigator';
-interface HeaderProps{
-    
-}
-const Header : React.FC<HeaderProps> = (props:HeaderProps)=>{
+
+const Header : React.FC = ()=>{
     return(
         <div>
             <Navigator/>
