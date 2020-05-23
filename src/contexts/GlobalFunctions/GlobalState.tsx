@@ -5,7 +5,7 @@ const AuthorizingPageContext = React.createContext({
     toggle: ()=>{}
 });
 const AuthState = React.createContext({
-    isAuthed: true,
-    isAdmin:false
+    isAuthed: false,
+    isAdmin: true
 });
 export {AuthorizingPageContext , AuthState};

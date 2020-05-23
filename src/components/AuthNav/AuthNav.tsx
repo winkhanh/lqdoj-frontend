@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {AuthorizingPageContext , AuthState} from '../../contexts/GlobalFunctions/GlobalState';
-import {Button, Dropdown, DropdownButton} from 'react-bootstrap';
+import {Button, Dropdown, DropdownButton, Nav} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 const AuthNav: React.FC = () =>{
     const authPage=useContext(AuthorizingPageContext);
@@ -14,15 +14,15 @@ const AuthNav: React.FC = () =>{
         );
     else
         return (
-            <React.Fragment>
-                {(isAdmin)?(<Link to="/admin">
+            <Nav>
+                {(isAdmin)?(<Nav.Link as={Link} to="/admin">
                     Admin Page
-                </Link>):null}
+                </Nav.Link>):null}
                 <DropdownButton id="profile-dropdown" title={name} variant="outline-light" alignRight>
                     <Dropdown.Item as={Link} to="/me">Profile</Dropdown.Item>
                     <Dropdown.Item as={Button} variant="outline-danger">Logout</Dropdown.Item>
                 </DropdownButton>
-            </React.Fragment>
+            </Nav>
         )
     
 };

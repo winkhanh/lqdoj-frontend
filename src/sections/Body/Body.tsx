@@ -1,11 +1,13 @@
 import React from 'react';
-import {Spinner} from 'react-bootstrap';
-
+import {Switch, Route} from 'react-router-dom';
+const NullComponent:React.FC = ()=>{
+    return null;
+}
 const Body : React.FC = ()=>{
     return(
-        <Spinner animation="border" role="status">
-            <span className="sr-only">Loading...</span>
-        </Spinner>
+        <Switch>
+            <Route path="/problems" component={NullComponent}/>
+        </Switch>
     );
 };
 

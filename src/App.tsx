@@ -1,12 +1,11 @@
 import React,{useState} from 'react';
 import {BrowserRouter} from 'react-router-dom';
-import {Header, Body, Footer, Authorizing} from './sections';
+import {Header, Body, Footer} from './sections';
 import './App.scss';
 import {AuthorizingPageContext} from './contexts/GlobalFunctions/GlobalState';
 const BaseApp : React.FC = () => {
   return (
     <div className="App">
-      <Authorizing/>
       <BrowserRouter>
         <Header/>
         <Body/>
