@@ -1,20 +1,16 @@
-import React, { useContext} from 'react';
+import React, { useContext } from 'react';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import AuthModal from '../AuthModal/AuthModal';
 import AuthNav from '../AuthNav/AuthNav';
-import {AuthorizingPageContext} from '../../contexts/GlobalFunctions/GlobalState';
+import { AuthorizingPageContext } from '../../contexts/GlobalFunctions/GlobalState';
+import { Text } from '../Text/Text';
 
-const navItems: [number, string, string][] = [
-    [0, "/", "Home"],
-    [1, "/problems", "Problems"],
-    [2, "/contests", "Contests"],
-    [3, "/submissions", "Submissions"],
-    [4, "/faq", "FAQ"]
-];
 
 const Navigator: React.FC = () => {
-    const authPage=useContext(AuthorizingPageContext);
+    const authPage = useContext(AuthorizingPageContext);
+
+    const navItems = Text('navItems');
 
     return (
         <Navbar bg="dark" expand="lg" variant="dark">
@@ -22,7 +18,7 @@ const Navigator: React.FC = () => {
             <Navbar.Toggle aria-controls="navbar" />
             <Navbar.Collapse id="navbar">
                 <Nav className="mr-auto" >
-                    {navItems.map((item) => {
+                    {navItems.map((item: Array<string>) => {
                         return (
                             <NavItem key={item[0]}>
                                 <Nav.Link as={NavLink} exact to={item[1]}>{item[2]}</Nav.Link>
@@ -30,7 +26,7 @@ const Navigator: React.FC = () => {
                         )
                     })}
                 </Nav>
-                <AuthNav/>
+                <AuthNav />
                 <AuthModal
                     authModalDisplay={authPage.isDisplay}
                     authModalToggle={authPage.toggle}

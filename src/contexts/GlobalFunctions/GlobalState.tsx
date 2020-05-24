@@ -1,11 +1,21 @@
 import React from 'react';
+import { languageOptions, dictionaryList } from '../../languages/languages'
+import { LanguageOptionType } from '../../languages/languages'
 
 const AuthorizingPageContext = React.createContext({
-    isDisplay:false,
-    toggle: ()=>{}
+    isDisplay: false,
+    toggle: () => { }
 });
 const AuthState = React.createContext({
-    isAuthed: false,
+    isAuthed: true,
     isAdmin: true
 });
-export {AuthorizingPageContext , AuthState};
+const LanguageContext = React.createContext({
+    language: {
+        currentLanguage: languageOptions[0],
+        setLanguage: (selectedLanguage: LanguageOptionType) => { }
+    },
+    dictionary: dictionaryList[languageOptions[0].id]
+});
+
+export { AuthorizingPageContext, AuthState, LanguageContext };
