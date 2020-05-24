@@ -43,9 +43,6 @@ const App: React.FC = () => {
                 <BaseApp />
             </AuthorizingPageContext.Provider>
         </LanguageContext.Provider>
-
-
-
     )
 }
 export default App;

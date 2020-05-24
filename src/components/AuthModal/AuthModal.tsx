@@ -3,18 +3,19 @@ import { Modal, Tab, Nav, TabContainer } from 'react-bootstrap';
 import SignInForm from '../SignInForm/SignInForm';
 import SignUpForm from '../SignUpForm/SignUpForm';
 import './AuthModal.css'
+import {TextFC} from '../Text/Text';
 
 const tabsMapping: [number, string, string, JSX.Element] [] = [
-    [0, "sign-in", "Sign in", <SignInForm/>],
-    [1, "sign-up", "Sign up", <SignUpForm/>]
+    [0, "sign-in", "MODAL_SIGNIN", <SignInForm/>],
+    [1, "sign-up", "MODAL_SIGNUP", <SignUpForm/>]
 ];
-
 interface AuthModalProps {
     authModalDisplay: Boolean;
     authModalToggle: Function;
 }
 
 const AuthModal: React.FC<AuthModalProps> = (props: AuthModalProps) => {
+    
     return (
         <Modal
             show={props.authModalDisplay}
@@ -36,7 +37,7 @@ const AuthModal: React.FC<AuthModalProps> = (props: AuthModalProps) => {
                                         eventKey={tab[1]}
                                         className="nav-link text-uppercase font-weight-bold mr-sm-3 rounded-0"
                                     >
-                                        {tab[2]}
+                                        {TextFC(tab[2])}
                                     </Nav.Link>
                                 </Nav.Item>
                             )

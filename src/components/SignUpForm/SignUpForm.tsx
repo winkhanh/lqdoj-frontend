@@ -1,22 +1,24 @@
 import React from 'react';
 import {Form, Button} from 'react-bootstrap';
+import {TextFC} from '../Text/Text';
+
 const SignUpForm : React.FC = ()=>{
     return(
         <Form>
             <Form.Group controlId="formName">
-                <Form.Label>Name</Form.Label>
-                <Form.Control type="text" placeholder="What is your name"/>
+                <Form.Label>{TextFC('FORM_NAME')}</Form.Label>
+                <Form.Control type="text" placeholder={TextFC('FORM_NAME_PLACE_HOLDER')}/>
             </Form.Group>
-            <Form.Group controlId="formEmail">
-                <Form.Label>Email</Form.Label>
-                <Form.Control type="email" placeholder="Enter email"/>
+            <Form.Group controlId="formSignUpEmail">
+                <Form.Label>{TextFC('FORM_EMAIL')}</Form.Label>
+                <Form.Control type="email" placeholder={TextFC('FORM_EMAIL_PLACE_HOLDER')}/>
             </Form.Group>
-            <Form.Group controlId="formPassword">
-                <Form.Label>Password</Form.Label>
+            <Form.Group controlId="formSignUpPassword">
+                <Form.Label>{TextFC('FORM_PASSWORD')}</Form.Label>
                 <Form.Control type="password" placeholder="********"/>
             </Form.Group>
             <Button variant="primary" type="button" size="lg" block>
-                Register
+                {TextFC('MODAL_SIGNUP')}
             </Button>
         </Form>
     )

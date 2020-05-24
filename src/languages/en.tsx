@@ -10,8 +10,17 @@ const en: DictionaryType & StringIndexedType = {
     ],
     NAV_ADMIN: "Admin page",
     PROFILE_BUTTON: "Profile",
-    AUTH_BUTTON: "Sign in",
-    DEAUTH_BUTTON: "Sign out"
+    AUTH_BUTTON: "Sign in/Sign up",
+    DEAUTH_BUTTON: "Sign out",
+    MODAL_SIGNIN: "SIGN IN",
+    MODAL_SIGNUP: "SIGN UP",
+    FORM_NAME: "Name",
+    FORM_NAME_PLACE_HOLDER: "What is your name",
+    FORM_EMAIL: "Email",
+    FORM_EMAIL_PLACE_HOLDER:"Enter email",
+    FORM_PASSWORD: "Password",
+    FORM_CHECKBOX: "stay login"
+
 };
 
 export default en;

@@ -10,8 +10,16 @@ const vi: DictionaryType & StringIndexedType = {
     ],
     NAV_ADMIN: "Trang quản trị",
     PROFILE_BUTTON: "Hồ sơ",
-    AUTH_BUTTON: "Đăng nhập",
-    DEAUTH_BUTTON: "Đăng xuất"
+    AUTH_BUTTON: "Đăng nhập/Đăng kí",
+    DEAUTH_BUTTON: "Đăng xuất",
+    MODAL_SIGNIN: "ĐĂNG NHẬP",
+    MODAL_SIGNUP: "ĐĂNG KÍ",
+    FORM_NAME: "Tên",
+    FORM_NAME_PLACE_HOLDER: "Họ và Tên",
+    FORM_EMAIL: "Email",
+    FORM_EMAIL_PLACE_HOLDER:"Nhập Email",
+    FORM_PASSWORD: "Mật khẩu",
+    FORM_CHECKBOX: "giữ đăng nhập"
 };
 
 export default vi;

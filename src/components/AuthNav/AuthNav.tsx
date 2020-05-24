@@ -11,21 +11,21 @@ const AuthNav: React.FC = () => {
     if (!isAuthed)
         return (
             <Button type="button" onClick={() => { authPage.toggle(); }} variant="outline-light">
-                Sign in/Sign up
+                {TextFC('AUTH_BUTTON')}
             </Button>
         );
     else
         return (
             <Nav>
                 {(isAdmin) ? (<Nav.Link as={Link} to="/admin">
-                    <TextFC tid='NAV_ADMIN' />
+                    {TextFC('NAV_ADMIN')}
                 </Nav.Link>) : null}
                 <DropdownButton id="profile-dropdown" title={name} variant="outline-light" alignRight>
                     <Dropdown.Item as={Link} to="/me">
-                        <TextFC tid='PROFILE_BUTTON' />
+                        {TextFC('PROFILE_BUTTON')}
                     </Dropdown.Item>
                     <Dropdown.Item as={Button} variant="outline-danger">
-                        <TextFC tid='DEAUTH_BUTTON' />
+                        {TextFC('DEAUTH_BUTTON')}
                     </Dropdown.Item>
                 </DropdownButton>
             </Nav>
