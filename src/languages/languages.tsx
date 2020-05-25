@@ -24,8 +24,12 @@ const languageOptions: LanguageOptionType[] = [
   { id: 'vi', text: 'Tiếng Việt' },
   { id: 'en', text: 'English'}
 ];
-
-export { dictionaryList, languageOptions };
+const getLanguageById = (id : string) =>{
+    return languageOptions.find(lang =>{
+        return lang.id===id;
+    });
+}
+export { getLanguageById, dictionaryList, languageOptions };
 export type LanguageOptionType = ILanguageOptionType;
 export type DictionaryType = IDictionaryType;
 export type StringIndexedType = IStringIndexed;

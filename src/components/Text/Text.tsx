@@ -8,7 +8,7 @@ const TextFC = (tid:string) => {
 
 const Text = (item: string) => {
     const languageContext = useContext(LanguageContext);
-    return languageContext.dictionary.navItems;
+    return languageContext.dictionary[item];
 };
 
 export {Text, TextFC};
