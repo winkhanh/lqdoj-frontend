@@ -1,4 +1,4 @@
-export interface User {
+export interface UserType {
     username:string,
     first_name:string,
     last_name:string,
@@ -8,7 +8,7 @@ export interface User {
     date_joined:string
 }
 
-export interface Post {
+export interface PostType {
     title:string,
     author:string,
     content:string,

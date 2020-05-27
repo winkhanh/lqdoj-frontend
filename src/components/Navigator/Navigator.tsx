@@ -13,7 +13,7 @@ const Navigator: React.FC = () => {
     const navItems = Text('navItems');
 
     return (
-        <Navbar bg="dark" expand="lg" variant="dark">
+        <Navbar bg="dark" expand="lg" variant="dark" fixed="top" sticky="top">
             <Navbar.Brand href="/">Online Judger</Navbar.Brand>
             <Navbar.Toggle aria-controls="navbar" />
             <Navbar.Collapse id="navbar">

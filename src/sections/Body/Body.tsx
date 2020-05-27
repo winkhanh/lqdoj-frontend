@@ -1,20 +1,20 @@
 import React from 'react';
 import {Switch, Route} from 'react-router-dom';
-
-const NullComponent:React.FC = ()=>{
+import {HomePage, ProblemsPage, ContestsPage, SubmissionsPage, FaqPage, NotFound} from '../subSection';
+/* const NullComponent:React.FC = ()=>{
     return null;
-}
+} */
 const Body : React.FC = ()=>{
     return(
         <Switch>
-            <Route exact path="/" component={NullComponent}/>
-            <Route path="/problems" component={NullComponent}/>
-            <Route path="/contests" component={NullComponent}/>
-            <Route path="/submissions" component={NullComponent}/>
-            <Route path="/FAQ" component={NullComponent}/>
+            <Route exact path="/" component={HomePage}/>
+            <Route path="/problems" component={ProblemsPage}/>
+            <Route path="/contests" component={ContestsPage}/>
+            <Route path="/submissions" component={SubmissionsPage}/>
+            <Route path="/FAQ" component={FaqPage}/>
 
             {/*4040 Page*/}
-            <Route component={NullComponent}/> 
+            <Route component={NotFound}/> 
         </Switch>
     );
 };
