@@ -19,7 +19,7 @@ const LinkB = ()=>{
 const Footer: React.FC = () => {
     return (
         <React.Fragment>
-            <Navbar bg="dark" expand="lg" variant="dark" fixed="bottom" sticky="bottom">
+            <Navbar bg="dark" expand="lg" variant="dark" sticky="bottom">
                 <Nav className="mr-auto">
                     <Nav.Item>
                         <LanguageSelector />

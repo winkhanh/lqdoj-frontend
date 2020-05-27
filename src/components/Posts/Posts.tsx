@@ -1,21 +1,7 @@
 import React from 'react';
 import {PostType} from '../../models';
 import Post from '../Post/Post';
-const constPosts : PostType[] =[
-    {
-        title:"abc",
-        author:"cd",
-        content:"aa",
-        time:"AS",
-        last_edited:"BD"
-    },
-    {
-        title:"abc",
-        author:"cd",
-        content:"aa",
-        time:"AS",
-        last_edited:"BD"
-    },
+const constPosts : PostType[] = Array(5).fill(
     {
         title:"abc",
         author:"cd",
@@ -23,15 +9,17 @@ const constPosts : PostType[] =[
         time:"AS",
         last_edited:"BD"
     }
-];
+);
 const Posts : React.FC =()=>{
     return(
         <div>
+            ab
             {constPosts.map( (post,idx)=>{
                 return(
                     <Post post={post} key={idx}/>
                 )
             })}
+            aa
         </div>
     )
 };
