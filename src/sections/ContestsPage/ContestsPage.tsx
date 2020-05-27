@@ -1,10 +1,15 @@
 import React from 'react';
-
+import {Container, Row, Col} from 'react-bootstrap';
 const ContestsPage = ()=>{
     return (
-        <div>
-            Contests
-        </div>
+        <Container fluid>
+            <Row>
+                <Col>
+                    Table here
+                </Col>
+                
+            </Row>
+        </Container>
     )
 };
 export default ContestsPage;
