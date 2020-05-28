@@ -9,7 +9,7 @@ const ProblemsPage = ()=>{
         <Container fluid="xl">
             <Row>
                 <Col sm={{span:9, order:1}} xs={{span:12, order:2}}>
-                    <ProblemsTable filterState={filterState} NoP={50}/>
+                    <ProblemsTable filterState={filterState}/>
                 </Col>
                 <Col sm={{span:3, order:2}} xs={{span:12, order:1}}> {/** Move upon the Table when on Mobile */}
                     <ProblemFilter filterState={filterState} onChange={setFilter}/>

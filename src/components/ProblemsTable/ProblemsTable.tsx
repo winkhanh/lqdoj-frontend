@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ShadowedBox from '../ShadowedBox/ShadowedBox';
-import {Table} from 'react-bootstrap';
+import {Table, InputGroup, FormControl, Container, Row, Col} from 'react-bootstrap';
 import {ProblemType} from '../../models';
 import DifficultyButton from '../DifficultyButton/DifficultyButton';
 import {FilterState} from '../ProblemFilter/ProblemFilter';
@@ -9,8 +9,7 @@ interface TableRowProps{
     
 }
 interface ProblemsTableProps{
-    filterState:FilterState,
-    NoP: number
+    filterState:FilterState
 }
 const TableRow:React.FC<TableRowProps> = ({problem}:TableRowProps) =>{
     return(
@@ -41,7 +40,19 @@ const constProblems: ProblemType[] = [
         percent:69
     }
 ];
-const ProblemsTable:React.FC<ProblemsTableProps>= ({filterState, NoP}:ProblemsTableProps)=>{
+const ProblemsTable:React.FC<ProblemsTableProps>= ({filterState}:ProblemsTableProps)=>{
+    const [page,setPage]=useState("1");
+    const [perPage, setPerPage] = useState("25");
+    let numPerPage : number;
+    let numPage :number;
+    if (isNaN(parseInt(perPage)) || parseInt(perPage)===0 ) numPerPage=25;else numPerPage=parseInt(perPage);
+    if (isNaN(parseInt(page)) || parseInt(page)===0 ) numPage=1;else numPage=parseInt(page);
+    const handleChangePerPage = (e:any)=>{
+        setPerPage(e.target.value);
+    }
+    const handleChangePage = (e:any)=>{
+        setPage(e.target.value);
+    }
     let filteredProblems=constProblems.filter(
         (problem)=>{
             if (filterState.difficult){
@@ -67,6 +78,8 @@ const ProblemsTable:React.FC<ProblemsTableProps>= ({filterState, NoP}:ProblemsTa
             }else return true;
         }
     );
+    numPage=Math.min(numPage, Math.floor((filteredProblems.length-1)/numPerPage)+1);
+    let slicedProblem=filteredProblems.slice((numPage-1)*numPerPage,Math.min(numPage*numPerPage,filteredProblems.length));
     return(
         <ShadowedBox>
             <Table>
@@ -80,11 +93,41 @@ const ProblemsTable:React.FC<ProblemsTableProps>= ({filterState, NoP}:ProblemsTa
                     </tr>
                 </thead>
                 <tbody>
-                    {filteredProblems.map( (problem,idx )=>
+                    {slicedProblem.map( (problem,idx )=>
                         <TableRow key={idx} problem={problem}/>
                     )}
                 </tbody>
             </Table>
+            <Container fluid>
+                <Row>
+                    <Col>
+                        <InputGroup>
+                            <FormControl type="text" onChange={handleChangePerPage} value={perPage}/> 
+                            <InputGroup.Prepend>
+                                <InputGroup.Text>
+                                    per Page
+                                </InputGroup.Text>
+                            </InputGroup.Prepend>
+                        </InputGroup>
+                    </Col>
+                    <Col/>
+                    <Col>
+                        <InputGroup>
+                            <InputGroup.Prepend>
+                                <InputGroup.Text>
+                                    Page
+                                </InputGroup.Text>
+                            </InputGroup.Prepend>    
+                                <FormControl type="text" onChange={handleChangePage} value={page}/> 
+                                <InputGroup.Prepend>
+                                    <InputGroup.Text>
+                                        /{Math.floor((filteredProblems.length-1)/numPerPage)+1}
+                                    </InputGroup.Text>
+                                </InputGroup.Prepend>
+                            </InputGroup>
+                    </Col>
+                </Row>
+                </Container>
         </ShadowedBox>
     );
 }
