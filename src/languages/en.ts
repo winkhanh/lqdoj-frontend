@@ -19,7 +19,8 @@ const en: DictionaryType & StringIndexedType = {
     FORM_EMAIL: "Email",
     FORM_EMAIL_PLACE_HOLDER:"Enter email",
     FORM_PASSWORD: "Password",
-    FORM_CHECKBOX: "stay login"
+    FORM_CHECKBOX: "stay login",
+    POST_AUTHOR_BY: "posted by "
 
 };
 

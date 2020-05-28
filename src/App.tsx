@@ -18,11 +18,11 @@ const BaseApp: React.FC = () => {
 }
 const App: React.FC = () => {
     const [cookies,setCookie] = useCookies();
-    console.log(cookies.lang || languageOptions[0]);
+    // console.log(cookies.lang || languageOptions[0]);
     const [isAuthPageDisplay, setAuthPageDisplay] = useState(false);
     
     const [currentLanguageState, setLanguageState] = useState( getLanguageById(cookies.lang) || languageOptions[0]);
-    console.log(currentLanguageState);
+    // console.log(currentLanguageState);
     const [currentDictionaryState, setDictionaryState] = useState(dictionaryList[currentLanguageState.id]);
     return (
         <LanguageContext.Provider value={{

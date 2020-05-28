@@ -19,7 +19,8 @@ const vi: DictionaryType & StringIndexedType = {
     FORM_EMAIL: "Email",
     FORM_EMAIL_PLACE_HOLDER:"Nhập Email",
     FORM_PASSWORD: "Mật khẩu",
-    FORM_CHECKBOX: "giữ đăng nhập"
+    FORM_CHECKBOX: "giữ đăng nhập",
+    POST_AUTHOR_BY: "đăng bởi "
 };
 
 export default vi;
