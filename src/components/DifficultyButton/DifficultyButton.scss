@@ -1,0 +1,19 @@
+@import '../../SCSSmodules/color';
+.dif-button{
+    border-radius: 16px;
+    padding : 1px 7px;
+    margin: 5px;
+    &-easy{
+        background: color(easy-dif-button);
+    }
+    &-medium{
+        background: color(medium-dif-button);
+    }
+    &-hard{
+        background: color(hard-dif-button);
+    }
+    &-active{
+        color:white;
+    }
+    cursor: pointer;
+}

@@ -1,5 +1,7 @@
 import React from 'react';
 import {PostType} from '../../models';
+import ShadowedBox from '../ShadowedBox/ShadowedBox';
+import UnderlinedTitle from '../UnderlinedTitle/UnderlinedTitle';
 interface PostProps{
     post:PostType
 };
@@ -7,9 +9,12 @@ interface PostProps{
 const Post : React.FC<PostProps> =({post}:PostProps)=>{
     console.log(post);
     return(
-        <div>
-            aaaaaa
-        </div>
+        <ShadowedBox>
+            <UnderlinedTitle>
+                {post.title}
+            </UnderlinedTitle>
+            Content
+        </ShadowedBox>
     )
 };
 

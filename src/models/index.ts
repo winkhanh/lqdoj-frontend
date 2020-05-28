@@ -15,3 +15,12 @@ export interface PostType {
     time:string,
     last_edited:string
 }
+
+export interface ProblemType{
+    id:string,
+    title:string,
+    author: string,
+    difficulty: string,
+    tags: string[],
+    percent: number
+}
