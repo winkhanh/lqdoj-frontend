@@ -19,7 +19,7 @@ const Body : React.FC = ()=>{
                 <Route path="/post" component={NullComponent}/>
                 <Route path="/problems" component={NullComponent}/>
                 <Route path="/contests" component={NullComponent}/>
-                {/*4040 Page*/}
+                {/*404 Page*/}
                 <Route component={NotFound}/> 
             </Switch>
         </div>

@@ -9,11 +9,19 @@ export interface UserType {
 }
 
 export interface PostType {
-    title:string,
-    author:string,
+    id:number,
+    title:string,    
     content:string,
+    author:string,
     time:string,
     last_edited:string
+}
+
+export interface PostsType {
+    count: number,
+    next: string,
+    previous: string,
+    results: Array<PostType>   
 }
 
 export interface ProblemType{

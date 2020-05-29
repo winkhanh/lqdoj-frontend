@@ -5,12 +5,12 @@ import Leaderboard from '../../components/Leaderboard/Leaderboard';
 import Recentboard from '../../components/Recentboard/Recentboard';
 const HomePage = ()=>{
     return (
-        <Container fluid="xl">
+        <Container fluid="xl" className="mt-3">
             <Row>
-                <Col sm={8}>
+                <Col md={8} sm={12}>
                     <Posts/>
                 </Col>
-                <Col sm={4} className="d-none d-sm-block"> {/** Hidden when on Mobile */}
+                <Col md={4} className="d-none d-sm-block"> {/** Hidden when on Mobile */}
                     <Row>
                         <Leaderboard/>
                     </Row>

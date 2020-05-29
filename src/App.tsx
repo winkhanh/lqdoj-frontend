@@ -4,7 +4,7 @@ import { Header, Body, Footer } from './sections';
 import './App.scss';
 import { AuthorizingPageContext, LanguageContext } from './contexts/GlobalFunctions/GlobalState';
 import { dictionaryList, languageOptions, LanguageOptionType, getLanguageById } from './languages/languages';
-import {useCookies} from 'react-cookie';
+import { useCookies } from 'react-cookie';
 const BaseApp: React.FC = () => {
     return (
         <div className="App">
@@ -17,26 +17,25 @@ const BaseApp: React.FC = () => {
     );
 }
 const App: React.FC = () => {
-    const [cookies,setCookie] = useCookies();
-    console.log(cookies.lang || languageOptions[0]);
+    const [cookies, setCookie] = useCookies();
+    // console.log(cookies.lang || languageOptions[0]);
     const [isAuthPageDisplay, setAuthPageDisplay] = useState(false);
-    
-    const [currentLanguageState, setLanguageState] = useState( getLanguageById(cookies.lang) || languageOptions[0]);
-    console.log(currentLanguageState);
+
+    const [currentLanguageState, setLanguageState] = useState(getLanguageById(cookies.lang) || languageOptions[0]);
+    // console.log(currentLanguageState);
     const [currentDictionaryState, setDictionaryState] = useState(dictionaryList[currentLanguageState.id]);
     return (
         <LanguageContext.Provider value={{
             language: {
                 currentLanguage: currentLanguageState,
-                setLanguage: (selectedLanguage:LanguageOptionType) => {
+                setLanguage: (selectedLanguage: LanguageOptionType) => {
                     setLanguageState(selectedLanguage);
                     setDictionaryState(dictionaryList[selectedLanguage.id]);
-                    setCookie('lang',selectedLanguage.id);
+                    setCookie('lang', selectedLanguage.id);
                 }
             },
             dictionary: currentDictionaryState
-        }
-        }>
+        }}>
             <AuthorizingPageContext.Provider value={{
                 isDisplay: isAuthPageDisplay,
                 toggle: () => {
@@ -44,8 +43,7 @@ const App: React.FC = () => {
                         prev => !prev
                     );
                 }
-            }
-            }>
+            }}>
                 <BaseApp />
             </AuthorizingPageContext.Provider>
         </LanguageContext.Provider>
