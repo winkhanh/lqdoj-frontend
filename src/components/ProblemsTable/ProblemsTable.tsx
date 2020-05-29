@@ -4,6 +4,7 @@ import { Table, InputGroup, FormControl, Container, Row, Col } from 'react-boots
 import { ProblemType } from '../../models';
 import DifficultyButton from '../DifficultyButton/DifficultyButton';
 import { FilterState } from '../ProblemFilter/ProblemFilter';
+import Paginator from '../Paginator/Paginator';
 interface TableRowProps {
     problem: ProblemType,
 
@@ -41,25 +42,16 @@ const constProblems: ProblemType[] = [
     }
 ];
 const ProblemsTable: React.FC<ProblemsTableProps> = ({ filterState }: ProblemsTableProps) => {
-    const [page, setPage] = useState("1");
+    const [page, setPage] = useState(1);
     const [perPage, setPerPage] = useState("25");
     let numPerPage: number;
-    let numPage: number;
     if (isNaN(parseInt(perPage)) || parseInt(perPage) === 0) {
         numPerPage = 25;
     } else {
         numPerPage = parseInt(perPage);
     }
-    if (isNaN(parseInt(page)) || parseInt(page) === 0) {
-        numPage = 1; 
-    } else { 
-        numPage = parseInt(page);
-    }
     const handleChangePerPage = (e: any) => {
         setPerPage(e.target.value);
-    }
-    const handleChangePage = (e: any) => {
-        setPage(e.target.value);
     }
     let filteredProblems = constProblems.filter(
         (problem) => {
@@ -86,12 +78,11 @@ const ProblemsTable: React.FC<ProblemsTableProps> = ({ filterState }: ProblemsTa
             } else return true;
         }
     );
-    numPage = Math.min(numPage, Math.floor((filteredProblems.length - 1) / numPerPage) + 1);
-    let slicedProblem = filteredProblems.slice((numPage - 1) * numPerPage, Math.min(numPage * numPerPage, filteredProblems.length));
+    let slicedProblem = filteredProblems.slice((page - 1) * numPerPage, Math.min(page * numPerPage, filteredProblems.length));
     return (
         <ShadowedBox>
             <Table>
-                <Table.Head>
+                <thead>
                     <tr>
                         <th>#</th>
                         <th>Title</th>
@@ -99,7 +90,7 @@ const ProblemsTable: React.FC<ProblemsTableProps> = ({ filterState }: ProblemsTa
                         <th>Tags</th>
                         <th>%</th>
                     </tr>
-                </Table.Head>
+                </thead>
                 <tbody>
                     {slicedProblem.map((problem, idx) =>
                         <TableRow key={idx} problem={problem} />
@@ -120,19 +111,12 @@ const ProblemsTable: React.FC<ProblemsTableProps> = ({ filterState }: ProblemsTa
                     </Col>
                     <Col />
                     <Col>
-                        <InputGroup>
-                            <InputGroup.Prepend>
-                                <InputGroup.Text>
-                                    Page
-                                </InputGroup.Text>
-                            </InputGroup.Prepend>
-                            <FormControl type="text" onChange={handleChangePage} value={page} />
-                            <InputGroup.Prepend>
-                                <InputGroup.Text>
-                                    /{Math.floor((filteredProblems.length - 1) / numPerPage) + 1}
-                                </InputGroup.Text>
-                            </InputGroup.Prepend>
-                        </InputGroup>
+                        <Paginator 
+                            page={page} 
+                            setPage={setPage} 
+                            totalPages={Math.round((filteredProblems.length-1)/numPerPage)+1}
+                            id="problems"
+                            />
                     </Col>
                 </Row>
             </Container>

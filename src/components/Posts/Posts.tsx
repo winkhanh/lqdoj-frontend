@@ -48,7 +48,7 @@ const Posts: React.FC = () => {
                     <PostItem post={post} key={idx} />
                 )
             })}
-            <Paginator page={page} setPage={setPage} totalPages={totalPages}></Paginator>
+            <Paginator id="posts" page={page} setPage={setPage} totalPages={totalPages}></Paginator>
         </div>
     )
 };
