@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { PostsType } from '../../models';
-import Post from '../Post/Post';
+import PostItem from '../PostItem/PostItem';
 import * as HttpStatus from 'http-status-codes';
 import Paginator from '../Paginator/Paginator';
 
@@ -45,7 +45,7 @@ const Posts: React.FC = () => {
         <div>
             {postsData.results.map((post, idx) => {
                 return (
-                    <Post post={post} key={idx} />
+                    <PostItem post={post} key={idx} />
                 )
             })}
             <Paginator page={page} setPage={setPage} totalPages={totalPages}></Paginator>

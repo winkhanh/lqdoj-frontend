@@ -3,13 +3,13 @@ import { PostType } from '../../models';
 import ShadowedBox from '../ShadowedBox/ShadowedBox';
 import UnderlinedTitle from '../UnderlinedTitle/UnderlinedTitle';
 import { TextFC } from '../Text/Text'
-import './Post.scss';
+import './PostItem.scss';
 
 interface PostProps {
     post: PostType
 };
 
-const Post: React.FC<PostProps> = ({ post }: PostProps) => {
+const PostItem: React.FC<PostProps> = ({ post }: PostProps) => {
     // console.log(post);
     return (
         <ShadowedBox>
@@ -29,4 +29,4 @@ const Post: React.FC<PostProps> = ({ post }: PostProps) => {
     )
 };
 
-export default Post;
+export default PostItem;
