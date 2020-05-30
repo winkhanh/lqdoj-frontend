@@ -6,7 +6,7 @@ import ProblemFilter from '../../components/ProblemFilter/ProblemFilter';
 const ProblemsPage = ()=>{
     const [filterState,setFilter]=useState({});
     return (
-        <Container fluid="xl">
+        <Container fluid="xl" className="mt-3">
             <Row>
                 <Col sm={{span:9, order:1}} xs={{span:12, order:2}}>
                     <ProblemsTable filterState={filterState}/>

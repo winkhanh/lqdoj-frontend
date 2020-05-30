@@ -7,10 +7,10 @@ const HomePage = ()=>{
     return (
         <Container fluid="xl" className="mt-3">
             <Row>
-                <Col md={8} sm={12}>
+                <Col md={{span: 8, order: 1}} xs={{span: 12, order: 2}}>
                     <Posts/>
                 </Col>
-                <Col md={4} className="d-none d-sm-block"> {/** Hidden when on Mobile */}
+                <Col md={{span: 4, order: 2}} xs={{span: 12, order: 1}}> {/** Move upon the Table when on Mobile */}
                     <Row>
                         <Leaderboard/>
                     </Row>

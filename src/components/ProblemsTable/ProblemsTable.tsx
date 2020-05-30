@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import ShadowedBox from '../ShadowedBox/ShadowedBox';
 import { Table, InputGroup, FormControl, Container, Row, Col } from 'react-bootstrap';
-import { ProblemType } from '../../models';
+import { ProblemsType, ProblemType } from '../../models';
 import DifficultyButton from '../DifficultyButton/DifficultyButton';
 import { FilterState } from '../ProblemFilter/ProblemFilter';
 import Paginator from '../Paginator/Paginator';
+import { FetchContext } from '../../contexts/GlobalFunctions/FetchingFunctions';
+
 interface TableRowProps {
     problem: ProblemType,
 
@@ -15,7 +17,7 @@ interface ProblemsTableProps {
 const TableRow: React.FC<TableRowProps> = ({ problem }: TableRowProps) => {
     return (
         <tr>
-            <td>{problem.id}</td>
+            <td>{problem.task_code}</td>
             <td>{problem.title}</td>
             <td><DifficultyButton difficulty={problem.difficulty} /></td>
             <td>{problem.tags.reduce((pre, cur) => pre + "," + cur)} </td>
@@ -23,37 +25,42 @@ const TableRow: React.FC<TableRowProps> = ({ problem }: TableRowProps) => {
         </tr>
     )
 }
-const constProblems: ProblemType[] = [
-    {
-        id: "LQDID1",
-        author: "bang",
-        title: "Find LQD in the map",
-        difficulty: "easy",
-        tags: ["dp", "binary", "recursion"],
-        percent: 100
-    },
-    {
-        id: "LQDID2",
-        author: "bang",
-        title: "Find Fibonacci fucking easy man",
-        difficulty: "hard",
-        tags: ["dp", "matrix"],
-        percent: 69
-    }
-];
+
+const initialProblems: ProblemsType = {
+    count: 1,
+    previous: "",
+    next: "",
+    results: []
+};
+
 const ProblemsTable: React.FC<ProblemsTableProps> = ({ filterState }: ProblemsTableProps) => {
     const [page, setPage] = useState(1);
-    const [perPage, setPerPage] = useState("25");
+    const [perPage, setPerPage] = useState(25);
+    const [problemsData, setProblemsData] = useState(initialProblems);
+    const { fetcher } = useContext(FetchContext);
     let numPerPage: number;
-    if (isNaN(parseInt(perPage)) || parseInt(perPage) === 0) {
+
+    useEffect(() => {
+        fetcher.fetchProblems(page, perPage, (problems: ProblemsType) => {
+            setProblemsData(problems);            
+        }, (error: Error) => {
+            console.log(error);
+            setProblemsData(initialProblems);
+        });
+    }, [fetcher, page, perPage]);
+
+    if (isNaN(perPage) || perPage === 0) {
         numPerPage = 25;
     } else {
-        numPerPage = parseInt(perPage);
+        numPerPage = perPage;
     }
-    const handleChangePerPage = (e: any) => {
-        setPerPage(e.target.value);
+
+    const handleChangePerPage = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (!isNaN(parseInt(e.target.value))) {
+            setPerPage(parseInt(e.target.value));
+        }
     }
-    let filteredProblems = constProblems.filter(
+    let filteredProblems = problemsData.results.filter(
         (problem) => {
             if (filterState.difficult) {
                 return problem.difficulty === filterState.difficult;
@@ -81,7 +88,7 @@ const ProblemsTable: React.FC<ProblemsTableProps> = ({ filterState }: ProblemsTa
     let slicedProblem = filteredProblems.slice((page - 1) * numPerPage, Math.min(page * numPerPage, filteredProblems.length));
     return (
         <ShadowedBox>
-            <Table>
+            <Table hover responsive>
                 <thead>
                     <tr>
                         <th>#</th>
@@ -99,18 +106,17 @@ const ProblemsTable: React.FC<ProblemsTableProps> = ({ filterState }: ProblemsTa
             </Table>
             <Container fluid>
                 <Row>
-                    <Col>
+                    <Col md={3}>
                         <InputGroup>
-                            <FormControl type="text" onChange={handleChangePerPage} value={perPage} />
-                            <InputGroup.Prepend>
+                            <FormControl type="number" onChange={handleChangePerPage} value={perPage} />
+                            <InputGroup.Append>
                                 <InputGroup.Text>
                                     per Page
                                 </InputGroup.Text>
-                            </InputGroup.Prepend>
+                            </InputGroup.Append>
                         </InputGroup>
                     </Col>
-                    <Col />
-                    <Col>
+                    <Col md={{span: 3, offset: 6}}>
                         <Paginator 
                             page={page} 
                             setPage={setPage} 

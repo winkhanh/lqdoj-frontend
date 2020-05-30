@@ -26,9 +26,17 @@ export interface PostsType {
 
 export interface ProblemType{
     id:string,
+    task_code:string,
     title:string,
     author: string,
     difficulty: string,
     tags: string[],
     percent: number
+}
+
+export interface ProblemsType {
+    count: number,
+    next: string,
+    previous: string,
+    results: Array<ProblemType>
 }

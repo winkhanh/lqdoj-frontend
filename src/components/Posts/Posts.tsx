@@ -14,13 +14,12 @@ const initialPosts: PostsType = {
 const Posts: React.FC = () => {
     const [postsData, setPostsData] = useState(initialPosts);
     const [page, setPage] = useState(1);
-    const [postsPerPage, setPostsPerPage] = useState(1);
+    const [postsPerPage, setPostsPerPage] = useState(5);
     const [totalPages, setTotalPages] = useState(0);
     const { fetcher } = useContext(FetchContext);
-    const limit = 1;
     useEffect(() => {
-        fetcher.fetchPosts(page, limit, (posts: PostsType) => {
-            setPostsData(posts);
+        fetcher.fetchPosts(page, postsPerPage, (posts: PostsType) => {
+            setPostsData(posts);            
             if (posts.results.length > postsPerPage) {
                 setPostsPerPage(posts.results.length);
             }
