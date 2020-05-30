@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { PostsType } from '../../models';
 import PostItem from '../PostItem/PostItem';
-import * as HttpStatus from 'http-status-codes';
 import Paginator from '../Paginator/Paginator';
-
+import {fetchPosts} from '../../contexts/GlobalFunctions/FetchingFunctions';
 const initialPosts: PostsType = {
     count: 1,
     previous: "",
@@ -19,22 +17,14 @@ const Posts: React.FC = () => {
     const [totalPages, setTotalPages] = useState(0);
 
     useEffect(() => {
-        async function getPosts() {
-            const res = await axios("http://127.0.0.1:8000/announcements/?p=" + page);
-            if (res.status === HttpStatus.OK) {
-                setPostsData(res.data);
-                if (res.data.results.length > postsPerPage) {
-                    setPostsPerPage(res.data.results.length);
-                }
-                setTotalPages(Math.ceil(res.data.count / postsPerPage));
-            } else {
-                setTotalPages(0);
-                setPostsPerPage(1);
-                setPostsData(initialPosts);
+        fetchPosts(page,(posts:PostsType)=>{
+            setPostsData(posts);
+            if (posts.results.length > postsPerPage) {
+                setPostsPerPage(posts.results.length);
             }
-
-        }
-        getPosts().catch(() => {
+            setTotalPages(Math.ceil(posts.count / postsPerPage));
+        },(error:Error)=>{
+            console.log(error)
             setTotalPages(0);
             setPostsPerPage(1);
             setPostsData(initialPosts);

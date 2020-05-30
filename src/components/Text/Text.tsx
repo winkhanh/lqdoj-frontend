@@ -1,5 +1,5 @@
 import  { useContext } from 'react'
-import { LanguageContext } from '../../contexts/GlobalFunctions/GlobalState'
+import { LanguageContext } from '../../contexts/GlobalStates/GlobalStates'
 
 const TextFC = (tid:string) => {
     const languageContext = useContext(LanguageContext);

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { AuthorizingPageContext, AuthState } from '../../contexts/GlobalFunctions/GlobalState';
+import { AuthorizingPageContext, AuthState } from '../../contexts/GlobalStates/GlobalStates';
 import { Button, Dropdown, DropdownButton, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { TextFC } from '../Text/Text'

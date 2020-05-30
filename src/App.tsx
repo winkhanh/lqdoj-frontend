@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Header, Body, Footer } from './sections';
 import './App.scss';
-import { AuthorizingPageContext, LanguageContext } from './contexts/GlobalFunctions/GlobalState';
+import { AuthorizingPageContext, LanguageContext } from './contexts/GlobalStates/GlobalStates';
 import { dictionaryList, languageOptions, LanguageOptionType, getLanguageById } from './languages/languages';
 import { useCookies } from 'react-cookie';
 const BaseApp: React.FC = () => {
