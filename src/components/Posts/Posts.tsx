@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { PostsType } from '../../models';
 import PostItem from '../PostItem/PostItem';
 import Paginator from '../Paginator/Paginator';
-import {fetchPosts} from '../../contexts/GlobalFunctions/FetchingFunctions';
+import {FetchContext} from '../../contexts/GlobalFunctions/FetchingFunctions';
+
 const initialPosts: PostsType = {
     count: 1,
     previous: "",
@@ -15,9 +16,9 @@ const Posts: React.FC = () => {
     const [page, setPage] = useState(1);
     const [postsPerPage, setPostsPerPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
-
+    const {fetcher} = useContext(FetchContext);
     useEffect(() => {
-        fetchPosts(page,(posts:PostsType)=>{
+        fetcher.fetchPosts(page,(posts:PostsType)=>{
             setPostsData(posts);
             if (posts.results.length > postsPerPage) {
                 setPostsPerPage(posts.results.length);
@@ -29,7 +30,7 @@ const Posts: React.FC = () => {
             setPostsPerPage(1);
             setPostsData(initialPosts);
         });
-    }, [page, postsPerPage]);
+    }, [fetcher, page, postsPerPage]);
 
     return (
         <div>

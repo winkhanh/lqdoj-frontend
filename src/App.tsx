@@ -3,6 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Header, Body, Footer } from './sections';
 import './App.scss';
 import { AuthorizingPageContext, LanguageContext } from './contexts/GlobalStates/GlobalStates';
+import Fetcher, {FetchContext} from './contexts/GlobalFunctions/FetchingFunctions';
 import { dictionaryList, languageOptions, LanguageOptionType, getLanguageById } from './languages/languages';
 import { useCookies } from 'react-cookie';
 const BaseApp: React.FC = () => {
@@ -24,6 +25,7 @@ const App: React.FC = () => {
     const [currentLanguageState, setLanguageState] = useState(getLanguageById(cookies.lang) || languageOptions[0]);
     // console.log(currentLanguageState);
     const [currentDictionaryState, setDictionaryState] = useState(dictionaryList[currentLanguageState.id]);
+
     return (
         <LanguageContext.Provider value={{
             language: {
@@ -44,7 +46,11 @@ const App: React.FC = () => {
                     );
                 }
             }}>
-                <BaseApp />
+                <FetchContext.Provider value={{
+                    fetcher: new Fetcher()
+                }}>
+                    <BaseApp />
+                </FetchContext.Provider>
             </AuthorizingPageContext.Provider>
         </LanguageContext.Provider>
     )
