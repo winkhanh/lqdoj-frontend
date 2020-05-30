@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { PostsType } from '../../models';
+import { ResponseDataType, PostType } from '../../models';
 import PostItem from '../PostItem/PostItem';
 import Paginator from '../Paginator/Paginator';
 import { FetchContext } from '../../contexts/GlobalFunctions/FetchingFunctions';
 
-const initialPosts: PostsType = {
+const initialPosts: ResponseDataType<PostType> = {
     count: 1,
     previous: "",
     next: "",
@@ -18,12 +18,14 @@ const Posts: React.FC = () => {
     const [totalPages, setTotalPages] = useState(0);
     const { fetcher } = useContext(FetchContext);
     useEffect(() => {
-        fetcher.fetchPosts(page, postsPerPage, (posts: PostsType) => {
+        fetcher.fetchPosts(page, postsPerPage, (posts: ResponseDataType<PostType>) => {
             setPostsData(posts);            
             if (posts.results.length > postsPerPage) {
                 setPostsPerPage(posts.results.length);
             }
-            setTotalPages(Math.ceil(posts.count / postsPerPage));
+            if (posts.count) {
+                setTotalPages(Math.ceil(posts.count / postsPerPage));
+            }
         }, (error: Error) => {
             console.log(error)
             setTotalPages(0);

@@ -1,20 +1,21 @@
 import React, { useState, useContext, useEffect } from 'react';
 import ShadowedBox from '../ShadowedBox/ShadowedBox';
 import { Table, InputGroup, FormControl, Container, Row, Col } from 'react-bootstrap';
-import { ProblemsType, ProblemType } from '../../models';
+import { ResponseDataType, ProblemType } from '../../models';
 import DifficultyButton from '../DifficultyButton/DifficultyButton';
 import { FilterState } from '../ProblemFilter/ProblemFilter';
 import Paginator from '../Paginator/Paginator';
 import { FetchContext } from '../../contexts/GlobalFunctions/FetchingFunctions';
 
 interface TableRowProps {
-    problem: ProblemType,
+    problem: ProblemType
 
 }
 interface ProblemsTableProps {
     filterState: FilterState
 }
 const TableRow: React.FC<TableRowProps> = ({ problem }: TableRowProps) => {
+
     return (
         <tr>
             <td>{problem.task_code}</td>
@@ -26,7 +27,7 @@ const TableRow: React.FC<TableRowProps> = ({ problem }: TableRowProps) => {
     )
 }
 
-const initialProblems: ProblemsType = {
+const initialProblems: ResponseDataType<ProblemType> = {
     count: 1,
     previous: "",
     next: "",
@@ -41,7 +42,7 @@ const ProblemsTable: React.FC<ProblemsTableProps> = ({ filterState }: ProblemsTa
     let numPerPage: number;
 
     useEffect(() => {
-        fetcher.fetchProblems(page, perPage, (problems: ProblemsType) => {
+        fetcher.fetchProblems(page, perPage, (problems: ResponseDataType<ProblemType>) => {
             setProblemsData(problems);            
         }, (error: Error) => {
             console.log(error);

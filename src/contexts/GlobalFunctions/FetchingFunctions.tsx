@@ -1,5 +1,5 @@
 import React from 'react';
-import { PostsType, ProblemsType } from '../../models';
+import { ResponseDataType, PostType, ProblemType } from '../../models';
 import * as HttpStatus from 'http-status-codes';
 import axios, { AxiosInstance } from 'axios';
 
@@ -8,7 +8,9 @@ const BASE_URL = "http://127.0.0.1:8000"
 
 const API_PATH = {
     posts: "announcements",
-    problems: "tasks"
+    problems: "tasks",
+    tokens: "tokens",
+    users: "users"
 }
 
 class Fetcher {
@@ -81,10 +83,10 @@ class Fetcher {
     fetchPosts = async (
         page: number,
         limit: number,
-        callback: (posts: PostsType) => void,
+        callback: (posts: ResponseDataType<PostType>) => void,
         errorHandle: (error: Error) => void
     ) => {
-        this.doFetch<PostsType>(this.publicFetcher,
+        this.doFetch<ResponseDataType<PostType>>(this.publicFetcher,
             'get',
             API_PATH.posts,
             { p: page, limit: limit },
@@ -95,10 +97,10 @@ class Fetcher {
     fetchProblems = async (
         page: number,
         limit: number,
-        callback: (problems: ProblemsType) => void,
+        callback: (problems: ResponseDataType<ProblemType>) => void,
         errorHandle: (error: Error) => void
     ) => {
-        this.doFetch<ProblemsType>(this.publicFetcher,
+        this.doFetch<ResponseDataType<ProblemType>>(this.publicFetcher,
             'get',
             API_PATH.problems,
             { p: page, limit: limit },
