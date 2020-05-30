@@ -17,6 +17,7 @@ const LinkB = ()=>{
     )
 };
 const Footer: React.FC = () => {
+
     return (
         <React.Fragment>
             <Navbar bg="dark" expand="lg" variant="dark" sticky="bottom">

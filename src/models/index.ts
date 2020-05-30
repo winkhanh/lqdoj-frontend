@@ -21,7 +21,7 @@ export interface PostsType {
     count: number,
     next: string,
     previous: string,
-    results: Array<PostType>   
+    results: Array<PostType>
 }
 
 export interface ProblemType{
