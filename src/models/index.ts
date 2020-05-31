@@ -17,18 +17,20 @@ export interface PostType {
     last_edited:string
 }
 
-export interface PostsType {
-    count: number,
-    next: string,
-    previous: string,
-    results: Array<PostType>   
-}
-
 export interface ProblemType{
     id:string,
+    task_code:string,
     title:string,
     author: string,
     difficulty: string,
     tags: string[],
     percent: number
+}
+
+export interface ResponseDataType<T extends {}> {
+    count?: number,
+    next?: string,
+    previous?: string,
+    message_code?: string,
+    results: T
 }
