@@ -18,11 +18,13 @@ const AuthModal: React.FC<AuthModalProps> = (props: AuthModalProps) => {
     
     return (
         <Modal
+            animation={false}
             show={props.authModalDisplay}
             onHide={props.authModalToggle}
         >
             <Modal.Body>
                 <TabContainer
+                    transition={false}
                     id="auth-tab"
                     defaultActiveKey="sign-in"
                 >
