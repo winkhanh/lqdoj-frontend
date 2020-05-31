@@ -1,5 +1,4 @@
 import React from 'react';
-import './Paginator.scss';
 import { Pagination, PageItem, FormControl, OverlayTrigger, InputGroup, Button, Tooltip } from 'react-bootstrap';
 
 interface PaginatorProps {
