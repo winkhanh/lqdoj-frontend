@@ -48,7 +48,7 @@ const ProblemsTable: React.FC<ProblemsTableProps> = ({ filterState }: ProblemsTa
             console.log(error);
             setProblemsData(initialProblems);
         });
-    }, [fetcher, page, perPage]);
+    }, [fetcher]);
 
     if (isNaN(parseInt(perPage)) || parseInt(perPage) <= 0) {
         numPerPage = 25;
