@@ -27,7 +27,7 @@ const TableRow: React.FC<TableRowProps> = ({ problem }: TableRowProps) => {
     )
 }
 
-const initialProblems: ResponseDataType<ProblemType> = {
+const initialProblems: ResponseDataType<Array<ProblemType>> = {
     count: 1,
     previous: "",
     next: "",
@@ -42,7 +42,7 @@ const ProblemsTable: React.FC<ProblemsTableProps> = ({ filterState }: ProblemsTa
     let numPerPage: number;
 
     useEffect(() => {
-        fetcher.fetchProblems(page, perPage, (problems: ResponseDataType<ProblemType>) => {
+        fetcher.fetchProblems(page, perPage, (problems: ResponseDataType<Array<ProblemType>>) => {
             setProblemsData(problems);            
         }, (error: Error) => {
             console.log(error);

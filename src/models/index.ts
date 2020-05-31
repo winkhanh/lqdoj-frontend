@@ -32,5 +32,5 @@ export interface ResponseDataType<T extends {}> {
     next?: string,
     previous?: string,
     message_code?: string,
-    results: Array<T>
+    results: T
 }

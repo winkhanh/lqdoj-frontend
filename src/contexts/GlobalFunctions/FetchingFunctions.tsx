@@ -83,10 +83,10 @@ class Fetcher {
     fetchPosts = async (
         page: number,
         limit: number,
-        callback: (posts: ResponseDataType<PostType>) => void,
+        callback: (posts: ResponseDataType<Array<PostType>>) => void,
         errorHandle: (error: Error) => void
     ) => {
-        this.doFetch<ResponseDataType<PostType>>(this.publicFetcher,
+        this.doFetch<ResponseDataType<Array<PostType>>>(this.publicFetcher,
             'get',
             API_PATH.posts,
             { p: page, limit: limit },
@@ -97,10 +97,10 @@ class Fetcher {
     fetchProblems = async (
         page: number,
         limit: number,
-        callback: (problems: ResponseDataType<ProblemType>) => void,
+        callback: (problems: ResponseDataType<Array<ProblemType>>) => void,
         errorHandle: (error: Error) => void
     ) => {
-        this.doFetch<ResponseDataType<ProblemType>>(this.publicFetcher,
+        this.doFetch<ResponseDataType<Array<ProblemType>>>(this.publicFetcher,
             'get',
             API_PATH.problems,
             { p: page, limit: limit },
