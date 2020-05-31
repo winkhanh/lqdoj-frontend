@@ -36,30 +36,28 @@ const initialProblems: ResponseDataType<Array<ProblemType>> = {
 
 const ProblemsTable: React.FC<ProblemsTableProps> = ({ filterState }: ProblemsTableProps) => {
     const [page, setPage] = useState(1);
-    const [perPage, setPerPage] = useState(25);
+    const [perPage, setPerPage] = useState("25");
     const [problemsData, setProblemsData] = useState(initialProblems);
     const { fetcher } = useContext(FetchContext);
     let numPerPage: number;
 
     useEffect(() => {
-        fetcher.fetchProblems(page, perPage, (problems: ResponseDataType<Array<ProblemType>>) => {
-            setProblemsData(problems);            
+        fetcher.fetchProblems((problems: ResponseDataType<Array<ProblemType>>) => {
+            setProblemsData(problems);
         }, (error: Error) => {
             console.log(error);
             setProblemsData(initialProblems);
         });
     }, [fetcher, page, perPage]);
 
-    if (isNaN(perPage) || perPage === 0) {
+    if (isNaN(parseInt(perPage)) || parseInt(perPage) <= 0) {
         numPerPage = 25;
     } else {
-        numPerPage = perPage;
+        numPerPage = parseInt(perPage);
     }
 
     const handleChangePerPage = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (!isNaN(parseInt(e.target.value))) {
-            setPerPage(parseInt(e.target.value));
-        }
+        setPerPage(e.target.value);
     }
     let filteredProblems = problemsData.results.filter(
         (problem) => {
@@ -109,7 +107,7 @@ const ProblemsTable: React.FC<ProblemsTableProps> = ({ filterState }: ProblemsTa
                 <Row>
                     <Col md={3}>
                         <InputGroup>
-                            <FormControl type="number" onChange={handleChangePerPage} value={perPage} />
+                            <FormControl type="number" min="1" onChange={handleChangePerPage} value={perPage} />
                             <InputGroup.Append>
                                 <InputGroup.Text>
                                     per Page
@@ -117,13 +115,13 @@ const ProblemsTable: React.FC<ProblemsTableProps> = ({ filterState }: ProblemsTa
                             </InputGroup.Append>
                         </InputGroup>
                     </Col>
-                    <Col md={{span: 3, offset: 6}}>
-                        <Paginator 
-                            page={page} 
-                            setPage={setPage} 
-                            totalPages={Math.round((filteredProblems.length-1)/numPerPage)+1}
+                    <Col md={{ span: 3, offset: 6 }}>
+                        <Paginator
+                            page={page}
+                            setPage={setPage}
+                            totalPages={Math.round((filteredProblems.length - 1) / numPerPage) + 1}
                             id="problems"
-                            />
+                        />
                     </Col>
                 </Row>
             </Container>

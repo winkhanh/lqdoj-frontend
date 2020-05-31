@@ -95,15 +95,13 @@ class Fetcher {
     }
 
     fetchProblems = async (
-        page: number,
-        limit: number,
         callback: (problems: ResponseDataType<Array<ProblemType>>) => void,
         errorHandle: (error: Error) => void
     ) => {
         this.doFetch<ResponseDataType<Array<ProblemType>>>(this.publicFetcher,
             'get',
             API_PATH.problems,
-            { p: page, limit: limit },
+            {},
             callback,
             errorHandle);
     }
