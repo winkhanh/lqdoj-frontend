@@ -2,7 +2,7 @@ import React from 'react';
 import { PostType } from '../../models';
 import ShadowedBox from '../ShadowedBox/ShadowedBox';
 import UnderlinedTitle from '../UnderlinedTitle/UnderlinedTitle';
-import { TextFC } from '../Text/Text'
+import { Text } from '../Text/Text'
 import './PostItem.scss';
 
 interface PostProps {
@@ -20,7 +20,7 @@ const PostItem: React.FC<PostProps> = ({ post }: PostProps) => {
                 {post.content}
             </p>
             <span className="author">
-                {TextFC("POST_AUTHOR_BY")}
+                {Text("POST_AUTHOR_BY")}
                 <a href="/">
                     {post.author}
                 </a>

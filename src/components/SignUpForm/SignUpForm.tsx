@@ -1,26 +1,30 @@
 import React from 'react';
-import {Form, Button} from 'react-bootstrap';
-import {TextFC} from '../Text/Text';
+import { Form, Button, Col } from 'react-bootstrap';
+import { Text } from '../Text/Text';
 
-const SignUpForm : React.FC = ()=>{
-    return(
-        <Form>
-            <Form.Group controlId="formName">
-                <Form.Label>{TextFC('FORM_NAME')}</Form.Label>
-                <Form.Control type="text" placeholder={TextFC('FORM_NAME_PLACE_HOLDER')}/>
-            </Form.Group>
-            <Form.Group controlId="formSignUpEmail">
-                <Form.Label>{TextFC('FORM_EMAIL')}</Form.Label>
-                <Form.Control type="email" placeholder={TextFC('FORM_EMAIL_PLACE_HOLDER')}/>
-            </Form.Group>
-            <Form.Group controlId="formSignUpPassword">
-                <Form.Label>{TextFC('FORM_PASSWORD')}</Form.Label>
-                <Form.Control type="password" placeholder="********"/>
-            </Form.Group>
-            <Button variant="primary" type="button" size="lg" block>
-                {TextFC('MODAL_SIGNUP')}
-            </Button>
-        </Form>
+const SignUpForm: React.FC = () => {
+    return (
+        <Col>
+            <Form className="mt-3">
+                <Form.Group controlId="formName">
+                    <Form.Label>{Text('FORM_NAME')}</Form.Label>
+                    <Form.Control type="text" placeholder={Text('FORM_NAME_PLACE_HOLDER')} />
+                </Form.Group>
+                <Form.Group controlId="formSignUpEmail">
+                    <Form.Label>{Text('FORM_EMAIL')}</Form.Label>
+                    <Form.Control type="email" placeholder={Text('FORM_EMAIL_PLACE_HOLDER')} />
+                </Form.Group>
+                <Form.Group controlId="formSignUpPassword">
+                    <Form.Label>{Text('FORM_PASSWORD')}</Form.Label>
+                    <Form.Control type="password" placeholder="********" />
+                </Form.Group>
+                <Form.Group controlId="formSignUpButton">
+                    <Button variant="primary" type="button" block>
+                        {Text('MODAL_SIGNUP')}
+                    </Button>
+                </Form.Group>
+            </Form>
+        </Col>
     )
 };
 
