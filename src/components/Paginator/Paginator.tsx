@@ -1,5 +1,5 @@
-import React from 'react';
-import { Pagination, PageItem, FormControl, OverlayTrigger, InputGroup, Button, Tooltip } from 'react-bootstrap';
+import React, { useRef, useState } from 'react';
+import { Button, FormControl, InputGroup, Overlay, PageItem, Pagination, Tooltip } from 'react-bootstrap';
 
 interface PaginatorProps {
     page: number,
@@ -8,8 +8,11 @@ interface PaginatorProps {
     id: string
 }
 
-const Paginator: React.FC<PaginatorProps> = (props: PaginatorProps) => {
-    const handleClick = () => {
+const GotoBox: React.FC<PaginatorProps> = (props: PaginatorProps) => {
+    const gotoButton = useRef(null);
+    const [show, setShow] = useState(false);
+
+    const gotoHandler = () => {
         let element: HTMLInputElement = (document.getElementById(`tooltip-input-${props.id}`)) as HTMLInputElement;
         if (!element) return;
         let val: number = parseInt(element.value);
@@ -17,6 +20,33 @@ const Paginator: React.FC<PaginatorProps> = (props: PaginatorProps) => {
         if (!isNaN(val) && val > 0 && val <= props.totalPages) props.setPage(val); else
             props.setPage(1);
     }
+
+    return (
+        <>
+            <Button variant="light" ref={gotoButton} onClick={() => setShow(!show)}>
+                Go to
+            </Button>
+            <Overlay
+                target={gotoButton.current}
+                show={show}
+                placement="right"
+                transition={false}
+            >
+                <Tooltip id="tooltip">
+                    <InputGroup>
+                        <InputGroup.Prepend>
+                            <InputGroup.Text>page :</InputGroup.Text>
+                        </InputGroup.Prepend>
+                        <FormControl type="number" id={`tooltip-input-${props.id}`} />
+                        <Button onClick={gotoHandler} variant="secondary"> Go!!!</Button>
+                    </InputGroup>
+                </Tooltip>
+            </Overlay>
+        </>
+    );
+}
+
+const Paginator: React.FC<PaginatorProps> = (props: PaginatorProps) => {
     if (props.totalPages > 0) {
         return (
             <Pagination>
@@ -39,24 +69,10 @@ const Paginator: React.FC<PaginatorProps> = (props: PaginatorProps) => {
                             )
                     })
                 }
-                <OverlayTrigger
-                    overlay={
-                        <Tooltip id="tooltip">
-                            <InputGroup>
-                                <InputGroup.Prepend>
-                                    <InputGroup.Text>Go to Page :</InputGroup.Text>
-                                </InputGroup.Prepend>
-                                <FormControl type="number" id={`tooltip-input-${props.id}`} />
-                                <Button onClick={() => { handleClick(); }} variant="secondary"> Go!!!</Button>
-                            </InputGroup>
-                        </Tooltip>
-                    }
-                    trigger="click"
-                    placement="top"
-                >
-                    <Pagination.Item>Goto</Pagination.Item>
-                </OverlayTrigger>
-
+                <GotoBox page={props.page}
+                    setPage={props.setPage}
+                    totalPages={props.totalPages}
+                    id={props.id} />
             </Pagination>
         )
     } else {
