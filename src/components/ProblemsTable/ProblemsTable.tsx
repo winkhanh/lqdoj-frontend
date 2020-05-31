@@ -5,8 +5,8 @@ import { ResponseDataType, ProblemType } from '../../models';
 import DifficultyButton from '../DifficultyButton/DifficultyButton';
 import { FilterState } from '../ProblemFilter/ProblemFilter';
 import Paginator from '../Paginator/Paginator';
-import { FetchContext } from '../../contexts/GlobalFunctions/FetchingFunctions';
-
+import { FetchContext, LoadState } from '../../contexts/GlobalFunctions/FetchingFunctions';
+import LoadingPlaceholder from '../LoadingPlaceholder/LoadingPlaceholder';
 interface TableRowProps {
     problem: ProblemType
 
@@ -38,16 +38,22 @@ const ProblemsTable: React.FC<ProblemsTableProps> = ({ filterState }: ProblemsTa
     const [page, setPage] = useState(1);
     const [perPage, setPerPage] = useState("25");
     const [problemsData, setProblemsData] = useState(initialProblems);
+    const [loadState, setLoadState]= useState(LoadState.NOTLOADED);
     const { fetcher } = useContext(FetchContext);
     let numPerPage: number;
 
     useEffect(() => {
-        fetcher.fetchProblems((problems: ResponseDataType<Array<ProblemType>>) => {
-            setProblemsData(problems);
-        }, (error: Error) => {
-            console.log(error);
-            setProblemsData(initialProblems);
-        });
+        if (loadState === LoadState.NOTLOADED){
+            setLoadState(LoadState.LOADING);
+            fetcher.fetchProblems((problems: ResponseDataType<Array<ProblemType>>) => {
+                setProblemsData(problems);
+                setLoadState(LoadState.LOADED);
+            }, (error: Error) => {
+                console.log(error);
+                setProblemsData(initialProblems);
+                setLoadState(LoadState.LOADED);
+            });
+        }
     }, [fetcher]);
 
     if (isNaN(parseInt(perPage)) || parseInt(perPage) <= 0) {
@@ -85,47 +91,50 @@ const ProblemsTable: React.FC<ProblemsTableProps> = ({ filterState }: ProblemsTa
         }
     );
     let slicedProblem = filteredProblems.slice((page - 1) * numPerPage, Math.min(page * numPerPage, filteredProblems.length));
-    return (
-        <ShadowedBox>
-            <Table hover responsive>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Title</th>
-                        <th>Difficulty</th>
-                        <th>Tags</th>
-                        <th>%</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {slicedProblem.map((problem, idx) =>
-                        <TableRow key={idx} problem={problem} />
-                    )}
-                </tbody>
-            </Table>
-            <Container fluid>
-                <Row>
-                    <Col md={3}>
-                        <InputGroup>
-                            <FormControl type="number" min="1" onChange={handleChangePerPage} value={perPage} />
-                            <InputGroup.Append>
-                                <InputGroup.Text>
-                                    per Page
-                                </InputGroup.Text>
-                            </InputGroup.Append>
-                        </InputGroup>
-                    </Col>
-                    <Col md={{ span: 3, offset: 6 }}>
-                        <Paginator
-                            page={page}
-                            setPage={setPage}
-                            totalPages={Math.round((filteredProblems.length - 1) / numPerPage) + 1}
-                            id="problems"
-                        />
-                    </Col>
-                </Row>
-            </Container>
-        </ShadowedBox>
-    );
+    if (loadState === LoadState.LOADING) 
+        return( <LoadingPlaceholder/>);
+    else
+        return (
+            <ShadowedBox>
+                <Table hover responsive>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Difficulty</th>
+                            <th>Tags</th>
+                            <th>%</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {slicedProblem.map((problem, idx) =>
+                            <TableRow key={idx} problem={problem} />
+                        )}
+                    </tbody>
+                </Table>
+                <Container fluid>
+                    <Row>
+                        <Col md={3}>
+                            <InputGroup>
+                                <FormControl type="number" min="1" onChange={handleChangePerPage} value={perPage} />
+                                <InputGroup.Append>
+                                    <InputGroup.Text>
+                                        per Page
+                                    </InputGroup.Text>
+                                </InputGroup.Append>
+                            </InputGroup>
+                        </Col>
+                        <Col md={{ span: 3, offset: 6 }}>
+                            <Paginator
+                                page={page}
+                                setPage={setPage}
+                                totalPages={Math.round((filteredProblems.length - 1) / numPerPage) + 1}
+                                id="problems"
+                            />
+                        </Col>
+                    </Row>
+                </Container>
+            </ShadowedBox>
+        );
 }
 export default ProblemsTable;

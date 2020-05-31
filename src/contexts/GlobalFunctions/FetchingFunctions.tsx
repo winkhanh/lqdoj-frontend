@@ -3,7 +3,12 @@ import { ResponseDataType, PostType, ProblemType } from '../../models';
 import * as HttpStatus from 'http-status-codes';
 import axios, { AxiosInstance } from 'axios';
 
-
+enum LoadState{
+    NOTLOADED = 0,
+    LOADING,
+    LOADED
+}
+export {LoadState};
 const BASE_URL = "http://127.0.0.1:8000"
 
 const API_PATH = {
@@ -82,14 +87,13 @@ class Fetcher {
 
     fetchPosts = async (
         page: number,
-        limit: number,
         callback: (posts: ResponseDataType<Array<PostType>>) => void,
         errorHandle: (error: Error) => void
     ) => {
         this.doFetch<ResponseDataType<Array<PostType>>>(this.publicFetcher,
             'get',
             API_PATH.posts,
-            { p: page, limit: limit },
+            { p: page},
             callback,
             errorHandle);
     }
