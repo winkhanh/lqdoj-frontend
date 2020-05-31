@@ -54,8 +54,8 @@ const ProblemsTable: React.FC<ProblemsTableProps> = ({ filterState }: ProblemsTa
                 setLoadState(LoadState.LOADED);
             });
         }
-    }, [fetcher]);
-
+    }, [fetcher, loadState]);
+    // Stateless procedure
     if (isNaN(parseInt(perPage)) || parseInt(perPage) <= 0) {
         numPerPage = 25;
     } else {

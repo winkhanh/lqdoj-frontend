@@ -15,9 +15,9 @@ const Posts: React.FC = () => {
     const postsPerPage : number = 5;
     const [postsData, setPostsData] = useState(initialPosts);
     const [page, setPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(0);
     const [loadState, setLoadState]= useState(LoadState.NOTLOADED);
     const { fetcher } = useContext(FetchContext);
+    
     useEffect(()=>{
         setLoadState(LoadState.NOTLOADED);
     }, [page]);//Request for a fetch
@@ -27,14 +27,9 @@ const Posts: React.FC = () => {
             setLoadState(LoadState.LOADING);
             fetcher.fetchPosts(page, (posts: ResponseDataType<Array<PostType>>) => {
                 setPostsData(posts);            
-                if (posts.count) {
-                    setTotalPages(Math.ceil(posts.count / postsPerPage));
-                    console.log(totalPages);
-                }
                 setLoadState(LoadState.LOADED);
             }, (error: Error) => {
                 console.log(error);
-                setTotalPages(0);
                 setPostsData(initialPosts);
                 setLoadState(LoadState.LOADED);
                 //tid = setTimeout(()=>setLoadState(LoadState.NOTLOADED)); //Uncomment if want to have infinite fetching
@@ -44,6 +39,8 @@ const Posts: React.FC = () => {
             clearTimeout(tid);
         }
     }, [fetcher, loadState, page]);//Fetch data
+    // Stateless procedure
+    let totalPages: number=(postsData.count)?(Math.ceil(postsData.count/postsPerPage)):0;
     if (loadState === LoadState.LOADING) 
         return (<LoadingPlaceholder/>)
     else
@@ -54,7 +51,7 @@ const Posts: React.FC = () => {
                         <PostItem post={post} key={idx} />
                     )
                 })}
-                <Paginator id="posts" page={page} setPage={setPage} totalPages={totalPages}></Paginator>
+                <Paginator id="posts" page={page} setPage={(page:number)=>{setPage(page);window.scrollTo(0,0);}} totalPages={totalPages}></Paginator>
             </div>
         )
 };
