@@ -42,7 +42,7 @@ const ProblemsTable: React.FC<ProblemsTableProps> = ({ filterState }: ProblemsTa
     const { fetcher } = useContext(FetchContext);
     let numPerPage: number;
 
-    useEffect(() => {
+    useEffect(() => {        
         if (loadState === LoadState.NOTLOADED){
             setLoadState(LoadState.LOADING);
             fetcher.fetchProblems((problems: ResponseDataType<Array<ProblemType>>) => {
@@ -128,7 +128,7 @@ const ProblemsTable: React.FC<ProblemsTableProps> = ({ filterState }: ProblemsTa
                             <Paginator
                                 page={page}
                                 setPage={setPage}
-                                totalPages={Math.round((filteredProblems.length - 1) / numPerPage) + 1}
+                                totalPages={Math.ceil(filteredProblems.length / numPerPage)}
                                 id="problems"
                             />
                         </Col>
