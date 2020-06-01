@@ -20,7 +20,7 @@ const en: DictionaryType & StringIndexedType = {
     FORM_USERNAME_PLACE_HOLDER:"Enter username",
     FORM_PASSWORD: "Password",
     FORM_CHECKBOX: "stay login",
-    FORGET_PASSWORD: "Quên mật khẩu?",
+    FORGET_PASSWORD: "Forgot password?",
     POST_AUTHOR_BY: "posted by "
 
 };

@@ -3,7 +3,14 @@ import { Button, Form, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Text } from '../Text/Text';
 
-const SignInForm: React.FC = () => {
+interface FormProps {
+    authModalToggle: Function
+}
+
+const SignInForm: React.FC<FormProps> = (props: FormProps) => {
+    const linkClickHandler = (event: React.MouseEvent<HTMLAnchorElement>) => {
+        props.authModalToggle();
+    }
     return (
         <Col>
             <Form className="mt-3">
@@ -24,7 +31,7 @@ const SignInForm: React.FC = () => {
                     </Button>
                 </Form.Group>
                 <Form.Group>
-                    <Link to="">{Text('FORGET_PASSWORD')}</Link>
+                    <Link to="/forget_password" onClick={linkClickHandler}>{Text('FORGET_PASSWORD')}</Link>
                 </Form.Group>
             </Form>
         </Col>

@@ -5,17 +5,16 @@ import SignUpForm from '../SignUpForm/SignUpForm';
 import './AuthModal.css'
 import { Text } from '../Text/Text';
 
-const tabsMapping: [number, string, string, JSX.Element][] = [
-    [0, "sign-in", "MODAL_SIGNIN", <SignInForm />],
-    [1, "sign-up", "MODAL_SIGNUP", <SignUpForm />]
-];
 interface AuthModalProps {
     authModalDisplay: Boolean;
     authModalToggle: Function;
 }
 
 const AuthModal: React.FC<AuthModalProps> = (props: AuthModalProps) => {
-
+    const tabsMapping: [number, string, string, JSX.Element][] = [
+        [0, "sign-in", "MODAL_SIGNIN", <SignInForm authModalToggle={props.authModalToggle} />],
+        [1, "sign-up", "MODAL_SIGNUP", <SignUpForm />]
+    ];
     return (
         <Modal
             animation={false}
