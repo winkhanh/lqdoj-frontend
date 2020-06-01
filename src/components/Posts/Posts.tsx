@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { ResponseDataType, PostType } from '../../models';
-import PostItem from '../PostItem/PostItem';
-import Paginator from '../Paginator/Paginator';
+import React, { useContext, useEffect, useState } from 'react';
 import { FetchContext, LoadState } from '../../contexts/GlobalFunctions/FetchingFunctions';
+import { PostType, ResponseDataType } from '../../models';
 import LoadingPlaceholder from '../LoadingPlaceholder/LoadingPlaceholder';
+import Paginator from '../Paginator/Paginator';
+import PostItem from '../PostItem/PostItem';
 const initialPosts: ResponseDataType<Array<PostType>> = {
     count: 0,
     previous: "",

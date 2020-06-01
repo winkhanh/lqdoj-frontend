@@ -16,10 +16,13 @@ const vi: DictionaryType & StringIndexedType = {
     MODAL_SIGNUP: "ĐĂNG KÍ",
     FORM_NAME: "Tên",
     FORM_NAME_PLACE_HOLDER: "Họ và Tên",
+    FORM_USERNAME: "Tên tài khoản",
+    FORM_USERNAME_PLACE_HOLDER: "Nhập tên tài khoản",
     FORM_EMAIL: "Email",
     FORM_EMAIL_PLACE_HOLDER:"Nhập Email",
     FORM_PASSWORD: "Mật khẩu",
     FORM_CHECKBOX: "giữ đăng nhập",
+    FORGET_PASSWORD: "Quên mật khẩu?",
     POST_AUTHOR_BY: "đăng bởi "
 };
 

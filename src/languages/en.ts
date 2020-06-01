@@ -10,16 +10,17 @@ const en: DictionaryType & StringIndexedType = {
     ],
     NAV_ADMIN: "Admin page",
     PROFILE_BUTTON: "Profile",
-    AUTH_BUTTON: "Sign in/Sign up",
+    AUTH_BUTTON: "Sign in/up",
     DEAUTH_BUTTON: "Sign out",
     MODAL_SIGNIN: "SIGN IN",
     MODAL_SIGNUP: "SIGN UP",
     FORM_NAME: "Name",
     FORM_NAME_PLACE_HOLDER: "What is your name",
-    FORM_EMAIL: "Email",
-    FORM_EMAIL_PLACE_HOLDER:"Enter email",
+    FORM_USERNAME: "Username",
+    FORM_USERNAME_PLACE_HOLDER:"Enter username",
     FORM_PASSWORD: "Password",
     FORM_CHECKBOX: "stay login",
+    FORGET_PASSWORD: "Forgot password?",
     POST_AUTHOR_BY: "posted by "
 
 };
