@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FaqPage = ()=>{
+const FaqPage : React.FC = ()=>{
     return (
         <div>
             Faq

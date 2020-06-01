@@ -1,14 +1,17 @@
 import React from 'react';
-import {RouteComponentProps} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 
 interface PostViewParam {
 	id: string;
 }
 
-const PostViewPage: React.FC<RouteComponentProps<PostViewParam>> = (props: RouteComponentProps<PostViewParam>)=>{
+const PostViewPage : React.FC = ()=>{
+    const {id}=useParams();
+    console.log(id);
+    console.log("OP");
     return (
         <div>
-            Viewing post, id = {props.match.params.id}
+            Viewing post, id = {id}
         </div>
     )
 };

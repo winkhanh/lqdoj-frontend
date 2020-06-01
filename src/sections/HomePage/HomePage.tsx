@@ -3,7 +3,7 @@ import {Container, Row, Col} from 'react-bootstrap';
 import Posts from '../../components/Posts/Posts';
 import Leaderboard from '../../components/Leaderboard/Leaderboard';
 import Recentboard from '../../components/Recentboard/Recentboard';
-const HomePage = ()=>{
+const HomePage: React.FC = ()=>{
     return (
         <Container fluid="xl" className="mt-3">
             <Row>

@@ -1,28 +1,41 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
 import { ContestsPage, FaqPage, HomePage, NotFound, PostViewPage, ProblemsPage, SubmissionsPage } from '../subSection';
 import './Body.scss';
+import TreeRoute, { ComponentTree } from '../../components/TreeRoute/TreeRoute';
+
+
+
 const NullComponent: React.FC = () => {
     return null;
 }
-const Body: React.FC = () => {
+
+const componentTree : ComponentTree = {
+    main: HomePage,
+    sub:[
+        ["problems/",{
+            main: ProblemsPage
+        }],
+        ["contests/",{
+            main: ContestsPage
+        }],
+        ["submissions/",{
+            main: SubmissionsPage
+        }],
+        ["FAQ/",{
+            main: FaqPage
+        }],
+        ["posts/:id",{
+            main: PostViewPage
+        }]
+
+    ]
+}
+const Body : React.FC  = ()=> {
     return (
-        <div id="Body">
-            <Switch>
-                {/*Main route*/}
-                <Route exact path="/" component={HomePage} />
-                <Route exact path="/problems" component={ProblemsPage} />
-                <Route exact path="/contests" component={ContestsPage} />
-                <Route exact path="/submissions" component={SubmissionsPage} />
-                <Route exact path="/FAQ" component={FaqPage} />
-                {/*Sub route*/}
-                <Route path="/posts/:id" component={PostViewPage} />
-                <Route path="/problems/:id" component={NullComponent} />
-                <Route path="/contests/:id" component={NullComponent} />
-                {/*404 Page*/}
-                <Route component={NotFound} />
-            </Switch>
-        </div>
-    );
-};
+            <div id = "Body"> 
+                <TreeRoute componentTree={componentTree} path="/" NotFound={NotFound}/>
+            </div>
+        )
+}
+
 export default Body;

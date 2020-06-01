@@ -3,7 +3,7 @@ import {Container, Row, Col} from 'react-bootstrap';
 import ProblemsTable from '../../components/ProblemsTable/ProblemsTable';
 import ProblemFilter from '../../components/ProblemFilter/ProblemFilter';
 
-const ProblemsPage = ()=>{
+const ProblemsPage : React.FC = ()=>{
     const [filterState,setFilter]=useState({});
     return (
         <Container fluid="xl" className="mt-3">

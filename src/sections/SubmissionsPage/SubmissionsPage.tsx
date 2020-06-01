@@ -1,6 +1,6 @@
 import React from 'react';
 import {Container, Col, Row} from 'react-bootstrap';
-const SubmissionsPage = ()=>{
+const SubmissionsPage : React.FC = ()=>{
     return (
         <Container fluid>
             <Row>
