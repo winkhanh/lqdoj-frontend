@@ -1,16 +1,14 @@
 import React from 'react';
 import {useParams} from 'react-router-dom';
 
-interface PostViewParam {
-	id: string;
-}
 
-const PostViewPage : React.FC = ()=>{
+
+const ProblemViewPage : React.FC = ()=>{
     const {id}=useParams();
     return (
         <div>
-            Viewing post, id = {id}
+            Viewing Problem, id = {id}
         </div>
     )
 };
-export default PostViewPage;
+export default ProblemViewPage;

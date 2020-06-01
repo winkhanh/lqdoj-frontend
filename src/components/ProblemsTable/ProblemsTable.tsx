@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import ShadowedBox from '../ShadowedBox/ShadowedBox';
+import { Link , useRouteMatch} from 'react-router-dom';
 import { Table, InputGroup, FormControl, Container, Row, Col } from 'react-bootstrap';
 import { ResponseDataType, ProblemType } from '../../models';
 import DifficultyButton from '../DifficultyButton/DifficultyButton';
@@ -15,11 +16,12 @@ interface ProblemsTableProps {
     filterState: FilterState
 }
 const TableRow: React.FC<TableRowProps> = ({ problem }: TableRowProps) => {
-
+    let {url} = useRouteMatch();
+    
     return (
         <tr>
             <td>{problem.task_code}</td>
-            <td>{problem.title}</td>
+            <td><Link to={`${url}/${problem.task_code}/`}>{problem.title}</Link></td>
             <td><DifficultyButton difficulty={problem.difficulty} /></td>
             <td>{problem.tags.reduce((pre, cur) => pre + "," + cur)} </td>
             <td>{problem.percent}</td>

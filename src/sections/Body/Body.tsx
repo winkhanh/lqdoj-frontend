@@ -1,5 +1,5 @@
 import React from 'react';
-import { ContestsPage, FaqPage, HomePage, NotFound, PostViewPage, ProblemsPage, SubmissionsPage } from '../subSection';
+import { ProblemViewPage, ContestsPage, FaqPage, HomePage, NotFound, PostViewPage, ProblemsPage, SubmissionsPage } from '../subSection';
 import './Body.scss';
 import TreeRoute, { ComponentTree } from '../../components/TreeRoute/TreeRoute';
 
@@ -13,7 +13,12 @@ const componentTree : ComponentTree = {
     main: HomePage,
     sub:[
         ["problems/",{
-            main: ProblemsPage
+            main: ProblemsPage,
+            sub:[
+                [":id/",{
+                    main:ProblemViewPage
+                }]
+            ]
         }],
         ["contests/",{
             main: ContestsPage
@@ -24,7 +29,7 @@ const componentTree : ComponentTree = {
         ["FAQ/",{
             main: FaqPage
         }],
-        ["posts/:id",{
+        ["posts/:id/",{
             main: PostViewPage
         }]
 

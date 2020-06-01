@@ -5,4 +5,5 @@ import SubmissionsPage from './SubmissionsPage/SubmissionsPage';
 import FaqPage from './FaqPage/FaqPage';
 import NotFound from './NotFound/NotFound';
 import PostViewPage from './PostViewPage/PostViewPage';
-export { PostViewPage, HomePage, ProblemsPage, ContestsPage, SubmissionsPage, FaqPage, NotFound };
+import ProblemViewPage from './ProblemViewPage/ProblemViewPage';
+export { PostViewPage, HomePage, ProblemViewPage, ProblemsPage, ContestsPage, SubmissionsPage, FaqPage, NotFound };
