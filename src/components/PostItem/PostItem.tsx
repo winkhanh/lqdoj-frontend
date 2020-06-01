@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { PostType } from '../../models';
 import ShadowedBox from '../ShadowedBox/ShadowedBox';
 import UnderlinedTitle from '../UnderlinedTitle/UnderlinedTitle';
@@ -14,7 +15,7 @@ const PostItem: React.FC<PostProps> = ({ post }: PostProps) => {
     return (
         <ShadowedBox>
             <UnderlinedTitle>
-                {post.title}
+                <Link to={"/posts/"+post.id}>{post.title}</Link>
             </UnderlinedTitle>
             <p>
                 {post.content}
