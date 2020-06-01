@@ -13,13 +13,11 @@ const NullComponent: React.FC = () => {
     return null;
 }
 const TreeRoute : React.FC<TreeRouteProps>= ({componentTree, path, NotFound}:TreeRouteProps) =>{
-    console.log(path);
     return (
         <Switch>
             <Route exact path={path} component={componentTree.main}/>
             {(componentTree.sub)
             ?componentTree.sub.map( (subTree, idx)=>{
-                console.log(subTree[0]);
                 return(
                     <Route key={idx} path={path+subTree[0]}>
                         <TreeRoute  componentTree={subTree[1]} path={path+subTree[0]} NotFound={NotFound}/>
