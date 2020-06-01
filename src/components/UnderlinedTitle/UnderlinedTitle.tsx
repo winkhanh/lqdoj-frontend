@@ -4,7 +4,7 @@ import './UnderlinedTitle.scss';
 const UnderlinedTitle: React.FC = ({children})=>{
     return(
         <div className="underlined-title">
-            {children}
+            <h4>{children}</h4>
             <div className="line"></div>
         </div>
     )
