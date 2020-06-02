@@ -1,9 +1,9 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import { Link } from 'react-router-dom';
 import { PostType } from '../../models';
 import ShadowedBox from '../ShadowedBox/ShadowedBox';
 import UnderlinedTitle from '../UnderlinedTitle/UnderlinedTitle';
-import { Text } from '../Text/Text'
+import {LanguageContext} from '../../Global/GlobalStates/GlobalStates';
 import './PostItem.scss';
 import HtmlContent from '../HtmlContent/HtmlContent';
 import { Col } from 'react-bootstrap';
@@ -14,6 +14,7 @@ interface PostProps {
 
 const PostItem: React.FC<PostProps> = ({ post }: PostProps) => {
     // console.log(post);
+    const language=useContext(LanguageContext);
     return (
         <ShadowedBox>
             <Col>
@@ -22,7 +23,7 @@ const PostItem: React.FC<PostProps> = ({ post }: PostProps) => {
                 </UnderlinedTitle>
                 <HtmlContent content={post.content}></HtmlContent>
                 <span className="author">
-                    {Text("POST_AUTHOR_BY")}
+                    {language.dictionary["POST_AUTHOR_BY"]}
                     <Link to={"/users/" + post.author}>
                         {post.author}
                     </Link>

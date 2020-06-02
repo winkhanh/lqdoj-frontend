@@ -13,7 +13,7 @@ class AuthorState{
             first_name:"",
             last_name:"",
             email:"",
-            is_staff:false,
+            is_staff:true,
             date_joined:""
         }
     }

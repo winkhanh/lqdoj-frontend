@@ -25,7 +25,6 @@ const App: React.FC = () => {
 
     const [currentLanguageState, setLanguageState] = useState(getLanguageById(cookies.lang) || languageOptions[0]);
     // console.log(currentLanguageState);
-    const [currentDictionaryState, setDictionaryState] = useState(dictionaryList[currentLanguageState.id]);
 
     const [fetcher, setFetcher] = useState(new APIFetcher());
     const [token, setToken] = useState("");
@@ -57,11 +56,10 @@ const App: React.FC = () => {
                 currentLanguage: currentLanguageState,
                 setLanguage: (selectedLanguage: LanguageOptionType) => {
                     setLanguageState(selectedLanguage);
-                    setDictionaryState(dictionaryList[selectedLanguage.id]);
                     setCookie('lang', selectedLanguage.id);
                 }
             },
-            dictionary: currentDictionaryState
+            dictionary: dictionaryList[currentLanguageState.id]
         }}>
             <AuthorizingPageContext.Provider value={{
                 isDisplay: isAuthPageDisplay,

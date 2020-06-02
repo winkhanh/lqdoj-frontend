@@ -3,14 +3,14 @@ import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import AuthModal from '../AuthModal/AuthModal';
 import AuthNav from '../AuthNav/AuthNav';
-import { AuthorizingPageContext } from '../../Global/GlobalStates/GlobalStates';
-import { Text } from '../Text/Text';
+import { AuthorizingPageContext, LanguageContext } from '../../Global/GlobalStates/GlobalStates';
+
 
 
 const Navigator: React.FC = () => {
     const authPage = useContext(AuthorizingPageContext);
-
-    const navItems = Text('navItems');
+    const language=useContext(LanguageContext);
+    const navItems = language.dictionary['navItems'];
 
     return (
         <Navbar bg="dark" expand="lg" variant="dark" fixed="top" sticky="top">

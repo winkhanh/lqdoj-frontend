@@ -1,9 +1,9 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import { Modal, Tab, Nav, TabContainer } from 'react-bootstrap';
 import SignInForm from '../SignInForm/SignInForm';
 import SignUpForm from '../SignUpForm/SignUpForm';
 import './AuthModal.css'
-import { Text } from '../Text/Text';
+import {LanguageContext} from '../../Global/GlobalStates/GlobalStates';
 
 interface AuthModalProps {
     authModalDisplay: Boolean;
@@ -11,6 +11,7 @@ interface AuthModalProps {
 }
 
 const AuthModal: React.FC<AuthModalProps> = (props: AuthModalProps) => {
+    const language=useContext(LanguageContext);
     const tabsMapping: [number, string, string, JSX.Element][] = [
         [0, "sign-in", "MODAL_SIGNIN", <SignInForm authModalToggle={props.authModalToggle} />],
         [1, "sign-up", "MODAL_SIGNUP", <SignUpForm />]
@@ -38,7 +39,7 @@ const AuthModal: React.FC<AuthModalProps> = (props: AuthModalProps) => {
                                         eventKey={tab[1]}
                                         className="nav-link text-uppercase font-weight-bold mr-sm-3 rounded-0"
                                     >
-                                        {Text(tab[2])}
+                                        {language.dictionary[ tab[2] ]}
                                     </Nav.Link>
                                 </Nav.Item>
                             )

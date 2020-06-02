@@ -1,26 +1,28 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import { Form, Button, Col } from 'react-bootstrap';
-import { Text } from '../Text/Text';
+import { LanguageContext} from '../../Global/GlobalStates/GlobalStates';
+
 
 const SignUpForm: React.FC = () => {
+    const language=useContext(LanguageContext);
     return (
         <Col>
             <Form className="mt-3">
                 <Form.Group controlId="formName">
-                    <Form.Label>{Text('FORM_NAME')}</Form.Label>
-                    <Form.Control type="text" placeholder={Text('FORM_NAME_PLACE_HOLDER')} />
+                    <Form.Label>{language.dictionary['FORM_NAME']}</Form.Label>
+                    <Form.Control type="text" placeholder={language.dictionary['FORM_NAME_PLACE_HOLDER']} />
                 </Form.Group>
                 <Form.Group controlId="formSignUpEmail">
-                    <Form.Label>{Text('FORM_EMAIL')}</Form.Label>
-                    <Form.Control type="email" placeholder={Text('FORM_EMAIL_PLACE_HOLDER')} />
+                    <Form.Label>{language.dictionary['FORM_EMAIL']}</Form.Label>
+                    <Form.Control type="email" placeholder={language.dictionary['FORM_EMAIL_PLACE_HOLDER']} />
                 </Form.Group>
                 <Form.Group controlId="formSignUpPassword">
-                    <Form.Label>{Text('FORM_PASSWORD')}</Form.Label>
+                    <Form.Label>{language.dictionary['FORM_PASSWORD']}</Form.Label>
                     <Form.Control type="password" placeholder="********" />
                 </Form.Group>
                 <Form.Group controlId="formSignUpButton">
                     <Button variant="primary" type="button" block>
-                        {Text('MODAL_SIGNUP')}
+                        {language.dictionary['MODAL_SIGNUP']}
                     </Button>
                 </Form.Group>
             </Form>
