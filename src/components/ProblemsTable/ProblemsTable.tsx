@@ -1,13 +1,14 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import ShadowedBox from '../ShadowedBox/ShadowedBox';
-import { Link , useRouteMatch} from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 import { Table, InputGroup, FormControl, Container, Row, Col } from 'react-bootstrap';
 import { ResponseDataType, ProblemType } from '../../models';
 import DifficultyButton from '../DifficultyButton/DifficultyButton';
 import { FilterState } from '../ProblemFilter/ProblemFilter';
 import Paginator from '../Paginator/Paginator';
-import { FetchContext, LoadState } from '../../contexts/GlobalFunctions/FetchingFunctions';
+import { fetchProblems, LoadState } from '../../contexts/GlobalFunctions/FetchingActions';
 import LoadingPlaceholder from '../LoadingPlaceholder/LoadingPlaceholder';
+import { FetchContext } from '../../contexts/GlobalStates/GlobalStates';
 interface TableRowProps {
     problem: ProblemType
 
@@ -16,12 +17,16 @@ interface ProblemsTableProps {
     filterState: FilterState
 }
 const TableRow: React.FC<TableRowProps> = ({ problem }: TableRowProps) => {
-    let {url} = useRouteMatch();
-    
+    let { url } = useRouteMatch();
+
     return (
         <tr>
             <td>{problem.task_code}</td>
-            <td><Link to={`${url}/${problem.task_code}/`}>{problem.title}</Link></td>
+            <td>
+                <Link to={`${url}/${problem.task_code}/`}>
+                    {problem.title}
+                </Link>
+            </td>
             <td><DifficultyButton difficulty={problem.difficulty} /></td>
             <td>{problem.tags.reduce((pre, cur) => pre + "," + cur)} </td>
             <td>{problem.percent}</td>
@@ -40,14 +45,14 @@ const ProblemsTable: React.FC<ProblemsTableProps> = ({ filterState }: ProblemsTa
     const [page, setPage] = useState(1);
     const [perPage, setPerPage] = useState("25");
     const [problemsData, setProblemsData] = useState(initialProblems);
-    const [loadState, setLoadState]= useState(LoadState.NOTLOADED);
-    const { fetcher } = useContext(FetchContext);
+    const [loadState, setLoadState] = useState(LoadState.NOTLOADED);
+    const { apiFetcher } = useContext(FetchContext);
     let numPerPage: number;
 
-    useEffect(() => {        
-        if (loadState === LoadState.NOTLOADED){
+    useEffect(() => {
+        if (loadState === LoadState.NOTLOADED) {
             setLoadState(LoadState.LOADING);
-            fetcher.fetchProblems((problems: ResponseDataType<Array<ProblemType>>) => {
+            fetchProblems(apiFetcher, (problems: ResponseDataType<Array<ProblemType>>) => {
                 setProblemsData(problems);
                 setLoadState(LoadState.LOADED);
             }, (error: Error) => {
@@ -56,7 +61,7 @@ const ProblemsTable: React.FC<ProblemsTableProps> = ({ filterState }: ProblemsTa
                 setLoadState(LoadState.LOADED);
             });
         }
-    }, [fetcher, loadState]);
+    }, [apiFetcher, loadState]);
     // Stateless procedure
     if (isNaN(parseInt(perPage)) || parseInt(perPage) <= 0) {
         numPerPage = 25;
@@ -93,8 +98,8 @@ const ProblemsTable: React.FC<ProblemsTableProps> = ({ filterState }: ProblemsTa
         }
     );
     let slicedProblem = filteredProblems.slice((page - 1) * numPerPage, Math.min(page * numPerPage, filteredProblems.length));
-    if (loadState === LoadState.LOADING) 
-        return( <LoadingPlaceholder/>);
+    if (loadState === LoadState.LOADING)
+        return (<LoadingPlaceholder />);
     else
         return (
             <ShadowedBox>
