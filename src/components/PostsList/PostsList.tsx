@@ -21,7 +21,7 @@ const Posts: React.FC = () => {
 
     useEffect(() => {
         setLoadState(LoadState.NOTLOADED);
-    }, [page]);//Request for a fetch
+    }, [page]); // Request for a fetch
     useEffect(() => {
         let tid: ReturnType<typeof setTimeout>;
         if (loadState === LoadState.NOTLOADED) {
