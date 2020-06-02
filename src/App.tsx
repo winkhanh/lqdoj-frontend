@@ -41,7 +41,16 @@ const App: React.FC = () => {
             setFetcher(new APIFetcher());
             setAuth(new AuthState());
         }
-    },[token]);
+    },[token]);//handle auth
+    useEffect(()=>{
+        if (cookies.lang){
+            const languageFromCookie=getLanguageById(cookies.land);
+            if (languageFromCookie){
+                setLanguageState(languageFromCookie);
+            }
+        }
+
+    },[cookies]);//handle Cookie validation
     return (
         <LanguageContext.Provider value={{
             language: {

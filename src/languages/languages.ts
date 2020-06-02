@@ -24,7 +24,8 @@ const languageOptions: LanguageOptionType[] = [
   { id: 'vi', text: 'Tiếng Việt' },
   { id: 'en', text: 'English'}
 ];
-const getLanguageById = (id : string) =>{
+const getLanguageById = (id : string)=>{
+    
     return languageOptions.find(lang =>{
         return lang.id===id;
     });
