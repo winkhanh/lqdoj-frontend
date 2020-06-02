@@ -4,11 +4,6 @@ import './Body.scss';
 import TreeRoute, { ComponentTree } from '../../components/TreeRoute/TreeRoute';
 
 
-
-const NullComponent: React.FC = () => {
-    return null;
-}
-
 const componentTree : ComponentTree = {
     main: HomePage,
     sub:[

@@ -3,7 +3,7 @@ import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import AuthModal from '../AuthModal/AuthModal';
 import AuthNav from '../AuthNav/AuthNav';
-import { AuthorizingPageContext } from '../../contexts/GlobalStates/GlobalStates';
+import { AuthorizingPageContext } from '../../Global/GlobalStates/GlobalStates';
 import { Text } from '../Text/Text';
 
 

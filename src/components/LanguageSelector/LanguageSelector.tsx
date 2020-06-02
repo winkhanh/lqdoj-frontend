@@ -1,6 +1,6 @@
 import React, { useContext, ChangeEvent } from 'react'
 import { languageOptions } from '../../languages/languages'
-import { LanguageContext } from '../../contexts/GlobalStates/GlobalStates';
+import { LanguageContext } from '../../Global/GlobalStates/GlobalStates';
 
 
 export default function LanguageSelector() {

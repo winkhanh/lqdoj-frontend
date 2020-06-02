@@ -2,8 +2,8 @@ import React, {useState, useContext} from 'react';
 import { Button, Form, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Text } from '../Text/Text';
-import { doLogin } from '../../contexts/GlobalFunctions/FetchingActions';
-import {FetchContext, TokenContext} from '../../contexts/GlobalStates/GlobalStates';
+import { doLogin } from '../../Global/GlobalFunctions/FetchingActions';
+import {FetchContext, TokenContext} from '../../Global/GlobalStates/GlobalStates';
 interface FormProps {
     authModalToggle: Function
 }

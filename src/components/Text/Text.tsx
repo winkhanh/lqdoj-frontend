@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { LanguageContext } from '../../contexts/GlobalStates/GlobalStates'
+import { LanguageContext } from '../../Global/GlobalStates/GlobalStates'
 
 const Text = (item: string) => {
 	const languageContext = useContext(LanguageContext);

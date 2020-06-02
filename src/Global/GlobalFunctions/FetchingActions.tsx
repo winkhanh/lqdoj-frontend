@@ -1,5 +1,5 @@
 import { ResponseDataType, PostType, ProblemType } from '../../models';
-import APIFetcher from './APIFetcher';
+import APIFetcher from '../SpecialClasses/APIFetcher';
 
 const API_PATH = {
     posts: "announcements/",

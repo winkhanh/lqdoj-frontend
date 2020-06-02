@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { fetchPosts, LoadState } from '../../contexts/GlobalFunctions/FetchingActions';
+import { fetchPosts, LoadState } from '../../Global/GlobalFunctions/FetchingActions';
 import { PostType, ResponseDataType } from '../../models';
 import LoadingPlaceholder from '../LoadingPlaceholder/LoadingPlaceholder';
 import Paginator from '../Paginator/Paginator';
 import PostItem from '../PostItem/PostItem';
-import { FetchContext } from '../../contexts/GlobalStates/GlobalStates';
+import { FetchContext } from '../../Global/GlobalStates/GlobalStates';
 const initialPosts: ResponseDataType<Array<PostType>> = {
     count: 0,
     previous: "",

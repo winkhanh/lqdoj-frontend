@@ -6,9 +6,9 @@ import { ResponseDataType, ProblemType } from '../../models';
 import DifficultyButton from '../DifficultyButton/DifficultyButton';
 import { FilterState } from '../ProblemFilter/ProblemFilter';
 import Paginator from '../Paginator/Paginator';
-import { fetchProblems, LoadState } from '../../contexts/GlobalFunctions/FetchingActions';
+import { fetchProblems, LoadState } from '../../Global/GlobalFunctions/FetchingActions';
 import LoadingPlaceholder from '../LoadingPlaceholder/LoadingPlaceholder';
-import { FetchContext } from '../../contexts/GlobalStates/GlobalStates';
+import { FetchContext } from '../../Global/GlobalStates/GlobalStates';
 interface TableRowProps {
     problem: ProblemType
 

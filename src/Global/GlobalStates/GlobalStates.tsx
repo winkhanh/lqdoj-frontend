@@ -1,15 +1,15 @@
 import React from 'react';
 import { languageOptions, dictionaryList } from '../../languages/languages'
 import { LanguageOptionType } from '../../languages/languages'
-import APIFetcher from '../GlobalFunctions/APIFetcher';
+import APIFetcher from '../SpecialClasses/APIFetcher';
+import AuthState from '../SpecialClasses/AuthState';
 
 const AuthorizingPageContext = React.createContext({
     isDisplay: false,
     toggle: () => {}
 });
-const AuthState = React.createContext({
-    isAuthed: false,
-    isAdmin: true
+const AuthStateContext = React.createContext({
+    authState: new AuthState()
 });
 const LanguageContext = React.createContext({
     language: {
@@ -24,4 +24,4 @@ const FetchContext = React.createContext({
 const TokenContext = React.createContext({
     setToken: (token : string)=>{}
 });
-export { AuthorizingPageContext, AuthState, LanguageContext, FetchContext, TokenContext };
+export { AuthorizingPageContext, AuthStateContext, LanguageContext, FetchContext, TokenContext };

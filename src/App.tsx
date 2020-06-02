@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Header, Body, Footer } from './sections';
 import './App.scss';
-import { AuthorizingPageContext, LanguageContext, FetchContext, TokenContext } from './contexts/GlobalStates/GlobalStates';
-import APIFetcher from './contexts/GlobalFunctions/APIFetcher';
+import { AuthStateContext, AuthorizingPageContext, LanguageContext, FetchContext, TokenContext } from './Global/GlobalStates/GlobalStates';
+import APIFetcher from './Global/SpecialClasses/APIFetcher';
+import AuthState from './Global/SpecialClasses/AuthState';
 import { dictionaryList, languageOptions, LanguageOptionType, getLanguageById } from './languages/languages';
 import { useCookies } from 'react-cookie';
 const BaseApp: React.FC = () => {
@@ -27,11 +28,19 @@ const App: React.FC = () => {
     const [currentDictionaryState, setDictionaryState] = useState(dictionaryList[currentLanguageState.id]);
 
     const [fetcher, setFetcher] = useState(new APIFetcher());
-
     const [token, setToken] = useState("");
+    const [authState, setAuth] = useState(new AuthState());
     useEffect(()=>{
-        if (token!=="") setFetcher(new APIFetcher(token));
-        else setFetcher(new APIFetcher());
+        if (token!=="") 
+        {
+            setFetcher(new APIFetcher(token));
+            setAuth(new AuthState(token));
+        }
+        else 
+        {
+            setFetcher(new APIFetcher());
+            setAuth(new AuthState());
+        }
     },[token]);
     return (
         <LanguageContext.Provider value={{
@@ -59,7 +68,11 @@ const App: React.FC = () => {
                     <TokenContext.Provider value={{
                         setToken:(token:string)=>{setToken(token);}
                     }}>
-                        <BaseApp />    
+                        <AuthStateContext.Provider value={{
+                            authState:authState,
+                        }}>
+                            <BaseApp />    
+                        </AuthStateContext.Provider>
                     </TokenContext.Provider>
                 </FetchContext.Provider>
             </AuthorizingPageContext.Provider>

@@ -1,8 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
-import { FetchContext } from '../../contexts/GlobalStates/GlobalStates';
-import { fetchSinglePost, LoadState } from '../../contexts/GlobalFunctions/FetchingActions';
+import { FetchContext } from '../../Global/GlobalStates/GlobalStates';
+import { fetchSinglePost, LoadState } from '../../Global/GlobalFunctions/FetchingActions';
 import { ResponseDataType, PostType } from '../../models';
 import HtmlContent from '../../components/HtmlContent/HtmlContent';
 import LoadingPlaceholder from '../../components/LoadingPlaceholder/LoadingPlaceholder';
