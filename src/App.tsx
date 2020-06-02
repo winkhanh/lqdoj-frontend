@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Header, Body, Footer } from './sections';
 import './App.scss';
-import { AuthorizingPageContext, LanguageContext } from './contexts/GlobalStates/GlobalStates';
-import Fetcher, {FetchContext} from './contexts/GlobalFunctions/FetchingFunctions';
+import { AuthorizingPageContext, LanguageContext, FetchContext } from './contexts/GlobalStates/GlobalStates';
+import APIFetcher from './contexts/GlobalFunctions/APIFetcher';
 import { dictionaryList, languageOptions, LanguageOptionType, getLanguageById } from './languages/languages';
 import { useCookies } from 'react-cookie';
 const BaseApp: React.FC = () => {
@@ -26,7 +26,7 @@ const App: React.FC = () => {
     // console.log(currentLanguageState);
     const [currentDictionaryState, setDictionaryState] = useState(dictionaryList[currentLanguageState.id]);
 
-    const [fetcher, setFetcher] = useState(new Fetcher());
+    //const [fetcher, setFetcher] = useState(new Fetcher());
 
     
     return (
@@ -50,7 +50,7 @@ const App: React.FC = () => {
                 }
             }}>
                 <FetchContext.Provider value={{
-                    fetcher: fetcher
+                    apiFetcher: new APIFetcher()
                 }}>
                     <BaseApp />
                 </FetchContext.Provider>

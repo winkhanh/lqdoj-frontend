@@ -1,6 +1,6 @@
 import React from 'react';
 import {Container, Row, Col} from 'react-bootstrap';
-import Posts from '../../components/Posts/Posts';
+import Posts from '../../components/PostsList/PostsList';
 import Leaderboard from '../../components/Leaderboard/Leaderboard';
 import Recentboard from '../../components/Recentboard/Recentboard';
 const HomePage: React.FC = ()=>{

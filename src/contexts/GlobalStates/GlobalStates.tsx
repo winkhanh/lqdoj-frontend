@@ -1,6 +1,7 @@
 import React from 'react';
 import { languageOptions, dictionaryList } from '../../languages/languages'
 import { LanguageOptionType } from '../../languages/languages'
+import APIFetcher from '../GlobalFunctions/APIFetcher';
 
 const AuthorizingPageContext = React.createContext({
     isDisplay: false,
@@ -17,5 +18,8 @@ const LanguageContext = React.createContext({
     },
     dictionary: dictionaryList[languageOptions[0].id]
 });
+const FetchContext = React.createContext({
+    apiFetcher: new APIFetcher()
+});
 
-export { AuthorizingPageContext, AuthState, LanguageContext };
+export { AuthorizingPageContext, AuthState, LanguageContext, FetchContext };

@@ -1,9 +1,12 @@
-.underlined-title{
+.underlined-title{    
     overflow: hidden;
+    h4 {
+        font-weight: bolder;
+    }
     .line{
         height: 0px;
         border-bottom: 1px solid;
-        width: 70%;
-        margin-bottom: 10px;
+        width: 80%;
+        margin-bottom: 15px;
     }
 }
