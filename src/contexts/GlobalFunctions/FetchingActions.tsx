@@ -56,5 +56,15 @@ const fetchProblems = async (
         errorHandle);
 };
 
-export { fetchPosts, fetchSinglePost, fetchProblems };
+const doLogin = async (
+    fetcher: APIFetcher,
+    username: string,
+    password: string,
+    callback: (token:string)=> void,
+    errorHandle: (error: Error) => void
+) =>{
+    setTimeout(()=>{console.log('Login')},5000);
+    callback("fak3 t0k3n");
+}
+export { fetchPosts, fetchSinglePost, fetchProblems, doLogin };
 export { LoadState };

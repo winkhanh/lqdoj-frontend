@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Header, Body, Footer } from './sections';
 import './App.scss';
-import { AuthorizingPageContext, LanguageContext, FetchContext } from './contexts/GlobalStates/GlobalStates';
+import { AuthorizingPageContext, LanguageContext, FetchContext, TokenContext } from './contexts/GlobalStates/GlobalStates';
 import APIFetcher from './contexts/GlobalFunctions/APIFetcher';
 import { dictionaryList, languageOptions, LanguageOptionType, getLanguageById } from './languages/languages';
 import { useCookies } from 'react-cookie';
@@ -26,9 +26,13 @@ const App: React.FC = () => {
     // console.log(currentLanguageState);
     const [currentDictionaryState, setDictionaryState] = useState(dictionaryList[currentLanguageState.id]);
 
-    //const [fetcher, setFetcher] = useState(new Fetcher());
+    const [fetcher, setFetcher] = useState(new APIFetcher());
 
-    
+    const [token, setToken] = useState("");
+    useEffect(()=>{
+        if (token!=="") setFetcher(new APIFetcher(token));
+        else setFetcher(new APIFetcher());
+    },[token]);
     return (
         <LanguageContext.Provider value={{
             language: {
@@ -50,9 +54,13 @@ const App: React.FC = () => {
                 }
             }}>
                 <FetchContext.Provider value={{
-                    apiFetcher: new APIFetcher()
+                    apiFetcher: fetcher
                 }}>
-                    <BaseApp />
+                    <TokenContext.Provider value={{
+                        setToken:(token:string)=>{setToken(token);}
+                    }}>
+                        <BaseApp />    
+                    </TokenContext.Provider>
                 </FetchContext.Provider>
             </AuthorizingPageContext.Provider>
         </LanguageContext.Provider>

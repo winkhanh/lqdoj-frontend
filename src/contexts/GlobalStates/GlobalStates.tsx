@@ -5,7 +5,7 @@ import APIFetcher from '../GlobalFunctions/APIFetcher';
 
 const AuthorizingPageContext = React.createContext({
     isDisplay: false,
-    toggle: () => { }
+    toggle: () => {}
 });
 const AuthState = React.createContext({
     isAuthed: false,
@@ -14,12 +14,14 @@ const AuthState = React.createContext({
 const LanguageContext = React.createContext({
     language: {
         currentLanguage: languageOptions[0],
-        setLanguage: (selectedLanguage: LanguageOptionType) => { }
+        setLanguage: (selectedLanguage: LanguageOptionType) => {}
     },
     dictionary: dictionaryList[languageOptions[0].id]
 });
 const FetchContext = React.createContext({
     apiFetcher: new APIFetcher()
 });
-
-export { AuthorizingPageContext, AuthState, LanguageContext, FetchContext };
+const TokenContext = React.createContext({
+    setToken: (token : string)=>{}
+});
+export { AuthorizingPageContext, AuthState, LanguageContext, FetchContext, TokenContext };

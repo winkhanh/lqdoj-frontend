@@ -24,6 +24,7 @@ const PostViewPage: React.FC = () => {
 
     useEffect(() => {
         if (loadState === LoadState.NOTLOADED) {
+            setLoadState(LoadState.LOADING);
             fetchSinglePost(apiFetcher, id, (post: ResponseDataType<PostType>) => {
                 setPost(post.results);
                 setLoadState(LoadState.LOADED);

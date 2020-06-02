@@ -13,6 +13,7 @@ class APIFetcher {
     */
     constructor(token?: string) {
         if (token) {
+            console.log(token);
             this.fetcher = axios.create({
                 baseURL: BASE_URL,
                 headers: { 'Authorization': 'Token ' + token }
