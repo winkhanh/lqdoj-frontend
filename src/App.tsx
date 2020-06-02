@@ -26,6 +26,9 @@ const App: React.FC = () => {
     // console.log(currentLanguageState);
     const [currentDictionaryState, setDictionaryState] = useState(dictionaryList[currentLanguageState.id]);
 
+    const [fetcher, setFetcher] = useState(new Fetcher());
+
+    
     return (
         <LanguageContext.Provider value={{
             language: {
@@ -47,7 +50,7 @@ const App: React.FC = () => {
                 }
             }}>
                 <FetchContext.Provider value={{
-                    fetcher: new Fetcher()
+                    fetcher: fetcher
                 }}>
                     <BaseApp />
                 </FetchContext.Provider>
