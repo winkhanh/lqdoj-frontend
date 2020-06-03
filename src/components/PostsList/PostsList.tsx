@@ -16,24 +16,23 @@ const Posts: React.FC = () => {
     const postsPerPage: number = 5;
     const [postsData, setPostsData] = useState(initialPosts);
     const [page, setPage] = useState(1);
-    const [loadState, setLoadState] = useState(LoadState.NOTLOADED);
+    const [loadState, setLoadState] = useState(LoadState.LOADING);
     const { apiFetcher } = useContext(FetchContext);
 
     useEffect(() => {
-        setLoadState(LoadState.NOTLOADED);
+        setLoadState(LoadState.LOADING);
     }, [page]); // Request for a fetch
     useEffect(() => {
         let tid: ReturnType<typeof setTimeout>;
-        if (loadState === LoadState.NOTLOADED) {
-            setLoadState(LoadState.LOADING);
+        if (loadState === LoadState.LOADING) {
             fetchPosts(apiFetcher, page, 5, (posts: ResponseDataType<Array<PostType>>) => {
                 setPostsData(posts);
-                setLoadState(LoadState.LOADED);
+                setLoadState(LoadState.NOTLOADING);
             }, (error: Error) => {
                 console.log(error);
                 setPostsData(initialPosts);
-                setLoadState(LoadState.LOADED);
-                //tid = setTimeout(()=>setLoadState(LoadState.NOTLOADED)); //Uncomment if want to have infinite fetching
+                setLoadState(LoadState.NOTLOADING);
+                //tid = setTimeout(()=>setLoadState(LoadState.LADING)); //Uncomment if want to have infinite fetching
             });
         };
         return () => {

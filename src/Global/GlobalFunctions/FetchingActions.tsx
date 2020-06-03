@@ -9,9 +9,8 @@ const API_PATH = {
 }
 
 enum LoadState {
-    NOTLOADED = 0,
-    LOADING,
-    LOADED
+    LOADING=0,
+    NOTLOADING
 }
 
 const fetchPosts = async (

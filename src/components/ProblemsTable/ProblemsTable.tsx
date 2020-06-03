@@ -45,20 +45,20 @@ const ProblemsTable: React.FC<ProblemsTableProps> = ({ filterState }: ProblemsTa
     const [page, setPage] = useState(1);
     const [perPage, setPerPage] = useState("25");
     const [problemsData, setProblemsData] = useState(initialProblems);
-    const [loadState, setLoadState] = useState(LoadState.NOTLOADED);
+    const [loadState, setLoadState] = useState(LoadState.LOADING);
     const { apiFetcher } = useContext(FetchContext);
     let numPerPage: number;
 
     useEffect(() => {
-        if (loadState === LoadState.NOTLOADED) {
-            setLoadState(LoadState.LOADING);
+        if (loadState === LoadState.LOADING) {
+
             fetchProblems(apiFetcher, (problems: ResponseDataType<Array<ProblemType>>) => {
                 setProblemsData(problems);
-                setLoadState(LoadState.LOADED);
+                setLoadState(LoadState.NOTLOADING);
             }, (error: Error) => {
                 console.log(error);
                 setProblemsData(initialProblems);
-                setLoadState(LoadState.LOADED);
+                setLoadState(LoadState.NOTLOADING);
             });
         }
     }, [apiFetcher, loadState]);

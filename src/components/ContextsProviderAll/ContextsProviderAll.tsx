@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface ContextsProviderAllProps{
-    contexts: [React.Context<any>,any][],
+    contexts: [React.Context<any>,object][],
 }
 const ContextsProviderAll: React.FC<ContextsProviderAllProps> = ({contexts, children})=>{
     if (contexts.length===0) 

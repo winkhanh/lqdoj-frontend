@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react';
-import { Button, Form, Col } from 'react-bootstrap';
+import React, { useState, useContext, useEffect } from 'react';
+import {  Form, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import { doLogin, LoadState } from '../../Global/GlobalFunctions/FetchingActions';
@@ -16,14 +16,9 @@ const SignInForm: React.FC<FormProps> = (props: FormProps) => {
     const language = useContext(LanguageContext);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [loadState, setLoadState] = useState(LoadState.NOTLOADED);
-
-    const linkClickHandler = () => {
-        props.authModalToggle();
-    }
-    const loginHandler = () => {
-        if (loadState === LoadState.NOTLOADED) {
-            setLoadState(LoadState.LOADING);
+    const [loadState, setLoadState] = useState(LoadState.NOTLOADING);
+    useEffect(()=>{
+        if (loadState === LoadState.LOADING) {
             doLogin(
                 apiFetcher,
                 username,
@@ -31,14 +26,21 @@ const SignInForm: React.FC<FormProps> = (props: FormProps) => {
                 (loginResponse: ResponseDataType<TokenType>) => {
                     setToken(loginResponse.results.token);
                     props.authModalToggle();
-                    setLoadState(LoadState.LOADED);
+                    setLoadState(LoadState.NOTLOADING);
                 },
                 (error: Error) => {
                     console.log(error);
-                    setLoadState(LoadState.NOTLOADED);
+                    setLoadState(LoadState.NOTLOADING);
                 }
             );
         }
+    },[loadState, apiFetcher, username, password, setToken, props]);
+    const linkClickHandler = () => {
+        props.authModalToggle();
+    }
+    
+    const loginHandler = () => {
+        setLoadState(LoadState.LOADING);
     }
     const usernameHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         setUsername(event.target.value);
@@ -64,10 +66,9 @@ const SignInForm: React.FC<FormProps> = (props: FormProps) => {
                     {/* <Button onClick={loginHandler} variant="primary" type="button" block>
                         {language.dictionary['MODAL_SIGNIN']}
                     </Button> */}
-                    <StatusButton loadState={loadState}
-                                btnText={language.dictionary['MODAL_SIGNIN']}
-                                onClick={loginHandler}
-                    />
+                    <StatusButton loadState={loadState} onClick={loginHandler}>
+                        {language.dictionary['MODAL_SIGNIN']}
+                    </StatusButton>
                 </Form.Group>
                 <Form.Group>
                     <Link to="/forget_password" onClick={linkClickHandler}>{language.dictionary['FORGET_PASSWORD']}</Link>

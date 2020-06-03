@@ -20,18 +20,18 @@ const PostViewPage: React.FC = () => {
     const { id } = useParams();
     const { apiFetcher } = useContext(FetchContext);
     const [post, setPost] = useState(initialPost);
-    const [loadState, setLoadState] = useState(LoadState.NOTLOADED);
+    const [loadState, setLoadState] = useState(LoadState.LOADING);
 
     useEffect(() => {
-        if (loadState === LoadState.NOTLOADED) {
-            setLoadState(LoadState.LOADING);
+        if (loadState === LoadState.LOADING) {
+            
             fetchSinglePost(apiFetcher, id, (post: ResponseDataType<PostType>) => {
                 setPost(post.results);
-                setLoadState(LoadState.LOADED);
+                setLoadState(LoadState.NOTLOADING);
             }, (error: Error) => {
                 console.log(error);
                 setPost(initialPost);
-                setLoadState(LoadState.LOADED);
+                setLoadState(LoadState.NOTLOADING);
                 //tid = setTimeout(()=>setLoadState(LoadState.NOTLOADED)); //Uncomment if want to have infinite fetching
             });
         }

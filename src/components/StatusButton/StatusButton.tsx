@@ -3,12 +3,11 @@ import { Button, Spinner } from 'react-bootstrap';
 
 import { LoadState } from '../../Global/GlobalFunctions/FetchingActions';
 interface StatusButtonProps {
-    loadState: number;
-    btnText: string;
-    onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+    loadState: number,
+    onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
 
-const StatusButton: React.FC<StatusButtonProps> = ({ loadState, btnText, onClick }: StatusButtonProps) => {
+const StatusButton: React.FC<StatusButtonProps> = ({ loadState,  onClick, children }) => {
     if (loadState === LoadState.LOADING) {
         return (
             <Button variant="primary" disabled type="button" block>
@@ -24,7 +23,7 @@ const StatusButton: React.FC<StatusButtonProps> = ({ loadState, btnText, onClick
     } else {
         return (
             <Button onClick={onClick} variant="primary" type="button" block>
-                {btnText}
+                {children}
             </Button>
         )
     }
