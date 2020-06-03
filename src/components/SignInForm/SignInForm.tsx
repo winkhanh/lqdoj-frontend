@@ -22,14 +22,15 @@ const SignInForm: React.FC<FormProps> = (props: FormProps) => {
         props.authModalToggle();
     }
     const loginHandler = () => {
+        console.log("asdf");
         if (loadState === LoadState.NOTLOADED) {
             setLoadState(LoadState.LOADING);
             doLogin(
                 apiFetcher,
                 username,
                 password,
-                (loginResponse: ResponseDataType<TokenType>) => {                    
-                    setToken(loginResponse.results.token);                    
+                (loginResponse: ResponseDataType<TokenType>) => {
+                    setToken(loginResponse.results.token);
                     setLoadState(LoadState.LOADED);
                     props.authModalToggle();
                 },
@@ -54,20 +55,14 @@ const SignInForm: React.FC<FormProps> = (props: FormProps) => {
                     <Form.Control type="text" placeholder={language.dictionary['FORM_USERNAME_PLACE_HOLDER']} value={username} onChange={usernameHandler} />
                 </Form.Group>
                 <Form.Group controlId="formSignInPassword">
-                    <Form.Label>{language.dictionary['FORM_PASSWORD']}</Form.Label>
+                    <Form.Label>{language.dictionary['FORM_PASSWORD_1']}</Form.Label>
                     <Form.Control type="password" placeholder="********" value={password} onChange={passwordHandler} />
                 </Form.Group>
-                <Form.Group controlId="formSignInCheckbox">
-                    <Form.Check type="checkbox" label={language.dictionary['FORM_CHECKBOX']} />
-                </Form.Group>
-                <Form.Group controlId="formSignInCheckbox">
-                    {/* <Button onClick={loginHandler} variant="primary" type="button" block>
+                <Form.Group controlId="formSignInButton">
+                    <StatusButton loadState={loadState} onClick={loginHandler}>
                         {language.dictionary['MODAL_SIGNIN']}
-                    </Button> */}
-                    <StatusButton loadState={loadState}
-                                btnText={language.dictionary['MODAL_SIGNIN']}
-                                onClick={loginHandler}
-                    />
+                    </StatusButton>
+
                 </Form.Group>
                 <Form.Group>
                     <Link to="/forget_password" onClick={linkClickHandler}>{language.dictionary['FORGET_PASSWORD']}</Link>

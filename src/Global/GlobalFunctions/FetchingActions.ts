@@ -1,4 +1,4 @@
-import { ResponseDataType, PostType, ProblemType, TokenType, UserType } from '../../models';
+import { ResponseDataType, PostType, ProblemType, TokenType, UserType, FormDataType, StringIndexed } from '../../models';
 import APIFetcher from '../SpecialClasses/APIFetcher';
 
 const API_PATH = {
@@ -88,6 +88,29 @@ const doLogout = async (
     );    
 }
 
+const doSignUp = async (
+    fetcher: APIFetcher,
+    formData: StringIndexed<FormDataType>,
+    callback: (token: ResponseDataType<{}>)=> void,
+    errorHandle: (error: Error) => void
+) => {
+    fetcher.doFetch(
+        'post',
+        API_PATH.users,
+        {},
+        callback,
+        errorHandle,
+        {
+            username: formData.username,
+            email: formData.email,
+            password1: formData.password1,
+            password2: formData.password2,
+            firstname: formData.firstname,
+            lastname: formData.lastname,
+        }
+    );    
+}
+
 const fetchUser = async (
     fetcher: APIFetcher,
     username: string,
@@ -102,5 +125,5 @@ const fetchUser = async (
         errorHandle
     );
 }
-export { fetchPosts, fetchSinglePost, fetchProblems, fetchUser, doLogin, doLogout };
+export { fetchPosts, fetchSinglePost, fetchProblems, fetchUser, doLogin, doLogout, doSignUp };
 export { LoadState };

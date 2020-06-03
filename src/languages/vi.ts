@@ -14,14 +14,14 @@ const vi: DictionaryType & StringIndexedType = {
     DEAUTH_BUTTON: "Đăng xuất",
     MODAL_SIGNIN: "ĐĂNG NHẬP",
     MODAL_SIGNUP: "ĐĂNG KÍ",
-    FORM_NAME: "Tên",
-    FORM_NAME_PLACE_HOLDER: "Họ và Tên",
     FORM_USERNAME: "Tên tài khoản",
     FORM_USERNAME_PLACE_HOLDER: "Nhập tên tài khoản",
     FORM_EMAIL: "Email",
     FORM_EMAIL_PLACE_HOLDER:"Nhập Email",
-    FORM_PASSWORD: "Mật khẩu",
-    FORM_CHECKBOX: "giữ đăng nhập",
+    FORM_PASSWORD_1: "Mật khẩu",
+    FORM_PASSWORD_2: "Nhập lại mật khẩu",
+    FORM_FIRSTNAME: "Tên",
+    FORM_LASTNAME: "Họ",
     FORGET_PASSWORD: "Quên mật khẩu?",
     POST_AUTHOR_BY: "đăng bởi "
 };

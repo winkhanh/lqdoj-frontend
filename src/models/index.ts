@@ -37,3 +37,16 @@ export interface ResponseDataType<T extends {}> {
     message_code?: string,
     results: T
 }
+
+export interface FormDataType {
+    username: string,
+    email: string,
+    password1: string,
+    password2: string,
+    firstname: string,
+    lastname: string
+};
+
+export type StringIndexed<T> = {
+    [index: string]: string
+};
