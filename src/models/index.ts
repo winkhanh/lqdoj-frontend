@@ -20,9 +20,10 @@ export interface ProblemType{
     id:string,
     task_code:string,
     title:string,
-    author: string,
+    author: string,    
     difficulty: string,
     tags: string[],
+    description: string,
     percent: number
 }
 

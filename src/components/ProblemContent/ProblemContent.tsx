@@ -1,37 +1,39 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { FetchContext } from '../../Global/GlobalStates/GlobalStates';
-import { fetchSinglePost, LoadState } from '../../Global/GlobalFunctions/FetchingActions';
-import { ResponseDataType, PostType } from '../../models';
+import { fetchSingleProblem, LoadState } from '../../Global/GlobalFunctions/FetchingActions';
+import { ResponseDataType, ProblemType } from '../../models';
 import HtmlContent from '../../components/HtmlContent/HtmlContent';
 import LoadingPlaceholder from '../../components/LoadingPlaceholder/LoadingPlaceholder';
 
-const initialPost: PostType = {
-    id: 0,
+const initialProblem: ProblemType = {
+    id: "",
+    task_code: "",
     title: "",
-    content: "",
     author: "",
-    time: "",
-    last_edited: ""
+    difficulty: "",
+    tags: [""],
+    description:"",
+    percent: 0
 }
 
 interface PostContentProps {
     id: string
 }
 
-const PostContent: React.FC<PostContentProps> = ({ id }: PostContentProps) => {
+const ProblemContent: React.FC<PostContentProps> = ({ id }: PostContentProps) => {
     const { apiFetcher } = useContext(FetchContext);
-    const [post, setPost] = useState(initialPost);
+    const [problem, setProblem] = useState(initialProblem);
     const [loadState, setLoadState] = useState(LoadState.NOTLOADED);
 
     useEffect(() => {
         if (loadState === LoadState.NOTLOADED) {
             setLoadState(LoadState.LOADING);
-            fetchSinglePost(apiFetcher, id, (post: ResponseDataType<PostType>) => {
-                setPost(post.results);
+            fetchSingleProblem(apiFetcher, id, (problem: ResponseDataType<ProblemType>) => {
+                setProblem(problem.results);
                 setLoadState(LoadState.LOADED);
             }, (error: Error) => {
                 console.log(error);
-                setPost(initialPost);
+                setProblem(initialProblem);
                 setLoadState(LoadState.LOADED);
                 //tid = setTimeout(()=>setLoadState(LoadState.NOTLOADED)); //Uncomment if want to have infinite fetching
             });
@@ -41,13 +43,13 @@ const PostContent: React.FC<PostContentProps> = ({ id }: PostContentProps) => {
     if (loadState === LoadState.LOADING) {
         return (<LoadingPlaceholder />);
     } else {
-        console.log(post);
+        console.log(problem);
         return (
             <>
-                <h1>{post.title}</h1>
-                <HtmlContent content={post.content} />
+                <h1>{problem.title}</h1>
+                <HtmlContent content={problem.description} />
             </>
         )
     }
 };
-export default PostContent;
+export default ProblemContent;
