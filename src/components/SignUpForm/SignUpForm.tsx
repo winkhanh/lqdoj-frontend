@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
-import { Button, Col, Form, Row } from 'react-bootstrap';
+import { Col, Form, Row } from 'react-bootstrap';
 import { LoadState, doSignUp } from '../../Global/GlobalFunctions/FetchingActions';
 import { LanguageContext, FetchContext } from '../../Global/GlobalStates/GlobalStates';
-import { ResponseDataType, TokenType, FormDataType, StringIndexed } from '../../models';
+import { ResponseDataType, FormDataType, StringIndexed } from '../../models';
 import StatusButton from '../StatusButton/StatusButton';
 
 const initialFormData = {

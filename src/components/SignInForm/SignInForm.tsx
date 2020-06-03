@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Button, Form, Col } from 'react-bootstrap';
+import { Form, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import { doLogin, LoadState } from '../../Global/GlobalFunctions/FetchingActions';
