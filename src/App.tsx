@@ -9,6 +9,7 @@ import { dictionaryList, languageOptions, LanguageOptionType, getLanguageById } 
 import { useCookies } from 'react-cookie';
 import { fetchUser } from './Global/GlobalFunctions/FetchingActions';
 import { ResponseDataType, UserType } from './models';
+import ContextsProviderAll from './components/ContextsProviderAll/ContextsProviderAll';
 const BaseApp: React.FC = () => {
     return (
         <div className="App">
@@ -68,41 +69,39 @@ const App: React.FC = () => {
 
     }, [cookies]);//handle Cookie validation
     return (
-        <LanguageContext.Provider value={{
-            language: {
-                currentLanguage: currentLanguageState,
-                setLanguage: (selectedLanguage: LanguageOptionType) => {
-                    setLanguageState(selectedLanguage);
-                    setCookie('lang', selectedLanguage.id);
-                }
-            },
-            dictionary: dictionaryList[currentLanguageState.id]
-        }}>
-            <AuthModalContext.Provider value={{
+        <ContextsProviderAll contexts={[
+            [LanguageContext,{
+                language: {
+                    currentLanguage: currentLanguageState,
+                    setLanguage: (selectedLanguage: LanguageOptionType) => {
+                        setLanguageState(selectedLanguage);
+                        setCookie('lang', selectedLanguage.id);
+                    }
+                },
+                dictionary: dictionaryList[currentLanguageState.id]
+            }],
+            [AuthModalContext,{
                 isDisplay: isAuthPageDisplay,
                 toggle: () => {
                     setAuthPageDisplay(
                         prev => !prev
                     );
                 }
-            }}>
-                <FetchContext.Provider value={{
-                    apiFetcher: fetcher
-                }}>
-                    <TokenContext.Provider value={{
-                        setToken: (token: string) => {
-                            setCookie('token', token);
-                        }
-                    }}>
-                        <AuthStateContext.Provider value={{
-                            authState: authState,
-                        }}>
-                            <BaseApp />
-                        </AuthStateContext.Provider>
-                    </TokenContext.Provider>
-                </FetchContext.Provider>
-            </AuthModalContext.Provider>
-        </LanguageContext.Provider>
+            }],
+            [FetchContext,{
+                apiFetcher: fetcher
+            }],
+            [TokenContext,{
+                setToken: (token: string) => {
+                    setCookie('token', token);
+                }
+            }],
+            [AuthStateContext,{
+                authState: authState,
+            }]
+        ]}>
+            <BaseApp/>
+        </ContextsProviderAll>        
     )
 }
 export default App;
