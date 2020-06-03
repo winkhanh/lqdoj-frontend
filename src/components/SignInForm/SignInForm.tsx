@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import React, { useState, useContext, useEffect } from 'react';
 import {  Form, Col } from 'react-bootstrap';
-=======
-import React, { useState, useContext } from 'react';
-import { Form, Col } from 'react-bootstrap';
->>>>>>> ca1f4b0c3d812c6d4f216f45207c9d55143fcaad
 import { Link } from 'react-router-dom';
 
 import { doLogin, LoadState } from '../../Global/GlobalFunctions/FetchingActions';

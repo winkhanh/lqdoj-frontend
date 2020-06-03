@@ -30,7 +30,7 @@ const CodeEditor: React.FC = () => {
     const languageContext = useContext(LanguageContext);
     const [lang, setLang] = useState("c_cpp");
     const [theme, setTheme] = useState("github");
-    const [loadState, setLoadState] = useState(LoadState.NOTLOADED);
+    const [loadState, setLoadState] = useState(LoadState.NOTLOADING);
 
     const languageSelectHandler = (event: ChangeEvent<HTMLSelectElement>) => {
         setLang(event.target.value);

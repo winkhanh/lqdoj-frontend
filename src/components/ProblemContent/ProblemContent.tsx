@@ -21,18 +21,18 @@ const ProblemContent: React.FC = () => {
     const { id } = useParams();
     const { apiFetcher } = useContext(FetchContext);
     const [problem, setProblem] = useState(initialProblem);
-    const [loadState, setLoadState] = useState(LoadState.NOTLOADED);
+    const [loadState, setLoadState] = useState(LoadState.LOADING);
 
     useEffect(() => {
-        if (loadState === LoadState.NOTLOADED) {
-            setLoadState(LoadState.LOADING);
+        if (loadState === LoadState.LOADING) {
+            
             fetchSingleProblem(apiFetcher, id, (problem: ResponseDataType<ProblemType>) => {
                 setProblem(problem.results);
-                setLoadState(LoadState.LOADED);
+                setLoadState(LoadState.NOTLOADING);
             }, (error: Error) => {
                 console.log(error);
                 setProblem(initialProblem);
-                setLoadState(LoadState.LOADED);
+                setLoadState(LoadState.NOTLOADING);
                 //tid = setTimeout(()=>setLoadState(LoadState.NOTLOADED)); //Uncomment if want to have infinite fetching
             });
         }

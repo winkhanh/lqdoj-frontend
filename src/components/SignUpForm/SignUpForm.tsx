@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Col, Form, Row } from 'react-bootstrap';
 import { LoadState, doSignUp } from '../../Global/GlobalFunctions/FetchingActions';
 import { LanguageContext, FetchContext } from '../../Global/GlobalStates/GlobalStates';
@@ -18,8 +18,23 @@ const SignUpForm: React.FC = () => {
     const language = useContext(LanguageContext);
     const { apiFetcher } = useContext(FetchContext);
     const [formData, setFormData] = useState(initialFormData);
-    const [loadState, setLoadState] = useState(LoadState.NOTLOADED);
-
+    const [loadState, setLoadState] = useState(LoadState.NOTLOADING);
+    useEffect(()=>{
+        if (loadState === LoadState.LOADING) {
+            doSignUp(
+                apiFetcher,
+                formData,
+                (signUpResponse: ResponseDataType<{}>) => {
+                    
+                    setLoadState(LoadState.NOTLOADING);                    
+                },
+                (error: Error) => {
+                    console.log(error);
+                    setLoadState(LoadState.NOTLOADING);
+                }
+            );
+        }
+    },[loadState, apiFetcher,formData])
     const formDataHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         setFormData(Object.entries(formData).map(([key, value]) => {
             if (key === event.target.id) {
@@ -34,21 +49,7 @@ const SignUpForm: React.FC = () => {
     };
 
     const signUpHandler = () => {
-        if (loadState === LoadState.NOTLOADED) {
-            setLoadState(LoadState.LOADING);
-            doSignUp(
-                apiFetcher,
-                formData,
-                (signUpResponse: ResponseDataType<{}>) => {
-                    
-                    setLoadState(LoadState.LOADED);                    
-                },
-                (error: Error) => {
-                    console.log(error);
-                    setLoadState(LoadState.NOTLOADED);
-                }
-            );
-        }
+       setLoadState(LoadState.LOADING); 
     }
 
     return (
