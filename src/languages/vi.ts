@@ -23,6 +23,9 @@ const vi: DictionaryType & StringIndexedType = {
     FORM_FIRSTNAME: "Tên",
     FORM_LASTNAME: "Họ",
     FORGET_PASSWORD: "Quên mật khẩu?",
+    LANGUAGE_LABEL: "Ngôn ngữ",
+    THEME_LABEL: "Giao diện",
+    SUBMIT_CODE: "Nộp bài",
     POST_AUTHOR_BY: "đăng bởi "
 };
 

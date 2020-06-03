@@ -1,21 +1,21 @@
 import React from 'react';
-import {Container, Row, Col} from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import Posts from '../../components/PostsList/PostsList';
 import Leaderboard from '../../components/Leaderboard/Leaderboard';
 import Recentboard from '../../components/Recentboard/Recentboard';
-const HomePage: React.FC = ()=>{
+const HomePage: React.FC = () => {
     return (
         <Container fluid="xl" className="mt-3">
             <Row>
-                <Col md={{span: 8, order: 1}} xs={{span: 12, order: 2}}>
-                    <Posts/>
+                <Col md={{ span: 8, order: 1 }} xs={{ span: 12, order: 2 }}>
+                    <Posts />
                 </Col>
-                <Col md={{span: 4, order: 2}} xs={{span: 12, order: 1}}> {/** Move upon the Table when on Mobile */}
+                <Col md={{ span: 4, order: 2 }} xs={{ span: 12, order: 1 }}> {/** Move upon the Table when on Mobile */}
                     <Row>
-                        <Leaderboard/>
+                        <Leaderboard />
                     </Row>
                     <Row>
-                        <Recentboard/>
+                        <Recentboard />
                     </Row>
                 </Col>
             </Row>
