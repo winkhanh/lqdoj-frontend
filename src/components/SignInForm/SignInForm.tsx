@@ -28,10 +28,10 @@ const SignInForm: React.FC<FormProps> = (props: FormProps) => {
                 apiFetcher,
                 username,
                 password,
-                (loginResponse: ResponseDataType<TokenType>) => {
-                    setToken(loginResponse.results.token);
-                    props.authModalToggle();
+                (loginResponse: ResponseDataType<TokenType>) => {                    
+                    setToken(loginResponse.results.token);                    
                     setLoadState(LoadState.LOADED);
+                    props.authModalToggle();
                 },
                 (error: Error) => {
                     console.log(error);
