@@ -2,9 +2,10 @@ import React, { useState, useContext } from 'react';
 import { Button, Form, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-import { doLogin } from '../../Global/GlobalFunctions/FetchingActions';
-import { FetchContext, TokenContext, LanguageContext, AuthStateContext } from '../../Global/GlobalStates/GlobalStates';
+import { doLogin, LoadState } from '../../Global/GlobalFunctions/FetchingActions';
+import { FetchContext, TokenContext, LanguageContext } from '../../Global/GlobalStates/GlobalStates';
 import { ResponseDataType, TokenType } from '../../models';
+import StatusButton from '../StatusButton/StatusButton';
 interface FormProps {
     authModalToggle: Function
 }
@@ -14,32 +15,37 @@ const SignInForm: React.FC<FormProps> = (props: FormProps) => {
     const { setToken } = useContext(TokenContext);
     const language = useContext(LanguageContext);
     const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");    
+    const [password, setPassword] = useState("");
+    const [loadState, setLoadState] = useState(LoadState.NOTLOADED);
 
-    const linkClickHandler = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    const linkClickHandler = () => {
         props.authModalToggle();
     }
-    const loginHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-        doLogin(
-            apiFetcher,
-            username,
-            password,
-            (loginResponse: ResponseDataType<TokenType>) => {                
-                setToken(loginResponse.results.token);
-                props.authModalToggle();                
-            },
-            (error: Error) => {
-                console.log(error);
-            }
-        );
-
+    const loginHandler = () => {
+        if (loadState === LoadState.NOTLOADED) {
+            setLoadState(LoadState.LOADING);
+            doLogin(
+                apiFetcher,
+                username,
+                password,
+                (loginResponse: ResponseDataType<TokenType>) => {
+                    setToken(loginResponse.results.token);
+                    props.authModalToggle();
+                    setLoadState(LoadState.LOADED);
+                },
+                (error: Error) => {
+                    console.log(error);
+                    setLoadState(LoadState.NOTLOADED);
+                }
+            );
+        }
     }
     const usernameHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         setUsername(event.target.value);
     }
     const passwordHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(event.target.value);
-    }    
+    }
     return (
         <Col>
             <Form className="mt-3">
@@ -55,9 +61,13 @@ const SignInForm: React.FC<FormProps> = (props: FormProps) => {
                     <Form.Check type="checkbox" label={language.dictionary['FORM_CHECKBOX']} />
                 </Form.Group>
                 <Form.Group controlId="formSignInCheckbox">
-                    <Button onClick={loginHandler} variant="primary" type="button" block>
+                    {/* <Button onClick={loginHandler} variant="primary" type="button" block>
                         {language.dictionary['MODAL_SIGNIN']}
-                    </Button>
+                    </Button> */}
+                    <StatusButton loadState={loadState}
+                                btnText={language.dictionary['MODAL_SIGNIN']}
+                                onClick={loginHandler}
+                    />
                 </Form.Group>
                 <Form.Group>
                     <Link to="/forget_password" onClick={linkClickHandler}>{language.dictionary['FORGET_PASSWORD']}</Link>
