@@ -73,6 +73,21 @@ const doLogin = async (
     );    
 }
 
+const doLogout = async (
+    fetcher: APIFetcher,
+    token: string,
+    callback: (token: ResponseDataType<{}>) => void,
+    errorHandle: (error: Error) => void
+) => {
+    fetcher.doFetch(
+        'delete',
+        API_PATH.tokens + token,
+        {},
+        callback,
+        errorHandle
+    );    
+}
+
 const fetchUser = async (
     fetcher: APIFetcher,
     username: string,
@@ -87,5 +102,5 @@ const fetchUser = async (
         errorHandle
     );
 }
-export { fetchPosts, fetchSinglePost, fetchProblems, fetchUser, doLogin };
+export { fetchPosts, fetchSinglePost, fetchProblems, fetchUser, doLogin, doLogout };
 export { LoadState };

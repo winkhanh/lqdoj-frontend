@@ -13,7 +13,6 @@ const SignInForm: React.FC<FormProps> = (props: FormProps) => {
     const { apiFetcher } = useContext(FetchContext);
     const { setToken } = useContext(TokenContext);
     const language = useContext(LanguageContext);
-    const { authState } = useContext(AuthStateContext);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");    
 
@@ -25,11 +24,9 @@ const SignInForm: React.FC<FormProps> = (props: FormProps) => {
             apiFetcher,
             username,
             password,
-            (loginResponse: ResponseDataType<TokenType>) => {
-                console.log(loginResponse.results);
+            (loginResponse: ResponseDataType<TokenType>) => {                
                 setToken(loginResponse.results.token);
-                props.authModalToggle();
-                console.log(authState.getState().user.username);
+                props.authModalToggle();                
             },
             (error: Error) => {
                 console.log(error);

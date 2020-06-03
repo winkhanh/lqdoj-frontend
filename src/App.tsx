@@ -36,7 +36,7 @@ const App: React.FC = () => {
     useEffect(() => {
         if (tokenState !== "") {
             setFetcher(new APIFetcher(tokenState));
-            setAuth(new AuthState(user));
+            setAuth(new AuthState(user, tokenState));
         } else {
             setFetcher(new APIFetcher());
             setAuth(new AuthState());
