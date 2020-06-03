@@ -1,55 +1,58 @@
-import React, {useState, useContext} from 'react';
+import React, { useState, useContext } from 'react';
 import { Button, Form, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import { doLogin } from '../../Global/GlobalFunctions/FetchingActions';
-import {FetchContext, TokenContext, LanguageContext} from '../../Global/GlobalStates/GlobalStates';
+import { FetchContext, TokenContext, LanguageContext, AuthStateContext } from '../../Global/GlobalStates/GlobalStates';
+import { ResponseDataType, TokenType } from '../../models';
 interface FormProps {
     authModalToggle: Function
 }
 
 const SignInForm: React.FC<FormProps> = (props: FormProps) => {
-    const {apiFetcher} = useContext(FetchContext);
-    const {setToken} = useContext(TokenContext);
-    const language= useContext(LanguageContext);
-    const [username,setUsername]=useState("");
-    const [password,setPassword]=useState("");
-    
+    const { apiFetcher } = useContext(FetchContext);
+    const { setToken } = useContext(TokenContext);
+    const language = useContext(LanguageContext);
+    const { authState } = useContext(AuthStateContext);
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");    
+
     const linkClickHandler = (event: React.MouseEvent<HTMLAnchorElement>) => {
-        props.authModalToggle();        
+        props.authModalToggle();
     }
-    const loginHandler = (event: React.MouseEvent<HTMLButtonElement>) =>{
-        console.log("TRY");
+    const loginHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
         doLogin(
             apiFetcher,
             username,
             password,
-            (token:string)=>{
-                setToken(token);
+            (loginResponse: ResponseDataType<TokenType>) => {
+                console.log(loginResponse.results);
+                setToken(loginResponse.results.token);
                 props.authModalToggle();
+                console.log(authState.getState().user.username);
             },
-            (error: Error)=>{
+            (error: Error) => {
                 console.log(error);
             }
         );
-        
+
     }
-    const usernameHandler = (event: React.ChangeEvent<HTMLInputElement>) =>{
+    const usernameHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         setUsername(event.target.value);
     }
-    const passwordHandler = (event: React.ChangeEvent<HTMLInputElement>) =>{
+    const passwordHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(event.target.value);
-    }
+    }    
     return (
         <Col>
             <Form className="mt-3">
                 <Form.Group controlId="formSignInEmail">
                     <Form.Label>{language.dictionary['FORM_USERNAME']}</Form.Label>
-                    <Form.Control type="text" placeholder={language.dictionary['FORM_USERNAME_PLACE_HOLDER']} value={username} onChange={usernameHandler}/>
+                    <Form.Control type="text" placeholder={language.dictionary['FORM_USERNAME_PLACE_HOLDER']} value={username} onChange={usernameHandler} />
                 </Form.Group>
                 <Form.Group controlId="formSignInPassword">
                     <Form.Label>{language.dictionary['FORM_PASSWORD']}</Form.Label>
-                    <Form.Control type="password" placeholder="********" value={password} onChange={passwordHandler}/>
+                    <Form.Control type="password" placeholder="********" value={password} onChange={passwordHandler} />
                 </Form.Group>
                 <Form.Group controlId="formSignInCheckbox">
                     <Form.Check type="checkbox" label={language.dictionary['FORM_CHECKBOX']} />

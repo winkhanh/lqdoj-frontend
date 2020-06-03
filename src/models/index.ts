@@ -26,6 +26,10 @@ export interface ProblemType{
     percent: number
 }
 
+export interface TokenType {
+    token: string;
+}
+
 export interface ResponseDataType<T extends {}> {
     count?: number,
     next?: string,
