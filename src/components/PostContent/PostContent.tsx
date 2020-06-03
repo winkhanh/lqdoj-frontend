@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
+import {useParams} from 'react-router-dom';
 import { FetchContext } from '../../Global/GlobalStates/GlobalStates';
 import { fetchSinglePost, LoadState } from '../../Global/GlobalFunctions/FetchingActions';
 import { ResponseDataType, PostType } from '../../models';
@@ -14,11 +15,8 @@ const initialPost: PostType = {
     last_edited: ""
 }
 
-interface PostContentProps {
-    id: string
-}
-
-const PostContent: React.FC<PostContentProps> = ({ id }: PostContentProps) => {
+const PostContent: React.FC = () => {
+    const { id } = useParams();
     const { apiFetcher } = useContext(FetchContext);
     const [post, setPost] = useState(initialPost);
     const [loadState, setLoadState] = useState(LoadState.NOTLOADED);

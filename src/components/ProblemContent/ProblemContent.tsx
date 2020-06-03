@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { FetchContext } from '../../Global/GlobalStates/GlobalStates';
 import { fetchSingleProblem, LoadState } from '../../Global/GlobalFunctions/FetchingActions';
 import { ResponseDataType, ProblemType } from '../../models';
@@ -16,11 +17,8 @@ const initialProblem: ProblemType = {
     percent: 0
 }
 
-interface PostContentProps {
-    id: string
-}
-
-const ProblemContent: React.FC<PostContentProps> = ({ id }: PostContentProps) => {
+const ProblemContent: React.FC = () => {
+    const { id } = useParams();
     const { apiFetcher } = useContext(FetchContext);
     const [problem, setProblem] = useState(initialProblem);
     const [loadState, setLoadState] = useState(LoadState.NOTLOADED);
