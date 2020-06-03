@@ -1,4 +1,4 @@
-import { ResponseDataType, PostType, ProblemType, TokenType, UserType } from '../../models';
+import { ResponseDataType, PostType, ProblemType, TokenType, UserType, FormDataType, StringIndexed } from '../../models';
 import APIFetcher from '../SpecialClasses/APIFetcher';
 
 const API_PATH = {
@@ -6,7 +6,7 @@ const API_PATH = {
     problems: "tasks/",
     tokens: "tokens/",
     users: "users/"
-}
+};
 
 enum LoadState {
     LOADING=0,
@@ -55,6 +55,20 @@ const fetchProblems = async (
         errorHandle);
 };
 
+const fetchSingleProblem = async (
+    fetcher: APIFetcher,
+    problemID: string,
+    callback: (problem: ResponseDataType<ProblemType>) => void,
+    errorHandle: (error: Error) => void
+) => {
+    fetcher.doFetch<ResponseDataType<ProblemType>>(
+        'get',
+        API_PATH.problems + problemID,
+        {},
+        callback,
+        errorHandle);
+};
+
 const doLogin = async (
     fetcher: APIFetcher,
     username: string,
@@ -70,7 +84,7 @@ const doLogin = async (
         errorHandle,
         {username: username, password: password}
     );    
-}
+};
 
 const doLogout = async (
     fetcher: APIFetcher,
@@ -85,7 +99,30 @@ const doLogout = async (
         callback,
         errorHandle
     );    
-}
+};
+
+const doSignUp = async (
+    fetcher: APIFetcher,
+    formData: StringIndexed<FormDataType>,
+    callback: (token: ResponseDataType<{}>)=> void,
+    errorHandle: (error: Error) => void
+) => {
+    fetcher.doFetch(
+        'post',
+        API_PATH.users,
+        {},
+        callback,
+        errorHandle,
+        {
+            username: formData.username,
+            email: formData.email,
+            password1: formData.password1,
+            password2: formData.password2,
+            firstname: formData.firstname,
+            lastname: formData.lastname,
+        }
+    );    
+};
 
 const fetchUser = async (
     fetcher: APIFetcher,
@@ -100,6 +137,6 @@ const fetchUser = async (
         callback,
         errorHandle
     );
-}
-export { fetchPosts, fetchSinglePost, fetchProblems, fetchUser, doLogin, doLogout };
+};
+export { fetchPosts, fetchSinglePost, fetchProblems, fetchSingleProblem, fetchUser, doLogin, doLogout, doSignUp };
 export { LoadState };

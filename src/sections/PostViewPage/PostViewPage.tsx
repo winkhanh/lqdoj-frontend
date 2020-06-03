@@ -1,12 +1,9 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import { FetchContext } from '../../Global/GlobalStates/GlobalStates';
-import { fetchSinglePost, LoadState } from '../../Global/GlobalFunctions/FetchingActions';
-import { ResponseDataType, PostType } from '../../models';
-import HtmlContent from '../../components/HtmlContent/HtmlContent';
-import LoadingPlaceholder from '../../components/LoadingPlaceholder/LoadingPlaceholder';
+import PostContent from '../../components/PostContent/PostContent';
+import PostComments from '../../components/PostComments/PostComments';
 
+<<<<<<< HEAD
 const initialPost: PostType = {
     id: 0,
     title: "",
@@ -50,10 +47,20 @@ const PostViewPage: React.FC = () => {
                     </Col>
                     <Col md={{ span: 4, order: 2 }} xs={{ span: 12, order: 2 }}> {/** Move under the post when on mobile */}
                     Comments here
+=======
+const PostViewPage: React.FC = () => {    
+    return (
+        <Container fluid="xl" className="mt-3">
+            <Row>
+                <Col md={{ span: 8, order: 1 }} xs={{ span: 12, order: 1 }}>
+                    <PostContent />
                 </Col>
-                </Row>
-            </Container>
-        )
-    }
+                <Col md={{ span: 4, order: 2 }} xs={{ span: 12, order: 2 }}> {/** Move under the post when on mobile */}
+                    <PostComments />
+>>>>>>> ca1f4b0c3d812c6d4f216f45207c9d55143fcaad
+                </Col>
+            </Row>
+        </Container>
+    )
 };
 export default PostViewPage;

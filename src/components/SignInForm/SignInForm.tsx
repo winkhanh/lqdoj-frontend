@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import React, { useState, useContext, useEffect } from 'react';
 import {  Form, Col } from 'react-bootstrap';
+=======
+import React, { useState, useContext } from 'react';
+import { Form, Col } from 'react-bootstrap';
+>>>>>>> ca1f4b0c3d812c6d4f216f45207c9d55143fcaad
 import { Link } from 'react-router-dom';
 
 import { doLogin, LoadState } from '../../Global/GlobalFunctions/FetchingActions';
@@ -56,19 +61,14 @@ const SignInForm: React.FC<FormProps> = (props: FormProps) => {
                     <Form.Control type="text" placeholder={language.dictionary['FORM_USERNAME_PLACE_HOLDER']} value={username} onChange={usernameHandler} />
                 </Form.Group>
                 <Form.Group controlId="formSignInPassword">
-                    <Form.Label>{language.dictionary['FORM_PASSWORD']}</Form.Label>
+                    <Form.Label>{language.dictionary['FORM_PASSWORD_1']}</Form.Label>
                     <Form.Control type="password" placeholder="********" value={password} onChange={passwordHandler} />
                 </Form.Group>
-                <Form.Group controlId="formSignInCheckbox">
-                    <Form.Check type="checkbox" label={language.dictionary['FORM_CHECKBOX']} />
-                </Form.Group>
-                <Form.Group controlId="formSignInCheckbox">
-                    {/* <Button onClick={loginHandler} variant="primary" type="button" block>
-                        {language.dictionary['MODAL_SIGNIN']}
-                    </Button> */}
+                <Form.Group controlId="formSignInButton">
                     <StatusButton loadState={loadState} onClick={loginHandler}>
                         {language.dictionary['MODAL_SIGNIN']}
                     </StatusButton>
+
                 </Form.Group>
                 <Form.Group>
                     <Link to="/forget_password" onClick={linkClickHandler}>{language.dictionary['FORGET_PASSWORD']}</Link>

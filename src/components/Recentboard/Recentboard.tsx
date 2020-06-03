@@ -5,7 +5,7 @@ import ShadowedBox from '../ShadowedBox/ShadowedBox';
 
 const Recentboard = () => {
 	return (
-		<Col>
+		<Col sm={12}>
 			<ShadowedBox>
 				<h6>Recent activities</h6>
 				<p>aaaaaaaaaaaaaaaaaa</p>

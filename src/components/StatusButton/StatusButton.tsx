@@ -1,19 +1,20 @@
-import React, { } from 'react';
+import React, { ReactNode } from 'react';
 import { Button, Spinner } from 'react-bootstrap';
 
 import { LoadState } from '../../Global/GlobalFunctions/FetchingActions';
 interface StatusButtonProps {
-    loadState: number,
-    onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+    loadState: number;
+    children?: ReactNode
+    onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
-const StatusButton: React.FC<StatusButtonProps> = ({ loadState,  onClick, children }) => {
+const StatusButton: React.FC<StatusButtonProps> = ({ loadState, onClick, children }: StatusButtonProps) => {
     if (loadState === LoadState.LOADING) {
         return (
             <Button variant="primary" disabled type="button" block>
                 <Spinner
                     as="span"
-                    animation="grow"
+                    animation="border"
                     size="sm"
                     role="status"
                     aria-hidden="true"
