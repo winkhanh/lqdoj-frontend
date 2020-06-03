@@ -4,7 +4,7 @@ import { LanguageOptionType } from '../../languages/languages'
 import APIFetcher from '../SpecialClasses/APIFetcher';
 import AuthState from '../SpecialClasses/AuthState';
 
-const AuthorizingPageContext = React.createContext({
+const AuthModalContext = React.createContext({
     isDisplay: false,
     toggle: () => {}
 });
@@ -24,4 +24,4 @@ const FetchContext = React.createContext({
 const TokenContext = React.createContext({
     setToken: (token : string)=>{}
 });
-export { AuthorizingPageContext, AuthStateContext, LanguageContext, FetchContext, TokenContext };
+export { AuthModalContext, AuthStateContext, LanguageContext, FetchContext, TokenContext };

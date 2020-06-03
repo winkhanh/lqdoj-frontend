@@ -1,4 +1,4 @@
-import { ResponseDataType, PostType, ProblemType } from '../../models';
+import { ResponseDataType, PostType, ProblemType, TokenType, UserType } from '../../models';
 import APIFetcher from '../SpecialClasses/APIFetcher';
 
 const API_PATH = {
@@ -60,11 +60,47 @@ const doLogin = async (
     fetcher: APIFetcher,
     username: string,
     password: string,
-    callback: (token:string)=> void,
+    callback: (token: ResponseDataType<TokenType>)=> void,
     errorHandle: (error: Error) => void
-) =>{
-    setTimeout(()=>{console.log('Login')},5000);
-    callback("fak3 t0k3n");
+) => {
+    fetcher.doFetch(
+        'post',
+        API_PATH.tokens,
+        {},
+        callback,
+        errorHandle,
+        {username: username, password: password}
+    );    
 }
-export { fetchPosts, fetchSinglePost, fetchProblems, doLogin };
+
+const doLogout = async (
+    fetcher: APIFetcher,
+    token: string,
+    callback: (token: ResponseDataType<{}>) => void,
+    errorHandle: (error: Error) => void
+) => {
+    fetcher.doFetch(
+        'delete',
+        API_PATH.tokens + token,
+        {},
+        callback,
+        errorHandle
+    );    
+}
+
+const fetchUser = async (
+    fetcher: APIFetcher,
+    username: string,
+    callback: (me: ResponseDataType<UserType>) => void,
+    errorHandle: (error: Error) => void
+) => {
+    fetcher.doFetch(
+        'get',
+        API_PATH.users + username,
+        {},
+        callback,
+        errorHandle
+    );
+}
+export { fetchPosts, fetchSinglePost, fetchProblems, fetchUser, doLogin, doLogout };
 export { LoadState };
