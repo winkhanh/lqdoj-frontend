@@ -33,7 +33,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({id}) => {
     const [lang, setLang] = useState("c_cpp");
     const [theme, setTheme] = useState("github");
     const [loadState, setLoadState] = useState(LoadState.NOTLOADING);
-
+    const [content, setContent] = useState("");
     const languageSelectHandler = (event: ChangeEvent<HTMLSelectElement>) => {
         setLang(event.target.value);
     }
@@ -45,7 +45,9 @@ const CodeEditor: React.FC<CodeEditorProps> = ({id}) => {
     const submitHandler = () => {
         setLoadState(LoadState.LOADING);
     }
-
+    const onChangeHandler = (value:string)=>{
+        setContent(value);
+    }
     return (
         <>
             <Row>
@@ -56,6 +58,8 @@ const CodeEditor: React.FC<CodeEditorProps> = ({id}) => {
                     showPrintMargin={true}
                     showGutter={true}
                     highlightActiveLine={true}
+                    value={content}
+                    onChange={onChangeHandler}
                     setOptions={{
                         enableBasicAutocompletion: true,
                         enableLiveAutocompletion: true,
