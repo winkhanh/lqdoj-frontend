@@ -8,7 +8,7 @@ import LoadingPlaceholder from '../../components/LoadingPlaceholder/LoadingPlace
 
 const initialProblem: ProblemType = {
     id: "",
-    task_code: "",
+    problem_code: "",
     title: "",
     author: "",
     difficulty: "",
@@ -24,7 +24,7 @@ const ProblemContent: React.FC<ProblemContentProps> = ({id}) => {
     const { apiFetcher } = useContext(FetchContext);
     const [problem, setProblem] = useState(initialProblem);
     const [loadState, setLoadState] = useState(LoadState.LOADING);
-
+    
     useEffect(() => {
         if (loadState === LoadState.LOADING) {
             
