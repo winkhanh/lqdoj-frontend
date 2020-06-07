@@ -25,8 +25,10 @@ const themeSupport = [
     ["Monokai", "monokai"],
     ["XCode", "xcode"]
 ];
-
-const CodeEditor: React.FC = () => {
+interface CodeEditorProps{
+    id:string
+}
+const CodeEditor: React.FC<CodeEditorProps> = ({id}) => {
     const languageContext = useContext(LanguageContext);
     const [lang, setLang] = useState("c_cpp");
     const [theme, setTheme] = useState("github");

@@ -1,22 +1,23 @@
 import React, { useContext, useState, useEffect } from 'react';
-import {useParams} from 'react-router-dom';
 import { FetchContext } from '../../Global/GlobalStates/GlobalStates';
 import { fetchSinglePost, LoadState } from '../../Global/GlobalFunctions/FetchingActions';
 import { ResponseDataType, PostType } from '../../models';
-import HtmlContent from '../../components/HtmlContent/HtmlContent';
-import LoadingPlaceholder from '../../components/LoadingPlaceholder/LoadingPlaceholder';
+import HtmlContent from '../HtmlContent/HtmlContent';
+import LoadingPlaceholder from '../LoadingPlaceholder/LoadingPlaceholder';
 
 const initialPost: PostType = {
-    id: 0,
+    id: "",
     title: "",
     content: "",
     author: "",
     time: "",
     last_edited: ""
 }
-
-const PostContent: React.FC = () => {
-    const { id } = useParams();
+interface PostContentProps{
+    id:string
+}
+const PostContent: React.FC<PostContentProps> = ({id}) => {
+    
     const { apiFetcher } = useContext(FetchContext);
     const [post, setPost] = useState(initialPost);
     const [loadState, setLoadState] = useState(LoadState.LOADING);

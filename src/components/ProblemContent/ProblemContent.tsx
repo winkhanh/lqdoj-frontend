@@ -16,9 +16,11 @@ const initialProblem: ProblemType = {
     description:"",
     percent: 0
 }
-
-const ProblemContent: React.FC = () => {
-    const { id } = useParams();
+interface ProblemContentProps{
+    id:string
+}
+const ProblemContent: React.FC<ProblemContentProps> = ({id}) => {
+    
     const { apiFetcher } = useContext(FetchContext);
     const [problem, setProblem] = useState(initialProblem);
     const [loadState, setLoadState] = useState(LoadState.LOADING);

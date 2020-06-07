@@ -8,7 +8,7 @@ export interface UserType {
 }
 
 export interface PostType {
-    id:number,
+    id:string,
     title:string,    
     content:string,
     author:string,
@@ -16,6 +16,13 @@ export interface PostType {
     last_edited:string
 }
 
+export interface CommentType{
+    id:string,
+    author:string,//author id
+    post:string,//post id
+    content:string,
+    time:string
+}
 export interface ProblemType{
     id:string,
     task_code:string,

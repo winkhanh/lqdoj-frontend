@@ -1,4 +1,4 @@
-import { ResponseDataType, PostType, ProblemType, TokenType, UserType, FormDataType, StringIndexed } from '../../models';
+import { ResponseDataType, PostType, ProblemType, TokenType, UserType, FormDataType, StringIndexed, CommentType } from '../../models';
 import APIFetcher from '../SpecialClasses/APIFetcher';
 
 const API_PATH = {
@@ -68,7 +68,24 @@ const fetchSingleProblem = async (
         callback,
         errorHandle);
 };
-
+const fetchComments = async(
+    fetcher: APIFetcher,
+    postsID: string,
+    callback: (problem: ResponseDataType<Array<CommentType>>) => void,
+    errorHandle: (error: Error) => void
+) => {
+    //fetcher.doSomethingStupid
+    callback({
+        results:[
+        {id:"abc",author:"bangngu",post:"123",content:"This is test cmt",time:""},
+        {id:"abc",author:"bangngu",post:"123",content:"This is test cmt",time:""},
+        {id:"abc",author:"bangngu",post:"123",content:"This is test cmt",time:""},
+        {id:"abc",author:"bangngu",post:"123",content:"This is test cmt",time:""},
+        {id:"abc",author:"bangngu",post:"123",content:"This is test cmt",time:""},
+        {id:"abc",author:"bangngu",post:"123",content:"This is test cmt",time:""},
+        {id:"abc",author:"bangngu",post:"123",content:"This is test cmt 2",time:""}
+    ]});
+}
 const doLogin = async (
     fetcher: APIFetcher,
     username: string,
@@ -138,5 +155,8 @@ const fetchUser = async (
         errorHandle
     );
 };
-export { fetchPosts, fetchSinglePost, fetchProblems, fetchSingleProblem, fetchUser, doLogin, doLogout, doSignUp };
+export { fetchPosts, fetchSinglePost };
+export { fetchProblems, fetchSingleProblem }
+export { fetchUser, doLogin, doLogout, doSignUp };
+export { fetchComments };
 export { LoadState };
