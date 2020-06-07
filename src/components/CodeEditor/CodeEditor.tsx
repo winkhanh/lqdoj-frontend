@@ -9,7 +9,7 @@ import "ace-builds/src-noconflict/theme-github";
 import "ace-builds/src-noconflict/theme-monokai";
 
 import "ace-builds/src-noconflict/ext-language_tools";
-import { Row, Form, FormGroup, FormControl, Col } from 'react-bootstrap';
+import { Row, Form, FormGroup, Col } from 'react-bootstrap';
 import { LanguageContext } from '../../Global/GlobalStates/GlobalStates';
 import StatusButton from '../StatusButton/StatusButton';
 import { LoadState } from '../../Global/GlobalFunctions/FetchingActions';

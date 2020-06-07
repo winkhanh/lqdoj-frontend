@@ -54,7 +54,9 @@ export interface FormDataType {
     firstname: string,
     lastname: string
 };
-
+export interface SubmissionType{
+    something:string
+}
 export type StringIndexed<T> = {
     [index: string]: string
 };

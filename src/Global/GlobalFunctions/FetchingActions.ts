@@ -1,4 +1,4 @@
-import { ResponseDataType, PostType, ProblemType, TokenType, UserType, FormDataType, StringIndexed, CommentType } from '../../models';
+import { ResponseDataType, PostType, ProblemType, TokenType, UserType, FormDataType, StringIndexed, CommentType, SubmissionType } from '../../models';
 import APIFetcher from '../SpecialClasses/APIFetcher';
 
 const API_PATH = {
@@ -155,8 +155,17 @@ const fetchUser = async (
         errorHandle
     );
 };
+
+const fetchSubmissions = async(
+    fetcher: APIFetcher,
+    callback: (submission: ResponseDataType<Array<SubmissionType>>)=>void,
+    errorHandle:(error: Error) => void
+) =>{
+    //Do something here
+}
 export { fetchPosts, fetchSinglePost };
 export { fetchProblems, fetchSingleProblem }
 export { fetchUser, doLogin, doLogout, doSignUp };
 export { fetchComments };
+export { fetchSubmissions};
 export { LoadState };
