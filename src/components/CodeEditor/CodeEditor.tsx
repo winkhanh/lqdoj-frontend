@@ -9,7 +9,7 @@ import "ace-builds/src-noconflict/theme-github";
 import "ace-builds/src-noconflict/theme-monokai";
 
 import "ace-builds/src-noconflict/ext-language_tools";
-import { Row, Form, FormGroup, Col } from 'react-bootstrap';
+import { Row, Form, FormGroup, FormControl, Col } from 'react-bootstrap';
 import { LanguageContext } from '../../Global/GlobalStates/GlobalStates';
 import StatusButton from '../StatusButton/StatusButton';
 import { LoadState } from '../../Global/GlobalFunctions/FetchingActions';
@@ -47,6 +47,19 @@ const CodeEditor: React.FC<CodeEditorProps> = ({id}) => {
     }
     const onChangeHandler = (value:string)=>{
         setContent(value);
+    }
+    const fileHandler = (event:React.ChangeEvent<HTMLInputElement>)=>{
+        if (!event.target.files) return;
+        if (event.target.files?.length<1) return;
+        let reader = new FileReader();
+        reader.onload = ()=>{
+            let text=reader.result;
+            console.log(text);
+            if (typeof(text)=='string')
+                setContent(text);
+        }
+        reader.readAsText(event.target.files[0]);
+        console.log(event.target);
     }
     return (
         <>
@@ -99,6 +112,11 @@ const CodeEditor: React.FC<CodeEditorProps> = ({id}) => {
                     </Form>
                 </Col>
                 <Col md={{ span: 3, offset: 3 }}>
+                    <FormGroup>
+                        <Form.Label>Submit file:</Form.Label>
+                        <Form.Control onChange={fileHandler} type='file'/>
+                    </FormGroup>
+                    
                     <StatusButton loadState={loadState} onClick={submitHandler}>
                         {languageContext.dictionary['SUBMIT_CODE']}
                     </StatusButton>
