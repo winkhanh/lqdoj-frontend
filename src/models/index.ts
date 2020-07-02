@@ -25,7 +25,7 @@ export interface CommentType{
 }
 export interface ProblemType{
     id:string,
-    task_code:string,
+    problem_code:string,
     title:string,
     author: string,    
     difficulty: string,

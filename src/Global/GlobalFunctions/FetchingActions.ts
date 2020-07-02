@@ -3,7 +3,7 @@ import APIFetcher from '../SpecialClasses/APIFetcher';
 
 const API_PATH = {
     posts: "announcements/",
-    problems: "tasks/",
+    problems: "problems/",
     tokens: "tokens/",
     users: "users/"
 };

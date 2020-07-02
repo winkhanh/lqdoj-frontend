@@ -26,7 +26,8 @@ const vi: DictionaryType & StringIndexedType = {
     LANGUAGE_LABEL: "Ngôn ngữ",
     THEME_LABEL: "Giao diện",
     SUBMIT_CODE: "Nộp bài",
-    POST_AUTHOR_BY: "đăng bởi "
+    POST_AUTHOR_BY: "đăng bởi ",
+    SOURCE_FILE_LABEL: "Chọn tệp"
 };
 
 export default vi;
