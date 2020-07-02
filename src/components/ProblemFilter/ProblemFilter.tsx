@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import ShadowedBox from '../ShadowedBox/ShadowedBox';
 import UnderlinedTitle from '../UnderlinedTitle/UnderlinedTitle';
-import { InputGroup, Form } from 'react-bootstrap';
+import { Form, Button, Col, FormGroup, Row } from 'react-bootstrap';
 import DifficultyButton from '../DifficultyButton/DifficultyButton';
+import { LanguageContext } from '../../Global/GlobalStates/GlobalStates';
 export interface FilterState {
     difficult?: string,
     title?: string,
@@ -14,6 +15,7 @@ interface ProblemFilterProps {
     filterState: FilterState
 }
 const ProblemFilter: React.FC<ProblemFilterProps> = ({ onChange, filterState }: ProblemFilterProps) => {
+    const languageContext = useContext(LanguageContext);
     const changeState = (state: string, val: string) => {
         if (state === "title") {
             onChange((prev: FilterState) => ({
@@ -54,47 +56,53 @@ const ProblemFilter: React.FC<ProblemFilterProps> = ({ onChange, filterState }: 
 
     return (
         <ShadowedBox>
-            <div className="filter">
-                <UnderlinedTitle>
-                    Filter
-                </UnderlinedTitle>
-                <div>
-                    <ActivableDifficultyButton difficulty="easy" />
-                    <ActivableDifficultyButton difficulty="medium" />
-                    <ActivableDifficultyButton difficulty="hard" />
-                </div>
-                <InputGroup>
-                    <InputGroup.Prepend>
-                        <InputGroup.Text>Title</InputGroup.Text>
-                    </InputGroup.Prepend>
-                    <Form.Control type="text" onChange={(e) => {
-                        console.log(e.target.value);
-                        changeState("title", e.target.value);
-                    }} value={filterState.title ? filterState.title : ""} />
-                </InputGroup>
-                <InputGroup>
-                    <InputGroup.Prepend>
-                        <InputGroup.Text>Author</InputGroup.Text>
-                    </InputGroup.Prepend>
-                    <Form.Control type="text" onChange={(e) => {
-                        changeState("author", e.target.value);
-                    }} value={filterState.author ? filterState.author : ""} />
-                </InputGroup>
-                <InputGroup>
-                    <InputGroup.Prepend>
-                        <InputGroup.Text>Tag</InputGroup.Text>
-                    </InputGroup.Prepend>
-                    <Form.Control type="text" onChange={(e) => {
-                        changeState("tag", e.target.value);
-                    }} value={filterState.tag ? filterState.tag : ""} />
-                </InputGroup>
-                <InputGroup>
-                    <button onClick={
-                        () => { onChange({}); }
-                    }> Clear Filter </button>
-                </InputGroup>
-            </div>
-        </ShadowedBox>
+            <UnderlinedTitle>
+                {languageContext.dictionary["FILTER_TITLE"]}
+            </UnderlinedTitle>
+            <Row>
+                <Col>
+                    <FormGroup>
+                        <ActivableDifficultyButton difficulty="easy" />
+                        <ActivableDifficultyButton difficulty="medium" />
+                        <ActivableDifficultyButton difficulty="hard" />
+                    </FormGroup>
+                    <FormGroup>
+                        <Form.Label>
+                            {languageContext.dictionary["LABEL_TITLE"]}
+                        </Form.Label>
+                        <Form.Control type="text" onChange={(e) => {
+                            console.log(e.target.value);
+                            changeState("title", e.target.value);
+                        }} value={filterState.title ? filterState.title : ""} />
+                    </FormGroup>
+                    <FormGroup>
+                        <Form.Label>
+                            {languageContext.dictionary["LABEL_AUTHOR"]}
+                        </Form.Label>
+                        <Form.Control type="text" onChange={(e) => {
+                            changeState("author", e.target.value);
+                        }} value={filterState.author ? filterState.author : ""} />
+                    </FormGroup>
+                    <FormGroup>
+                        <Form.Label>
+                            {languageContext.dictionary["LABEL_TAG"]}
+                        </Form.Label>
+                        <Form.Control type="text" onChange={(e) => {
+                            changeState("tag", e.target.value);
+                        }} value={filterState.tag ? filterState.tag : ""} />
+                    </FormGroup>
+                    <Col md={{ span: 8, offset: 2 }}>
+                        <Button onClick={
+                            () => { onChange({}); }
+                        }
+                            className="btn-warning btn-block"
+                        >
+                            {languageContext.dictionary["CLEAR_FILTER"]}
+                        </Button>
+                    </Col>
+                </Col>
+            </Row>
+        </ShadowedBox >
     )
 };
 
