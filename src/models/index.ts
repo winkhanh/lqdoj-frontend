@@ -53,7 +53,15 @@ export interface FormDataType {
     password2: string,
     firstname: string,
     lastname: string
-};
+}
+
+export interface SubmissionFormDataType {
+    language: string,
+    author: string,
+    source_code: File,
+    problem: string
+}
+
 export interface SubmissionType{
     something:string
 }

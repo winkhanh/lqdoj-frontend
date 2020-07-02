@@ -1,4 +1,4 @@
-import React, { useContext, ChangeEvent, useState } from 'react';
+import React, { useContext, ChangeEvent, useState, useEffect } from 'react';
 import { FiUpload, FiSend } from 'react-icons/fi';
 
 import './CodeEditor.css';
@@ -14,9 +14,10 @@ import "ace-builds/src-noconflict/theme-monokai";
 
 import "ace-builds/src-noconflict/ext-language_tools";
 import { Row, Form, FormGroup, Col } from 'react-bootstrap';
-import { LanguageContext } from '../../Global/GlobalStates/GlobalStates';
+import { LanguageContext, FetchContext, AuthStateContext } from '../../Global/GlobalStates/GlobalStates';
 import StatusButton from '../StatusButton/StatusButton';
-import { LoadState } from '../../Global/GlobalFunctions/FetchingActions';
+import { LoadState, doSubmit } from '../../Global/GlobalFunctions/FetchingActions';
+import { ResponseDataType } from '../../models';
 
 const languageSupport = [
     ["C++", "c_cpp"],
@@ -34,10 +35,36 @@ interface CodeEditorProps {
 }
 const CodeEditor: React.FC<CodeEditorProps> = ({ id }) => {
     const languageContext = useContext(LanguageContext);
+    const { apiFetcher } = useContext(FetchContext);
+    const { authState } = useContext(AuthStateContext);
+
     const [lang, setLang] = useState("c_cpp");
     const [theme, setTheme] = useState("monokai");
     const [loadState, setLoadState] = useState(LoadState.NOTLOADING);
     const [content, setContent] = useState("");
+
+    useEffect(() => {
+        if (loadState === LoadState.LOADING) {
+            doSubmit(
+                apiFetcher,
+                {
+                    language: lang,
+                    author: authState.getState().user.username,
+                    source_code: content,
+                    problem: id,
+                },
+                (submitResponse: ResponseDataType<{}>) => {
+                    setLoadState(LoadState.NOTLOADING);
+                },
+                (error: Error) => {
+                    console.log(error);
+                    setLoadState(LoadState.NOTLOADING);
+                }
+            );
+        }
+    }, [apiFetcher, authState, content, id, lang, loadState]);
+
+
     const languageSelectHandler = (event: ChangeEvent<HTMLSelectElement>) => {
         setLang(event.target.value);
     }
