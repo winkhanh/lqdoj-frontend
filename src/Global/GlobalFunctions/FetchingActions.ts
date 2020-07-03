@@ -182,8 +182,14 @@ const fetchSubmissions = async(
     fetcher: APIFetcher,
     callback: (submission: ResponseDataType<Array<SubmissionType>>)=>void,
     errorHandle:(error: Error) => void
-) =>{
-    //Do something here
+) => {
+    fetcher.doFetch(
+        'get',
+        API_PATH.submissions,
+        {},
+        callback,
+        errorHandle
+    );
 }
 export { fetchPosts, fetchSinglePost };
 export { fetchProblems, fetchSingleProblem }

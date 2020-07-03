@@ -58,12 +58,19 @@ export interface FormDataType {
 export interface SubmissionFormDataType {
     language: string,
     author: string,
-    source_code: File,
+    source_code: string,
     problem: string
 }
 
 export interface SubmissionType{
-    something:string
+    id: string,
+    author: string,
+    source_code?: string,
+    problem: string,
+    status: string,
+    result: string,
+    test_counts: number,
+    time: string
 }
 export type StringIndexed<T> = {
     [index: string]: string
