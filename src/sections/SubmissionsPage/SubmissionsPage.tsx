@@ -35,11 +35,26 @@ const SubmissionRow: React.FC<SubmissionsRowProps> = ({ submission }) => {
             <td>{submission.id}</td>
             <td>{submission.author}</td>
             <td>{submission.problem}</td>
-            <td>{(submission.status == "JUDGING_STATUS") ? ("Judged " + submission.test_counts) : submission.result}</td>
+            <td>{getStatus(submission)}</td>
             <td>{submission.time}</td>
         </tr>
     )
 }
+
+const getStatus = (submission: SubmissionType) => {
+	if (submission.status === "JUDGING_STATUS") {
+		return "Judging test " + submission.test_counts;
+	}
+	if (submission.status === "PENDING_STATUS") {
+		return "Pending";
+	}
+	if (submission.status === "COMPILING_STATUS") {
+		return "Compiling";
+	}
+	return submission.result;
+}
+
+
 const SubmissionsPage: React.FC = () => {
     const { apiFetcher } = useContext(FetchContext);
     const [submissionsData, setSubmissionsData] = useState(new Array<SubmissionType>());
@@ -57,8 +72,31 @@ const SubmissionsPage: React.FC = () => {
                     setLoadState(LoadState.NOTLOADING);
                 }
             );
-        }
+	    }
     }, [apiFetcher, loadState]);
+
+    useEffect(() => {
+		const endpoint = "ws://localhost:8000/submissions/";
+
+		const socket = new WebSocket(endpoint);
+
+		socket.onopen = (e) => {
+		}
+
+		socket.onclose = (e) => {
+		}
+
+		socket.onerror = (e) => {
+		}
+
+		socket.onmessage = (e) => {
+		    if (e.data === "NEW_SUBMISSION_CHANGE") {
+		    	setLoadState(LoadState.LOADING);
+		    }
+		}    	
+    }, []);
+
+
     return (
         <Container fluid className="mt-3">
             <Row>
