@@ -4,7 +4,7 @@ import { Button, Dropdown, DropdownButton, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { doLogout } from '../../Global/GlobalFunctions/FetchingActions';
 import { ResponseDataType } from '../../models';
-
+import AdminOnly from '../AdminOnly/AdminOnly';
 
 const AuthNav: React.FC = () => {
     const language = useContext(LanguageContext);
@@ -35,9 +35,11 @@ const AuthNav: React.FC = () => {
     else {
         return (
             <Nav>
-                {(authState.getState().isStaff) ? (<Nav.Link as={Link} to="/admin">
-                    {language.dictionary['NAV_ADMIN']}
-                </Nav.Link>) : null}
+                <AdminOnly>
+                    <Nav.Link as={Link} to="/admin">
+                        {language.dictionary['NAV_ADMIN']}
+                    </Nav.Link>
+                </AdminOnly>
                 <DropdownButton id="profile-dropdown" title={authState.getState().user.username} variant="outline-light" alignRight>
                     <Dropdown.Item as={Link} to="/me">
                         {language.dictionary['PROFILE_BUTTON']}
