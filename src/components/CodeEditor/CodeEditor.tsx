@@ -1,4 +1,8 @@
-import React, { useContext, ChangeEvent, useState } from 'react';
+import React, { useContext, ChangeEvent, useState, useEffect } from 'react';
+import { FiUpload, FiSend } from 'react-icons/fi';
+
+import './CodeEditor.css';
+
 import AceEditor from 'react-ace';
 import "ace-builds/src-noconflict/mode-c_cpp";
 import "ace-builds/src-noconflict/mode-java";
@@ -10,9 +14,10 @@ import "ace-builds/src-noconflict/theme-monokai";
 
 import "ace-builds/src-noconflict/ext-language_tools";
 import { Row, Form, FormGroup, Col } from 'react-bootstrap';
-import { LanguageContext } from '../../Global/GlobalStates/GlobalStates';
+import { LanguageContext, FetchContext, AuthStateContext } from '../../Global/GlobalStates/GlobalStates';
 import StatusButton from '../StatusButton/StatusButton';
-import { LoadState } from '../../Global/GlobalFunctions/FetchingActions';
+import { LoadState, doSubmit } from '../../Global/GlobalFunctions/FetchingActions';
+import { ResponseDataType } from '../../models';
 
 const languageSupport = [
     ["C++", "c_cpp"],
@@ -25,15 +30,41 @@ const themeSupport = [
     ["Monokai", "monokai"],
     ["XCode", "xcode"]
 ];
-interface CodeEditorProps{
-    id:string
+interface CodeEditorProps {
+    id: string
 }
-const CodeEditor: React.FC<CodeEditorProps> = ({id}) => {
+const CodeEditor: React.FC<CodeEditorProps> = ({ id }) => {
     const languageContext = useContext(LanguageContext);
+    const { apiFetcher } = useContext(FetchContext);
+    const { authState } = useContext(AuthStateContext);
+
     const [lang, setLang] = useState("c_cpp");
-    const [theme, setTheme] = useState("github");
+    const [theme, setTheme] = useState("monokai");
     const [loadState, setLoadState] = useState(LoadState.NOTLOADING);
     const [content, setContent] = useState("");
+
+    useEffect(() => {
+        if (loadState === LoadState.LOADING) {
+            doSubmit(
+                apiFetcher,
+                {
+                    language: lang,
+                    author: authState.getState().user.username,
+                    source_code: content,
+                    problem: id,
+                },
+                (submitResponse: ResponseDataType<{}>) => {
+                    setLoadState(LoadState.NOTLOADING);
+                },
+                (error: Error) => {
+                    console.log(error);
+                    setLoadState(LoadState.NOTLOADING);
+                }
+            );
+        }
+    }, [apiFetcher, authState, content, id, lang, loadState]);
+
+
     const languageSelectHandler = (event: ChangeEvent<HTMLSelectElement>) => {
         setLang(event.target.value);
     }
@@ -45,84 +76,91 @@ const CodeEditor: React.FC<CodeEditorProps> = ({id}) => {
     const submitHandler = () => {
         setLoadState(LoadState.LOADING);
     }
-    const onChangeHandler = (value:string)=>{
+    const onChangeHandler = (value: string) => {
         setContent(value);
     }
-    const fileHandler = (event:React.ChangeEvent<HTMLInputElement>)=>{
+    const fileHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (!event.target.files) return;
-        if (event.target.files?.length<1) return;
+        if (event.target.files?.length < 1) return;
         let reader = new FileReader();
-        reader.onload = ()=>{
-            let text=reader.result;
+        reader.onload = () => {
+            let text = reader.result;
             console.log(text);
-            if (typeof(text)=='string')
+            if (typeof (text) == 'string')
                 setContent(text);
         }
         reader.readAsText(event.target.files[0]);
         console.log(event.target);
     }
     return (
-        <>
+        <div className="editor-container">
             <Row>
-                <AceEditor
-                    mode={lang}
-                    theme={theme}
-                    fontSize={14}
-                    showPrintMargin={true}
-                    showGutter={true}
-                    highlightActiveLine={true}
-                    value={content}
-                    onChange={onChangeHandler}
-                    setOptions={{
-                        enableBasicAutocompletion: true,
-                        enableLiveAutocompletion: true,
-                        enableSnippets: false,
-                        showLineNumbers: true,
-                        tabSize: 4,
-                    }} />
-            </Row>
-
-            <Row>
-                <Col md={6}>
-                    <Form>
-                        <FormGroup controlId="lang-select">
-                            <Form.Label>{languageContext.dictionary['LANGUAGE_LABEL']}</Form.Label>
-                            <Form.Control as="select" custom onChange={languageSelectHandler} value={lang}>
-                                {
-                                    languageSupport.map((item, idx) => {
-                                        return (
-                                            <option key={idx} value={item[1]}>{item[0]}</option>
-                                        );
-                                    })
-                                }
-                            </Form.Control>
-                        </FormGroup>
-                        <FormGroup controlId="theme-select">
-                            <Form.Label>{languageContext.dictionary['THEME_LABEL']}</Form.Label>
-                            <Form.Control as="select" custom onChange={themeSelectHandler} value={theme}>
-                                {
-                                    themeSupport.map((item, idx) => {
-                                        return (
-                                            <option key={idx} value={item[1]}>{item[0]}</option>
-                                        );
-                                    })
-                                }
-                            </Form.Control>
-                        </FormGroup>
-                    </Form>
-                </Col>
-                <Col md={{ span: 3, offset: 3 }}>
+                <Col md={3}>
                     <FormGroup>
-                        <Form.Label>Submit file:</Form.Label>
-                        <Form.Control onChange={fileHandler} type='file'/>
+                        <Form.Control as="select" custom onChange={themeSelectHandler} value={theme}>
+                            {
+                                themeSupport.map((item, idx) => {
+                                    return (
+                                        <option key={idx} value={item[1]}>{item[0]}</option>
+                                    );
+                                })
+                            }
+                        </Form.Control>
                     </FormGroup>
-                    
+                </Col>
+                <Col md={{ span: 3, offset: 6 }}>
+                    <FormGroup>
+                        <Form.Control as="select" custom onChange={languageSelectHandler} value={lang}>
+                            {
+                                languageSupport.map((item, idx) => {
+                                    return (
+                                        <option key={idx} value={item[1]}>{item[0]}</option>
+                                    );
+                                })
+                            }
+                        </Form.Control>
+                    </FormGroup>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <FormGroup>
+                        <AceEditor
+                            mode={lang}
+                            theme={theme}
+                            fontSize={14}
+                            showPrintMargin={true}
+                            showGutter={true}
+                            highlightActiveLine={true}
+                            value={content}
+                            onChange={onChangeHandler}
+                            setOptions={{
+                                enableBasicAutocompletion: true,
+                                enableLiveAutocompletion: true,
+                                enableSnippets: false,
+                                showLineNumbers: true,
+                                tabSize: 4,
+                            }}
+                            style={{ width: "100%" }} />
+                    </FormGroup>
+                </Col>
+            </Row>
+            <Row>
+                <Col md={3}>
+                    <FormGroup>
+                        <Form.Control onChange={fileHandler} type='file' id="source_file" className="hidden-inputfile" />
+                        <Form.Label className="btn btn-warning btn-block" htmlFor={"source_file"}>
+                            {languageContext.dictionary['SOURCE_FILE_LABEL']} <FiUpload />
+                        </Form.Label>
+                    </FormGroup>
+                </Col>
+                <Col md={{ span: 3, offset: 6 }}>
                     <StatusButton loadState={loadState} onClick={submitHandler}>
-                        {languageContext.dictionary['SUBMIT_CODE']}
+                        {languageContext.dictionary['SUBMIT_CODE']} <FiSend />
                     </StatusButton>
                 </Col>
             </Row>
-        </>
+        </div>
 
     )
 };

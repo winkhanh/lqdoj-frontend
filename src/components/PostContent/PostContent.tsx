@@ -21,7 +21,7 @@ const PostContent: React.FC<PostContentProps> = ({id}) => {
     const { apiFetcher } = useContext(FetchContext);
     const [post, setPost] = useState(initialPost);
     const [loadState, setLoadState] = useState(LoadState.LOADING);
-
+    console.log(post);
     useEffect(() => {
         if (loadState === LoadState.LOADING) {
             fetchSinglePost(apiFetcher, id, (post: ResponseDataType<PostType>) => {

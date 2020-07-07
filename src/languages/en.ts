@@ -26,7 +26,13 @@ const en: DictionaryType & StringIndexedType = {
     LANGUAGE_LABEL: "Language",
     THEME_LABEL: "Theme",
     SUBMIT_CODE: "Submit",
-    POST_AUTHOR_BY: "posted by "
+    POST_AUTHOR_BY: "posted by ",
+    SOURCE_FILE_LABEL: "Upload",
+    CLEAR_FILTER: "Clear filter",
+    FILTER_TITLE: "Filter",
+    LABEL_TITLE: "Title",
+    LABEL_AUTHOR: "Author",
+    LABEL_TAG: "Tag"
 
 };
 
