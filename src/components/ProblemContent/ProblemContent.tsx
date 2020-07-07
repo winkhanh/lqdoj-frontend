@@ -8,7 +8,7 @@ import LoadingPlaceholder from '../../components/LoadingPlaceholder/LoadingPlace
 
 const initialProblem: ProblemType = {
     id: "",
-    task_code: "",
+    problem_code: "",
     title: "",
     author: "",
     difficulty: "",

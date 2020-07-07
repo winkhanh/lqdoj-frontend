@@ -21,9 +21,9 @@ const TableRow: React.FC<TableRowProps> = ({ problem }: TableRowProps) => {
 
     return (
         <tr>
-            <td>{problem.task_code}</td>
+            <td>{problem.problem_code}</td>
             <td>
-                <Link to={`${url}/${problem.task_code}/`}>
+                <Link to={`${url}/${problem.problem_code}/`}>
                     {problem.title}
                 </Link>
             </td>

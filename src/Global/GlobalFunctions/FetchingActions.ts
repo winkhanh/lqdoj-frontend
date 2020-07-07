@@ -1,9 +1,10 @@
-import { ResponseDataType, PostType, ProblemType, TokenType, UserType, FormDataType, StringIndexed, CommentType, SubmissionType } from '../../models';
+import { ResponseDataType, PostType, ProblemType, TokenType, UserType, FormDataType, StringIndexed, CommentType, SubmissionType, SubmissionFormDataType } from '../../models';
 import APIFetcher from '../SpecialClasses/APIFetcher';
 
 const API_PATH = {
     posts: "announcements/",
-    problems: "tasks/",
+    problems: "problems/",
+    submissions: "submissions/",
     tokens: "tokens/",
     users: "users/"
 };
@@ -141,6 +142,27 @@ const doSignUp = async (
     );    
 };
 
+const doSubmit = async (
+    fetcher: APIFetcher,
+    formData: StringIndexed<SubmissionFormDataType>,
+    callback: (token: ResponseDataType<{}>)=> void,
+    errorHandle: (error: Error) => void
+) => {
+    fetcher.doFetch(
+        'post',
+        API_PATH.submissions,
+        {},
+        callback,
+        errorHandle,
+        {
+            language: formData.language,
+            author: formData.author,
+            source_code: formData.source_code,
+            problem: formData.problem
+        }
+    );    
+};
+
 const fetchUser = async (
     fetcher: APIFetcher,
     username: string,
@@ -160,12 +182,18 @@ const fetchSubmissions = async(
     fetcher: APIFetcher,
     callback: (submission: ResponseDataType<Array<SubmissionType>>)=>void,
     errorHandle:(error: Error) => void
-) =>{
-    //Do something here
+) => {
+    fetcher.doFetch(
+        'get',
+        API_PATH.submissions,
+        {},
+        callback,
+        errorHandle
+    );
 }
 export { fetchPosts, fetchSinglePost };
 export { fetchProblems, fetchSingleProblem }
-export { fetchUser, doLogin, doLogout, doSignUp };
+export { fetchUser, doLogin, doLogout, doSignUp, doSubmit };
 export { fetchComments };
 export { fetchSubmissions};
 export { LoadState };
