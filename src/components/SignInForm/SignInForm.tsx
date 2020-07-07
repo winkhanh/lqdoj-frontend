@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext} from 'react';
 import {  Form, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
@@ -17,30 +17,27 @@ const SignInForm: React.FC<FormProps> = (props: FormProps) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loadState, setLoadState] = useState(LoadState.NOTLOADING);
-    useEffect(()=>{
-        if (loadState === LoadState.LOADING) {
-            doLogin(
-                apiFetcher,
-                username,
-                password,
-                (loginResponse: ResponseDataType<TokenType>) => {
-                    setToken(loginResponse.results.token);
-                    props.authModalToggle();
-                    setLoadState(LoadState.NOTLOADING);
-                },
-                (error: Error) => {
-                    console.log(error);
-                    setLoadState(LoadState.NOTLOADING);
-                }
-            );
-        }
-    },[loadState, apiFetcher, username, password, setToken, props]);
+    
     const linkClickHandler = () => {
         props.authModalToggle();
     }
     
     const loginHandler = () => {
         setLoadState(LoadState.LOADING);
+        doLogin(
+            apiFetcher,
+            username,
+            password,
+            (loginResponse: ResponseDataType<TokenType>) => {
+                setToken(loginResponse.results.token);
+                props.authModalToggle();
+                setLoadState(LoadState.NOTLOADING);
+            },
+            (error: Error) => {
+                console.log(error);
+                setLoadState(LoadState.NOTLOADING);
+            }
+        );
     }
     const usernameHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         setUsername(event.target.value);

@@ -4,10 +4,7 @@ import APIFetcher from '../SpecialClasses/APIFetcher';
 const API_PATH = {
     posts: "announcements/",
     problems: "problems/",
-<<<<<<< HEAD
-=======
     submissions: "submissions/",
->>>>>>> 7739e366989ac30cb0e998a3cb494e5622812d1a
     tokens: "tokens/",
     users: "users/"
 };
