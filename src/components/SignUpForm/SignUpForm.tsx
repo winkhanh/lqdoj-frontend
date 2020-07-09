@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { Col, Form, Row } from 'react-bootstrap';
 import { LoadState, doSignUp } from '../../Global/GlobalFunctions/FetchingActions';
 import { LanguageContext, FetchContext } from '../../Global/GlobalStates/GlobalStates';
@@ -13,43 +13,38 @@ const initialFormData = {
     firstname: "",
     lastname: ""
 } as StringIndexed<FormDataType>;
+interface FormProps {
+    authModalToggle: Function
+}
 
-const SignUpForm: React.FC = () => {
+const SignUpForm: React.FC<FormProps> = (props: FormProps) => {
     const language = useContext(LanguageContext);
     const { apiFetcher } = useContext(FetchContext);
     const [formData, setFormData] = useState(initialFormData);
     const [loadState, setLoadState] = useState(LoadState.NOTLOADING);
-    useEffect(()=>{
-        if (loadState === LoadState.LOADING) {
-            doSignUp(
-                apiFetcher,
-                formData,
-                (signUpResponse: ResponseDataType<{}>) => {
-                    
-                    setLoadState(LoadState.NOTLOADING);                    
-                },
-                (error: Error) => {
-                    console.log(error);
-                    setLoadState(LoadState.NOTLOADING);
-                }
-            );
-        }
-    },[loadState, apiFetcher,formData])
+    
     const formDataHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData(Object.entries(formData).map(([key, value]) => {
-            if (key === event.target.id) {
-                return [key, event.target.value];
-            } else {
-                return [key, value];
-            }
-        }).reduce<StringIndexed<FormDataType>>((res, [key, value]) => {
-            res[key] = value;
-            return res;
-        }, initialFormData));
+        setFormData( (prev:StringIndexed<FormDataType> )=>{
+            prev[event.target.id]=event.target.value;
+            return prev;
+        });
     };
 
     const signUpHandler = () => {
        setLoadState(LoadState.LOADING); 
+       console.log(formData);
+       doSignUp(
+        apiFetcher,
+        formData,
+        (signUpResponse: ResponseDataType<{}>) => {
+            setLoadState(LoadState.NOTLOADING);                    
+            props.authModalToggle();    
+        },
+        (error: Error) => {
+            console.log(error);
+            setLoadState(LoadState.NOTLOADING);
+        }
+        );
     }
 
     return (
@@ -76,7 +71,8 @@ const SignUpForm: React.FC = () => {
                 </Form.Group>
                 <Form.Group controlId="email">
                     <Form.Label>{language.dictionary['FORM_EMAIL']}</Form.Label>
-                    <Form.Control type="email" placeholder={language.dictionary['FORM_EMAIL_PLACE_HOLDER']} />
+                    <Form.Control type="email" onChange={formDataHandler}
+                        placeholder={language.dictionary['FORM_EMAIL_PLACE_HOLDER']} />
                 </Form.Group>
                 <Row>
                     <Col>

@@ -48,7 +48,8 @@ class APIFetcher {
                 result = await this.fetcher.request(config);
             }
             let responseData: T = result.data;
-            if (result.status === HttpStatus.OK) {
+            console.log(result.status);
+            if (result.status === HttpStatus.OK || result.status === HttpStatus.CREATED) {
                 callback(responseData);
                 console.log(`Successful ${method} to ${target}`)
             } else {

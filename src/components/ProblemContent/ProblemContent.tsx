@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import { FetchContext } from '../../Global/GlobalStates/GlobalStates';
 import { fetchSingleProblem, LoadState } from '../../Global/GlobalFunctions/FetchingActions';
 import { ResponseDataType, ProblemType } from '../../models';

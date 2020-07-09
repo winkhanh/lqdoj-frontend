@@ -14,7 +14,7 @@ const AuthModal: React.FC<AuthModalProps> = (props: AuthModalProps) => {
     const language=useContext(LanguageContext);
     const tabsMapping: [number, string, string, JSX.Element][] = [
         [0, "sign-in", "MODAL_SIGNIN", <SignInForm authModalToggle={props.authModalToggle} />],
-        [1, "sign-up", "MODAL_SIGNUP", <SignUpForm />]
+        [1, "sign-up", "MODAL_SIGNUP", <SignUpForm authModalToggle={props.authModalToggle} />]
     ];
     return (
         <Modal

@@ -122,7 +122,7 @@ const doLogout = async (
 const doSignUp = async (
     fetcher: APIFetcher,
     formData: StringIndexed<FormDataType>,
-    callback: (token: ResponseDataType<{}>)=> void,
+    callback: (reponse: ResponseDataType<{}>)=> void,
     errorHandle: (error: Error) => void
 ) => {
     fetcher.doFetch(

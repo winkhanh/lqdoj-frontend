@@ -30,8 +30,8 @@ const SignInForm: React.FC<FormProps> = (props: FormProps) => {
             password,
             (loginResponse: ResponseDataType<TokenType>) => {
                 setToken(loginResponse.results.token);
-                props.authModalToggle();
                 setLoadState(LoadState.NOTLOADING);
+                props.authModalToggle();
             },
             (error: Error) => {
                 console.log(error);
