@@ -51,7 +51,6 @@ const ProblemsTable: React.FC<ProblemsTableProps> = ({ filterState }: ProblemsTa
 
     useEffect(() => {
         if (loadState === LoadState.LOADING) {
-
             fetchProblems(apiFetcher, (problems: ResponseDataType<Array<ProblemType>>) => {
                 setProblemsData(problems);
                 setLoadState(LoadState.NOTLOADING);
